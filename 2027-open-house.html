@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F2EBDD">
+<title>Blue Sky Village · Open House - see exactly how we run your home</title>
+<meta name="description" content="A family running 16 homes across the Carolinas since 2013. Here is the actual work: our turnover checklist, a sample owner statement, and the plain pricing. 25% of gross, cleaning and maintenance at cost, no lock-in.">
+<link rel="icon" href="assets/favicon.png">
+
+<!-- ===== §10 SHARED FOUNDATION (verbatim) ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Newsreader:ital,opsz,wght@0,6..72,320..600;1,6..72,320..500&family=Caveat:wght@500;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#F2EBDD; --paper-2:#E7DCC6; --cream:#FBF7EE;
+  --ink:#26221E; --ink-2:#4A433B; --muted:#7A7165;
+  --rust:#BD5A2E; --rust-deep:#9A4521; --lake:#356B5E; --sky:#6E8CA0; --heron:#2B3A44;
+  --tape:rgba(221,205,160,.66);
+  --font-display:'Bricolage Grotesque',-apple-system,system-ui,sans-serif;
+  --font-read:'Newsreader',Georgia,'Times New Roman',serif;
+  --font-hand:'Caveat','Segoe Script',cursive;
+  --font-type:'Courier Prime',ui-monospace,Menlo,monospace;
+  --container:1180px; --measure:62ch; --ease:cubic-bezier(0.2,0.8,0.2,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-display);
+  font-size:1.0625rem;line-height:1.6;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+/* paper grain */
+body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+h1,h2,h3{font-family:var(--font-display);font-weight:700;line-height:1.02;letter-spacing:-0.02em;margin:0;text-wrap:balance}
+p{text-wrap:pretty;max-width:var(--measure)}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--rust-deep);text-underline-offset:3px}
+.read{font-family:var(--font-read);font-weight:400;line-height:1.6}
+.hand{font-family:var(--font-hand);color:var(--ink-2);line-height:1.1}
+.type{font-family:var(--font-type);letter-spacing:.02em}
+.wrap{max-width:var(--container);margin-inline:auto;padding-inline:clamp(18px,4vw,44px)}
+.section{padding-block:clamp(64px,10vh,128px)}
+/* CTA */
+.btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--font-display);font-weight:600;
+  font-size:1.02rem;padding:14px 26px;border:2px solid var(--ink);background:var(--rust);color:var(--cream);
+  border-radius:3px;cursor:pointer;text-decoration:none;transition:transform .15s var(--ease),box-shadow .15s var(--ease);
+  box-shadow:3px 3px 0 var(--ink)}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+:focus-visible{outline:3px solid var(--lake);outline-offset:2px}
+/* real-photo plate */
+.plate{position:relative;overflow:hidden;background:var(--paper-2)}
+.plate img{width:100%;height:100%;object-fit:cover}
+.plate::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.10;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+.plate .cap{position:absolute;left:16px;bottom:14px;font-family:var(--font-hand);font-size:1.25rem;
+  color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+/* taped polaroid snapshot */
+.snap{background:#fff;padding:10px 10px 0;border:1px solid rgba(0,0,0,.06);
+  box-shadow:0 10px 24px rgba(38,34,30,.16);display:inline-block;position:relative}
+.snap img{width:100%;display:block}
+.snap .cap{font-family:var(--font-hand);font-size:1.3rem;color:var(--ink-2);padding:8px 4px 12px;text-align:center}
+.snap.tilt-l{transform:rotate(-2.5deg)} .snap.tilt-r{transform:rotate(2deg)}
+.snap::before{content:"";position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-3deg);
+  width:96px;height:26px;background:var(--tape);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+/* bold frame + stamp */
+.frame{border:2px solid var(--ink);border-radius:3px}
+.stamp{font-family:var(--font-type);font-weight:700;color:var(--rust-deep);border:2px solid var(--rust-deep);
+  border-radius:6px;padding:8px 14px;display:inline-block;transform:rotate(-4deg);text-transform:uppercase;
+  letter-spacing:.06em;font-size:.82rem;opacity:.92}
+/* hand-drawn underline */
+.draw{position:relative;white-space:nowrap}
+.draw svg{position:absolute;left:0;right:0;bottom:-0.32em;width:100%;height:.4em;overflow:visible}
+.draw path{stroke:var(--rust);stroke-width:3.5;fill:none;stroke-linecap:round}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+@media (max-width:760px){.section{padding-block:56px} .snap.tilt-l,.snap.tilt-r{transform:none}}
+</style>
+
+<!-- ===== CONCEPT-SPECIFIC CSS · "Open House" ===== -->
+<style>
+html{scroll-behavior:smooth}
+:where(a):focus-visible{border-radius:3px}
+
+/* ---- skip link ---- */
+.skip{position:absolute;left:8px;top:-60px;z-index:10001;background:var(--ink);color:var(--cream);
+  padding:10px 16px;border-radius:3px;font-weight:600;transition:top .15s var(--ease)}
+.skip:focus{top:8px}
+
+/* ---- sticky conversion-spine nav ---- */
+.nav{position:sticky;top:0;z-index:200;background:rgba(242,235,221,.94);
+  backdrop-filter:saturate(1.1) blur(2px);border-bottom:2px solid var(--ink)}
+.nav .row{display:flex;align-items:center;gap:18px;min-height:62px}
+.nav .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);font-weight:700;
+  letter-spacing:-.01em;line-height:1.05}
+.nav .brand img{width:34px;height:34px;display:block}
+.nav .brand small{display:block;font-family:var(--font-type);font-weight:400;font-size:.62rem;
+  letter-spacing:.04em;color:var(--ink-2);text-transform:uppercase}
+.nav .links{display:flex;gap:20px;margin-left:auto;align-items:center}
+.nav .links a{color:var(--ink-2);text-decoration:none;font-size:.95rem;font-weight:500}
+.nav .links a:hover{color:var(--rust-deep)}
+.nav .navcta{padding:9px 16px;font-size:.92rem;box-shadow:2px 2px 0 var(--ink)}
+.nav .navcta:hover{box-shadow:3px 3px 0 var(--ink)}
+@media (max-width:920px){.nav .links a:not(.navcall){display:none}}
+@media (max-width:600px){.nav .links .navcta span.long{display:none}}
+
+/* ---- hero ---- */
+.hero{padding-block:clamp(40px,7vh,84px)}
+.hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(28px,5vw,64px);align-items:center}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:34px}}
+.hero h1{font-size:clamp(2.5rem,6.4vw,4.7rem);font-weight:800;letter-spacing:-.035em}
+.hero .lede{font-size:clamp(1.12rem,1.8vw,1.32rem);color:var(--ink-2);margin:22px 0 30px;max-width:40ch}
+.hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:18px}
+.hero-cta .phone{font-family:var(--font-type);font-size:1.05rem;color:var(--ink);text-decoration:none;font-weight:700}
+.hero-cta .phone:hover{color:var(--rust-deep)}
+.hero-cta .phone .small{display:block;font-size:.66rem;letter-spacing:.04em;color:var(--muted);font-weight:400}
+.hero-photo{position:relative}
+.hero-photo .plate{aspect-ratio:3/2;border:2px solid var(--ink);border-radius:3px;box-shadow:6px 6px 0 var(--ink)}
+.hero-photo .stamp{position:absolute;top:-20px;left:-12px;background:var(--cream);z-index:3}
+.hero-photo .clip{position:absolute;right:-14px;bottom:-26px;z-index:3}
+.hero-facts{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero-facts .tag{font-family:var(--font-type);font-size:.78rem;background:var(--cream);border:2px solid var(--ink);
+  border-radius:3px;padding:6px 11px;color:var(--ink)}
+.hero-facts .tag b{color:var(--ink)}
+
+/* ---- generic section heads ---- */
+.fieldtag{font-family:var(--font-type);font-size:.74rem;letter-spacing:0;
+  color:var(--ink);font-weight:700;display:inline-block;margin-bottom:14px}
+.fieldtag::before{content:"⌖ ";color:var(--rust);opacity:.9}
+.h-lg{font-size:clamp(1.9rem,3.7vw,2.9rem);font-weight:700}
+.h-md{font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:700}
+.intro-read{font-family:var(--font-read);font-size:1.18rem;color:var(--ink-2);max-width:54ch}
+
+/* ---- who we are: founder note + portrait placeholder ---- */
+.note-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(26px,5vw,58px);align-items:start}
+@media (max-width:860px){.note-grid{grid-template-columns:1fr}}
+.portrait-ph{position:relative;background:var(--paper-2);border:2px solid var(--ink);border-radius:3px;
+  aspect-ratio:4/5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:24px;box-shadow:5px 5px 0 var(--ink);overflow:hidden}
+.portrait-ph::before{content:"";position:absolute;inset:0;
+  background-image:repeating-linear-gradient(45deg,transparent 0 13px,rgba(154,69,33,.06) 13px 14px)}
+.portrait-ph .ic{width:62px;height:62px;color:var(--muted);margin-bottom:14px;position:relative}
+.portrait-ph .lbl{font-family:var(--font-type);font-size:.84rem;color:var(--ink-2);position:relative;max-width:24ch}
+.portrait-ph .tape-top{position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-2deg);
+  width:120px;height:28px;background:var(--tape)}
+.note-body .read{font-family:var(--font-read);font-size:1.2rem;color:var(--ink);max-width:58ch}
+.note-body .read p{max-width:58ch}
+.sig{font-family:var(--font-hand);font-size:2.5rem;color:var(--ink);line-height:.9;margin-top:18px}
+.sig small{display:block;font-family:var(--font-type);font-size:.78rem;color:var(--muted);
+  letter-spacing:.03em;margin-top:6px;text-transform:uppercase}
+.placeholder-flag{font-family:var(--font-type);font-size:.72rem;color:var(--ink);
+  background:rgba(189,90,46,.1);border:2px dashed var(--rust-deep);border-radius:3px;padding:4px 9px;
+  display:inline-block;margin-top:14px;letter-spacing:.02em}
+
+/* ---- how it works: numbered ink steps ---- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px}
+@media (max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+.step{background:var(--cream);border:2px solid var(--ink);border-radius:3px;padding:22px 20px;position:relative;
+  box-shadow:4px 4px 0 var(--ink)}
+.step .n{font-family:var(--font-type);font-weight:700;font-size:.8rem;color:var(--cream);background:var(--ink);
+  width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.step h3{font-size:1.16rem;margin-bottom:8px}
+.step p{font-size:.96rem;color:var(--ink-2);margin:0}
+
+/* ---- the actual work: checklist receipt + statement receipt ---- */
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,46px);align-items:start;margin-top:40px}
+@media (max-width:880px){.work-grid{grid-template-columns:1fr}}
+.receipt{background:var(--cream);border:2px solid var(--ink);border-radius:3px;box-shadow:5px 5px 0 var(--ink);
+  font-family:var(--font-type);position:relative}
+.receipt::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:9px;
+  background:repeating-linear-gradient(135deg,var(--cream) 0 8px,transparent 8px 16px);
+  filter:drop-shadow(0 2px 0 var(--ink))}
+.receipt .rhead{border-bottom:2px dashed var(--ink);padding:18px 22px 14px}
+.receipt .rhead .t{font-weight:700;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase}
+.receipt .rhead .s{font-size:.74rem;color:var(--muted);margin-top:4px}
+.receipt .rbody{padding:14px 22px 26px}
+
+/* turnover checklist */
+.check{list-style:none;margin:0;padding:0}
+.check li{display:flex;gap:11px;align-items:flex-start;padding:7px 0;font-size:.9rem;color:var(--ink-2);
+  border-bottom:1px dotted rgba(122,113,101,.4)}
+.check li:last-child{border-bottom:0}
+.check .box{flex:0 0 auto;width:17px;height:17px;border:2px solid var(--ink);border-radius:2px;margin-top:2px;
+  position:relative;background:var(--paper)}
+.check .box svg{position:absolute;left:-2px;top:-4px;width:22px;height:22px;overflow:visible}
+.check .box path{stroke:var(--rust);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.check .hand-note{font-family:var(--font-hand);font-size:1.18rem;color:var(--ink);margin-left:6px}
+
+/* owner statement */
+.stmt{font-size:.9rem}
+.stmt .line{display:flex;justify-content:space-between;gap:14px;padding:6px 0;color:var(--ink-2);
+  border-bottom:1px dotted rgba(122,113,101,.4)}
+.stmt .line .v{color:var(--ink);white-space:nowrap}
+.stmt .line.fee .v{color:var(--ink);font-weight:700}
+.stmt .line.muted{color:var(--muted)}
+.stmt .total{display:flex;justify-content:space-between;gap:14px;padding:12px 0 2px;margin-top:6px;
+  border-top:2px solid var(--ink);font-weight:700;font-size:1rem;color:var(--ink)}
+.stmt .ph{font-style:italic;color:var(--muted)}
+.sample-flag{position:absolute;top:14px;right:14px;font-family:var(--font-type);font-size:.62rem;
+  color:var(--ink);border:2px solid var(--rust-deep);border-radius:3px;padding:3px 7px;
+  transform:rotate(6deg);text-transform:uppercase;letter-spacing:.05em;background:var(--cream)}
+
+/* ---- what we handle: candid snap cluster ---- */
+.handle-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,52px);align-items:center;margin-top:30px}
+@media (max-width:880px){.handle-grid{grid-template-columns:1fr;gap:40px}}
+.handle-list{columns:2;column-gap:30px}
+@media (max-width:520px){.handle-list{columns:1}}
+.handle-list .item{break-inside:avoid;display:flex;gap:10px;padding:8px 0;font-size:1rem;color:var(--ink-2)}
+.handle-list .item .tick{flex:0 0 auto;color:var(--lake);font-weight:700;font-family:var(--font-type)}
+.snap-cluster{position:relative;min-height:470px}
+.snap-cluster .snap{position:absolute;width:62%}
+.snap-cluster .s1{top:0;left:0;z-index:3}
+.snap-cluster .s2{top:120px;right:0;z-index:2}
+.snap-cluster .s3{bottom:0;left:8%;z-index:1}
+@media (max-width:880px){.snap-cluster{min-height:0;display:flex;flex-wrap:wrap;gap:24px;justify-content:center}
+  .snap-cluster .snap{position:static;width:46%;min-width:230px}}
+
+/* ---- map: family + local + expanding ---- */
+.map-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,54px);align-items:center}
+@media (max-width:860px){.map-grid{grid-template-columns:1fr}}
+.map-wrap{background:var(--cream);border:2px solid var(--ink);border-radius:3px;padding:22px;
+  box-shadow:5px 5px 0 var(--ink);position:relative}
+.map-wrap svg{width:100%;height:auto;display:block}
+.map-wrap .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-family:var(--font-type);font-size:.74rem;
+  color:var(--ink-2)}
+.map-wrap .legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+
+/* ---- pricing block ---- */
+.price{background:var(--paper-2)}
+.price-card{background:var(--cream);border:2px solid var(--ink);border-radius:3px;box-shadow:7px 7px 0 var(--ink);
+  padding:clamp(26px,4vw,46px);max-width:760px;margin:36px auto 0}
+.price-headline{font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;letter-spacing:-.02em}
+.price-headline b{color:var(--rust-deep)}
+.price-rows{margin-top:26px;display:grid;gap:14px}
+.price-row{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding-bottom:14px;
+  border-bottom:1px dotted rgba(122,113,101,.45)}
+.price-row:last-child{border-bottom:0;padding-bottom:0}
+.price-row .pct{font-family:var(--font-type);font-weight:700;font-size:1.5rem;color:var(--rust-deep);
+  min-width:74px}
+.price-row .pct.small{font-size:1rem;color:var(--lake);min-width:74px;align-self:center}
+.price-row h3{font-size:1.1rem;margin-bottom:3px}
+.price-row p{font-size:.96rem;color:var(--ink-2);margin:0;max-width:52ch}
+.price-note{font-family:var(--font-hand);font-size:1.35rem;color:var(--ink);margin-top:24px;text-align:center}
+
+/* ---- proof: testimonial ---- */
+.proof{position:relative}
+.quote-card{background:var(--cream);border:2px solid var(--ink);border-radius:3px;box-shadow:5px 5px 0 var(--ink);
+  padding:clamp(26px,4vw,42px);position:relative}
+.quote-card .mark{font-family:var(--font-read);font-size:4.6rem;line-height:.4;color:var(--rust);
+  display:block;height:.5em}
+.quote-card blockquote{font-family:var(--font-read);font-style:italic;font-size:clamp(1.3rem,2.4vw,1.8rem);
+  line-height:1.35;color:var(--ink);margin:0;max-width:34ch}
+.quote-card .by{font-family:var(--font-type);font-size:.9rem;color:var(--ink-2);margin-top:18px}
+.quote-card .by b{color:var(--ink)}
+.draft-flag{font-family:var(--font-type);font-size:.7rem;color:var(--ink);
+  border:2px dashed var(--rust-deep);border-radius:3px;padding:4px 9px;display:inline-block;margin-top:16px;
+  letter-spacing:.02em;background:rgba(189,90,46,.08)}
+.proof-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(26px,4vw,48px);align-items:center}
+@media (max-width:860px){.proof-grid{grid-template-columns:1fr}}
+
+/* ---- fit / not fit ---- */
+.fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:34px}
+@media (max-width:740px){.fit-grid{grid-template-columns:1fr}}
+.fit{border:2px solid var(--ink);border-radius:3px;padding:26px 24px;background:var(--cream);box-shadow:4px 4px 0 var(--ink)}
+.fit.no{background:var(--paper-2)}
+.fit h3{font-size:1.2rem;margin-bottom:16px;display:flex;align-items:center;gap:9px}
+.fit h3 .badge{font-family:var(--font-type);font-size:.7rem;border:2px solid var(--ink);border-radius:3px;
+  padding:3px 7px;text-transform:uppercase;letter-spacing:.05em}
+.fit.yes h3 .badge{color:var(--lake);border-color:var(--lake)}
+.fit.no h3 .badge{color:var(--ink);border-color:var(--rust-deep)}
+.fit ul{list-style:none;margin:0;padding:0}
+.fit li{padding:9px 0;font-size:.99rem;color:var(--ink-2);border-bottom:1px dotted rgba(122,113,101,.4);
+  display:flex;gap:10px}
+.fit li:last-child{border-bottom:0}
+.fit li .g{flex:0 0 auto;font-family:var(--font-type);font-weight:700}
+.fit.yes li .g{color:var(--lake)}
+.fit.no li .g{color:var(--ink)}
+
+/* ---- FAQ ---- */
+.faq{max-width:780px;margin-top:30px}
+.faq details{border:2px solid var(--ink);border-radius:3px;background:var(--cream);margin-bottom:14px;
+  box-shadow:3px 3px 0 var(--ink)}
+.faq summary{cursor:pointer;list-style:none;padding:16px 20px;font-weight:600;font-size:1.06rem;
+  display:flex;justify-content:space-between;align-items:center;gap:14px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{font-family:var(--font-type);color:var(--rust-deep);font-weight:700;font-size:1.3rem;flex:0 0 auto}
+.faq details[open] summary .pm{transform:none}
+.faq details[open] summary .pm::after{content:"–"}
+.faq summary .pm::after{content:"+"}
+.faq .a{padding:0 20px 18px;color:var(--ink-2);font-size:1rem}
+.faq .a p{max-width:64ch;margin:0}
+
+/* ---- final CTA + form ---- */
+.final{background:var(--ink);color:var(--paper)}
+.final h2{color:var(--paper)}
+.final .fieldtag{color:#E89B6F}
+.final a{color:#E89B6F}
+.final-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(30px,5vw,64px);align-items:start}
+@media (max-width:880px){.final-grid{grid-template-columns:1fr;gap:40px}}
+.final .lede{font-family:var(--font-read);font-size:1.2rem;color:var(--paper-2);max-width:46ch}
+.final .contact{margin-top:30px;display:grid;gap:14px}
+.final .contact a,.final .contact span{display:flex;gap:11px;align-items:baseline;text-decoration:none;
+  font-family:var(--font-type);font-size:1.02rem;color:var(--paper)}
+.final .contact .lab{color:#C8A88E;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;flex:0 0 96px}
+.final .contact a:hover{color:#E89B6F}
+
+.estimate{background:var(--cream);border:2px solid #000;border-radius:3px;padding:clamp(24px,3.5vw,36px);
+  box-shadow:7px 7px 0 #000;color:var(--ink)}
+.estimate h3{font-size:1.35rem;margin-bottom:4px}
+.estimate .micro{font-family:var(--font-type);font-size:.82rem;color:var(--ink-2);margin:0 0 22px}
+.estimate .field{margin-bottom:18px}
+.estimate label{display:block;font-weight:600;font-size:.92rem;margin-bottom:6px;color:var(--ink)}
+.estimate label .opt{font-weight:400;color:var(--muted);font-family:var(--font-type);font-size:.78rem}
+.estimate input,.estimate select{width:100%;font-family:var(--font-display);font-size:1rem;color:var(--ink);
+  background:var(--paper);border:0;border-bottom:2px solid var(--ink);border-radius:0;padding:11px 4px;
+  appearance:none}
+.estimate select{border:2px solid var(--ink);border-radius:3px;padding:11px 10px;background:var(--paper)}
+.estimate input:focus,.estimate select:focus{outline:none;border-color:var(--rust-deep);
+  box-shadow:0 2px 0 var(--rust-deep)}
+.estimate input::placeholder{color:var(--muted)}
+.estimate .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:440px){.estimate .two{grid-template-columns:1fr}}
+.estimate .btn{width:100%;justify-content:center;margin-top:6px}
+.form-feedback{font-family:var(--font-type);font-size:.92rem;margin-top:14px;padding:0;min-height:1.2em}
+.form-feedback.ok{color:var(--lake)}
+.form-feedback.err{color:var(--ink);font-weight:700}
+
+/* ---- footer ---- */
+.foot{background:var(--ink);color:var(--paper-2);border-top:2px solid #000;padding-block:30px;
+  font-family:var(--font-type);font-size:.82rem}
+.foot .row{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.foot a{color:#E89B6F;text-decoration:none}
+
+/* ---- margin handwriting helper ---- */
+.margin-note{font-family:var(--font-hand);font-size:1.45rem;color:var(--ink);transform:rotate(-2deg);
+  line-height:1.05;display:inline-block}
+.clip{font-family:var(--font-hand);font-size:1.3rem;color:var(--ink-2);background:var(--cream);
+  border:2px solid var(--ink);border-radius:3px;padding:8px 13px;transform:rotate(2.5deg);
+  box-shadow:3px 3px 0 var(--ink);max-width:200px;line-height:1.05}
+
+hr.rule{border:0;border-top:2px solid var(--ink);opacity:.18;margin:0}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ===== STICKY CONVERSION-SPINE NAV ===== -->
+<header class="nav">
+  <div class="wrap row">
+    <a class="brand" href="#top" aria-label="Blue Sky Village, home">
+      <img src="assets/heron-badge.png" width="34" height="34" alt="">
+      <span>Blue Sky Village<small>Carolina homes since 2013</small></span>
+    </a>
+    <nav class="links" aria-label="Primary">
+      <a href="#work">The work</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#proof">Owners</a>
+      <a href="#faq">Questions</a>
+      <a class="navcall type" href="tel:+17049025644">704-902-5644</a>
+      <a class="btn navcta" href="#estimate">See what your home<span class="long"> could earn</span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- ===== HERO ===== -->
+<section class="section hero wrap" aria-labelledby="h1">
+  <div class="hero-grid">
+    <div data-reveal>
+      <span class="stamp" style="margin-bottom:18px">Looking after Carolina homes since 2013</span>
+      <h1 id="h1">This is the actual
+        <span class="draw drawme">work<svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M3 8 C 50 2, 150 12, 197 5"/></svg></span>,
+        not a sales pitch.</h1>
+      <p class="lede">We are a family that looks after 16 homes across North and South Carolina. Below is exactly how we run one: the turnover checklist, a sample owner statement, and the plain price. Read it before you ever pick up the phone.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#estimate">See what your home could earn</a>
+        <a class="phone type" href="tel:+17049025644">704-902-5644<span class="small">we answer it ourselves</span></a>
+      </div>
+      <div class="hero-facts" aria-hidden="false">
+        <span class="tag"><b>25%</b> of gross, that is the fee</span>
+        <span class="tag">Cleaning &amp; upkeep <b>at cost</b></span>
+        <span class="tag"><b>No</b> lock-in</span>
+      </div>
+    </div>
+    <div class="hero-photo" data-reveal>
+      <div class="plate develop">
+        <img src="assets/photos/kitchen-sunlit.jpg" width="1600" height="1066"
+             alt="A small sunlit kitchen in a Carolina rental: yellow walls, open timber shelves, a window over the sink, dishes set out ready for guests.">
+        <span class="cap">guest-ready, 11am turnover</span>
+      </div>
+      <span class="clip">we shoot every<br>home ourselves</span>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== WHO WE ARE / WHAT WE DO + founder note ===== -->
+<section class="section wrap" id="about" aria-labelledby="about-h">
+  <span class="fieldtag" data-reveal>Who is actually running this</span>
+  <h2 class="h-lg" id="about-h" data-reveal style="max-width:18ch">A family, sixteen homes, and a phone we pick up.</h2>
+  <div class="note-grid" style="margin-top:40px">
+    <div data-reveal>
+      <div class="portrait-ph" role="img" aria-label="Placeholder for a real photo of the family who runs Blue Sky Village">
+        <span class="tape-top" aria-hidden="true"></span>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>
+        </svg>
+        <span class="lbl">the family who runs Blue Sky Village</span>
+        <span class="placeholder-flag">your real photo here</span>
+      </div>
+      <p class="hand" style="font-size:1.35rem;margin:16px 4px 0;transform:rotate(-1.5deg)">a real face beats any logo. drop ours in.</p>
+    </div>
+    <div class="note-body" data-reveal>
+      <div class="read">
+        <p>I will keep this plain. We started in 2013 with one home near the lake in Mooresville and a simple idea: look after other people&rsquo;s houses the way we look after our own. Sixteen homes later, we still do it the same way. We answer the phone. We know which house has the tricky water heater. We meet the cleaners on a Tuesday.</p>
+        <p>We are not a franchise and we are not a tech company. We are a family business in North Carolina, now booking guests in South Carolina too, and starting to take on homes in new regions. If you own a place we would be glad to look after, the rest of this page shows you precisely what that looks like before you commit to anything.</p>
+      </div>
+      <div class="sig">The Blue Sky Village family
+        <small>founder&rsquo;s note, signature placeholder</small>
+      </div>
+      <span class="placeholder-flag">family to confirm names &amp; sign here</span>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="section wrap" id="how" aria-labelledby="how-h">
+  <span class="fieldtag" data-reveal>From your first call to your first payout</span>
+  <h2 class="h-lg" id="how-h" data-reveal>How it works, in four steps.</h2>
+  <div class="steps">
+    <div class="step" data-reveal>
+      <div class="n type">1</div>
+      <h3>We visit the home</h3>
+      <p>We walk the place with you, photograph it ourselves, and tell you honestly what it could book and what we would change first.</p>
+    </div>
+    <div class="step" data-reveal>
+      <div class="n type">2</div>
+      <h3>We list it everywhere</h3>
+      <p>Airbnb, VRBO, and Booking.com, under your own listing. You keep the account. We write it, price it, and run the calendar.</p>
+    </div>
+    <div class="step" data-reveal>
+      <div class="n type">3</div>
+      <h3>We run every stay</h3>
+      <p>Guest messages, check-in, cleaning, restocking, and the small repairs. The checklist below is the one we actually use.</p>
+    </div>
+    <div class="step" data-reveal>
+      <div class="n type">4</div>
+      <h3>You get paid &amp; a statement</h3>
+      <p>Monthly. One clear statement showing what came in, what was spent at cost, our 25%, and what landed in your account.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== THE ACTUAL WORK: checklist + statement ===== -->
+<section class="section price wrap" id="work" aria-labelledby="work-h" style="border-block:2px solid var(--ink)">
+  <span class="fieldtag" data-reveal>Open house: the paperwork, laid bare</span>
+  <h2 class="h-lg" id="work-h" data-reveal style="max-width:20ch">Most managers describe the work. Here it is on the table.</h2>
+  <p class="intro-read" data-reveal style="margin-top:14px">Two things every owner asks to see and almost never gets shown before signing: the turnover checklist our cleaners run, and what a monthly statement looks like. So here they both are.</p>
+
+  <div class="work-grid">
+    <!-- TURNOVER CHECKLIST -->
+    <div class="receipt" data-reveal>
+      <div class="rhead">
+        <div class="t">Turnover checklist: standard 2BR</div>
+        <div class="s">Run after every guest, before the next. Cleaner initials &amp; time each line.</div>
+      </div>
+      <div class="rbody">
+        <ul class="check">
+          <li><span class="box"><svg viewBox="0 0 24 24" class="drawme" aria-hidden="true"><path d="M4 13 L9 18 L20 5"/></svg></span><span>Strip &amp; launder all linens, inspect for stains, replace if marked</span></li>
+          <li><span class="box"><svg viewBox="0 0 24 24" class="drawme" aria-hidden="true"><path d="M4 13 L9 18 L20 5"/></svg></span><span>Make beds with the second set, hospital corners, count pillows</span></li>
+          <li><span class="box"><svg viewBox="0 0 24 24" class="drawme" aria-hidden="true"><path d="M4 13 L9 18 L20 5"/></svg></span><span>Scrub bathrooms, descale shower glass, fold towel set, restock paper</span></li>
+          <li><span class="box"><svg viewBox="0 0 24 24" class="drawme" aria-hidden="true"><path d="M4 13 L9 18 L20 5"/></svg></span><span>Kitchen: empty fridge, run dishwasher, wipe counters, check every mug is back</span></li>
+          <li><span class="box"><svg viewBox="0 0 24 24" class="drawme" aria-hidden="true"><path d="M4 13 L9 18 L20 5"/></svg></span><span>Restock coffee, filters, soap, salt, paper towels, trash bags</span></li>
+          <li><span class="box"><svg viewBox="0 0 24 24" class="drawme" aria-hidden="true"><path d="M4 13 L9 18 L20 5"/></svg></span><span>Floors: vacuum, mop hard surfaces, check under beds and sofa</span></li>
+          <li><span class="box"><svg viewBox="0 0 24 24" class="drawme" aria-hidden="true"><path d="M4 13 L9 18 L20 5"/></svg></span><span>Test smoke alarms, lights, Wi-Fi, lockbox code, AC set to 72&deg;</span></li>
+          <li><span class="box"><svg viewBox="0 0 24 24" class="drawme" aria-hidden="true"><path d="M4 13 L9 18 L20 5"/></svg></span><span>Photograph the finished home, flag any damage to the owner same day</span></li>
+        </ul>
+        <p class="hand-note" style="margin-top:14px">water heater at the grey house: give it 10 min, you know the one.</p>
+      </div>
+    </div>
+
+    <!-- OWNER STATEMENT -->
+    <div class="receipt stmt" data-reveal>
+      <span class="sample-flag">sample</span>
+      <div class="rhead">
+        <div class="t">Owner statement: sample month</div>
+        <div class="s">What you receive every month. Numbers below are a worked example, not your home.</div>
+      </div>
+      <div class="rbody">
+        <div class="line"><span>Nights booked</span><span class="v ph">[ nights ]</span></div>
+        <div class="line"><span>Gross booking income</span><span class="v ph">$ [ gross ]</span></div>
+        <div class="line"><span>Channel fees (Airbnb, VRBO)</span><span class="v ph">&minus; $ [ passed through ]</span></div>
+        <div class="line"><span>Cleaning (paid to cleaner, at cost)</span><span class="v ph">&minus; $ [ at cost ]</span></div>
+        <div class="line"><span>Maintenance &amp; supplies (at cost, with receipts)</span><span class="v ph">&minus; $ [ at cost ]</span></div>
+        <div class="line fee"><span>Blue Sky Village management, 25% of gross</span><span class="v ph">&minus; $ [ 25% ]</span></div>
+        <div class="total"><span>Paid to you</span><span class="ph">$ [ your payout ]</span></div>
+        <p class="type" style="font-size:.74rem;color:var(--muted);margin:16px 0 0">Every at-cost line links to the receipt. We do not mark up cleaning or repairs, ever.</p>
+        <p class="hand-note" style="margin-top:12px">your real numbers go here once we&rsquo;ve seen the home.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHAT WE HANDLE (candid snaps) ===== -->
+<section class="section wrap" id="handle" aria-labelledby="handle-h">
+  <span class="fieldtag" data-reveal>What lands on us, not on you</span>
+  <h2 class="h-lg" id="handle-h" data-reveal>Everything between &ldquo;booked&rdquo; and &ldquo;reviewed.&rdquo;</h2>
+  <div class="handle-grid">
+    <div data-reveal>
+      <div class="handle-list">
+        <div class="item"><span class="tick">+</span> Listing copy, photos, and pricing across all three channels</div>
+        <div class="item"><span class="tick">+</span> Guest messages, day and night, before and during the stay</div>
+        <div class="item"><span class="tick">+</span> Check-in, lockbox codes, and the &ldquo;the Wi-Fi won&rsquo;t connect&rdquo; calls</div>
+        <div class="item"><span class="tick">+</span> Cleaning and the full turnover checklist, every single stay</div>
+        <div class="item"><span class="tick">+</span> Restocking supplies, linens, and the small consumables</div>
+        <div class="item"><span class="tick">+</span> Routine maintenance and the after-hours emergencies</div>
+        <div class="item"><span class="tick">+</span> Reviews, the awkward ones included, handled with a real reply</div>
+        <div class="item"><span class="tick">+</span> One monthly statement and your payout, on time</div>
+      </div>
+      <p class="margin-note" style="margin-top:24px">if it breaks at 2am, it&rsquo;s our phone that rings, not yours.</p>
+    </div>
+    <div class="snap-cluster" data-reveal>
+      <div class="snap tilt-l s1">
+        <div class="plate develop" style="aspect-ratio:3/2">
+          <img src="assets/photos/dining-kitchen.jpg" width="1600" height="1066" loading="lazy"
+               alt="An open dining and kitchen area in a Carolina rental: a wooden table set with flowers, maple cabinets, and afternoon sun across the floor.">
+        </div>
+        <div class="cap">table reset, fresh flowers in</div>
+      </div>
+      <div class="snap tilt-r s2">
+        <div class="plate develop" style="aspect-ratio:3/2">
+          <img src="assets/photos/living-architectural.jpg" width="1600" height="1066" loading="lazy"
+               alt="A double-height brick living room in a Carolina rental, with tall windows, a fireplace, and a staircase leading up.">
+        </div>
+        <div class="cap">the brick loft, checked &amp; cleared</div>
+      </div>
+      <div class="snap tilt-l s3">
+        <div class="plate develop" style="aspect-ratio:3/2">
+          <img src="assets/photos/porch-hammock-lake.jpg" width="1600" height="1067" loading="lazy"
+               alt="A screened porch on a Carolina rental: a woven hammock chair with cushions, a stacked-stone fireplace, a striped rug, and bare trees through the screens.">
+        </div>
+        <div class="cap">porch swept, hammock straightened</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== WHY FAMILY / LOCAL + MAP ===== -->
+<section class="section wrap" id="map" aria-labelledby="map-h">
+  <div class="map-grid">
+    <div data-reveal>
+      <span class="fieldtag">Local, and growing on purpose</span>
+      <h2 class="h-md" id="map-h" style="max-width:18ch">We drive to your house. That is the whole model.</h2>
+      <p class="read" style="font-size:1.14rem;color:var(--ink-2);margin-top:16px">Sixteen homes is a number we chose. It is small enough that we know every house, every cleaner, and every quirk by name. We work across North and South Carolina, and we are taking on homes in new regions as we go. If you own a place outside the dots on this map, let us talk anyway.</p>
+      <a class="btn" href="#estimate" style="margin-top:24px">See what your home could earn</a>
+    </div>
+    <div class="map-wrap" data-reveal>
+      <svg viewBox="0 0 420 280" role="img" aria-labelledby="map-title map-desc">
+        <title id="map-title">Hand-drawn map of North and South Carolina</title>
+        <desc id="map-desc">A sketch of the two Carolinas with marked dots where Blue Sky Village manages homes, and a dotted arrow pointing to new regions.</desc>
+        <!-- NC outline (sketchy) -->
+        <path d="M28 70 C 120 52, 250 58, 392 64 C 388 86, 360 96, 350 108 C 300 104, 210 112, 150 118 C 110 122, 70 124, 30 118 C 26 102, 24 86, 28 70 Z"
+              fill="rgba(53,107,94,.08)" stroke="var(--lake)" stroke-width="2.4" stroke-linejoin="round"/>
+        <!-- SC outline (sketchy) -->
+        <path d="M150 122 C 230 116, 300 110, 348 114 C 330 150, 290 188, 232 214 C 190 196, 150 168, 132 138 C 136 130, 142 124, 150 122 Z"
+              fill="rgba(110,140,160,.08)" stroke="var(--sky)" stroke-width="2.4" stroke-linejoin="round"/>
+        <!-- managed dots -->
+        <g fill="var(--rust)">
+          <circle cx="118" cy="92" r="5.5"/><circle cx="150" cy="98" r="5.5"/>
+          <circle cx="190" cy="90" r="5.5"/><circle cx="232" cy="100" r="5.5"/>
+          <circle cx="265" cy="92" r="5.5"/><circle cx="205" cy="150" r="5.5"/>
+          <circle cx="248" cy="168" r="5.5"/>
+        </g>
+        <!-- Mooresville label -->
+        <text x="118" y="80" font-family="Courier Prime, monospace" font-size="11" fill="var(--ink)">Mooresville</text>
+        <!-- expanding dotted arrow -->
+        <path d="M300 80 C 350 50, 392 36, 410 26" fill="none" stroke="var(--rust-deep)" stroke-width="2.6"
+              stroke-dasharray="2 7" stroke-linecap="round"/>
+        <path d="M404 22 L 412 24 L 406 32" fill="none" stroke="var(--rust-deep)" stroke-width="2.6"
+              stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="318" y="58" font-family="Caveat, cursive" font-size="20" fill="var(--ink)" transform="rotate(-12 318 58)">expanding</text>
+      </svg>
+      <div class="legend">
+        <span><i style="background:var(--rust)"></i>homes we run today</span>
+        <span><i style="background:var(--rust-deep)"></i>new regions, talk to us</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== TRANSPARENT PRICING ===== -->
+<section class="section price wrap" id="pricing" aria-labelledby="pricing-h" style="border-block:2px solid var(--ink)">
+  <span class="fieldtag" data-reveal>The price, with nothing hidden behind it</span>
+  <h2 class="h-lg" id="pricing-h" data-reveal>One fee. The rest is at cost.</h2>
+  <div class="price-card" data-reveal>
+    <p class="price-headline">Our fee is <b>25% of what your home books.</b> Everything else passes through at cost, with receipts.</p>
+    <div class="price-rows">
+      <div class="price-row">
+        <span class="pct">25%</span>
+        <div>
+          <h3>Management fee, on gross bookings</h3>
+          <p>That covers all the work on this page. We only earn when your home earns, so we are pulling the same direction you are.</p>
+        </div>
+      </div>
+      <div class="price-row">
+        <span class="pct small">at cost</span>
+        <div>
+          <h3>Cleaning &amp; turnovers</h3>
+          <p>Paid straight to the cleaner. We do not mark it up. The amount on your statement is the amount the cleaner was paid.</p>
+        </div>
+      </div>
+      <div class="price-row">
+        <span class="pct small">at cost</span>
+        <div>
+          <h3>Maintenance &amp; supplies</h3>
+          <p>Repairs, restocking, and the odd plumber. Billed at what we paid, receipt attached. No coordination surcharge.</p>
+        </div>
+      </div>
+      <div class="price-row">
+        <span class="pct small">$0</span>
+        <div>
+          <h3>No lock-in, and you keep your listing</h3>
+          <p>No long contract and no setup fee. The Airbnb and VRBO accounts stay in your name. If it is not working, you can leave.</p>
+        </div>
+      </div>
+    </div>
+    <p class="price-note">no startup fee, no markups, no surprise line on the statement.</p>
+  </div>
+</section>
+
+<!-- ===== PROOF / TESTIMONIAL ===== -->
+<section class="section wrap proof" id="proof" aria-labelledby="proof-h">
+  <span class="fieldtag" data-reveal>An owner, in their own words</span>
+  <h2 class="h-lg" id="proof-h" data-reveal>What it sounds like once the worry leaves.</h2>
+  <div class="proof-grid" style="margin-top:36px">
+    <div class="quote-card" data-reveal>
+      <span class="mark" aria-hidden="true">&ldquo;</span>
+      <blockquote>I stopped checking the calendar at midnight. They send one statement a month, the number matches what they said, and when the dishwasher died they had it fixed before I&rsquo;d read the message.</blockquote>
+      <div class="by"><b>[ Owner first name ]</b>, [ Town ], NC &middot; with Blue Sky Village since [ year ]</div>
+      <span class="draft-flag">draft testimonial: family to confirm with a real owner before publishing</span>
+    </div>
+    <div data-reveal>
+      <div class="snap tilt-r" style="display:block;max-width:340px;margin:0 auto">
+        <div class="portrait-ph" role="img" aria-label="Placeholder for a real photo of an owner standing in front of their home"
+             style="aspect-ratio:3/2;box-shadow:none;border-width:2px">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M3 21V10l9-7 9 7v11"/><path d="M9 21v-6h6v6"/>
+          </svg>
+          <span class="lbl">an owner, in front of their home</span>
+        </div>
+        <div class="cap">your real photo here</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIT / NOT FIT -->
+  <div style="margin-top:64px">
+    <span class="fieldtag" data-reveal>An honest filter, before either of us spends time</span>
+    <h2 class="h-md" data-reveal>We do not take every house.</h2>
+    <div class="fit-grid">
+      <div class="fit yes" data-reveal>
+        <h3>We are a good fit if <span class="badge">yes</span></h3>
+        <ul>
+          <li><span class="g">+</span> You own a home in the Carolinas, or a region we are growing into</li>
+          <li><span class="g">+</span> You want a real person who knows your house, not a call center</li>
+          <li><span class="g">+</span> You are happy to keep the home in good repair so guests come back</li>
+          <li><span class="g">+</span> You want plain monthly numbers, not a black box</li>
+        </ul>
+      </div>
+      <div class="fit no" data-reveal>
+        <h3>We are probably not, if <span class="badge">no</span></h3>
+        <ul>
+          <li><span class="g">&ndash;</span> You want the cheapest possible fee above everything else</li>
+          <li><span class="g">&ndash;</span> You would rather not spend anything keeping the home up</li>
+          <li><span class="g">&ndash;</span> You expect us to manage 200 homes and still know yours by name</li>
+          <li><span class="g">&ndash;</span> You want guaranteed income figures no honest manager can promise</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== FAQ ===== -->
+<section class="section wrap" id="faq" aria-labelledby="faq-h">
+  <span class="fieldtag" data-reveal>Short answers to the real questions</span>
+  <h2 class="h-lg" id="faq-h" data-reveal>Questions owners actually ask.</h2>
+  <div class="faq" data-reveal>
+    <details>
+      <summary>What exactly is the 25% taken from?<span class="pm" aria-hidden="true"></span></summary>
+      <div class="a"><p>The gross booking income for the month, before channel fees. Cleaning, maintenance, and supplies are separate and pass through at cost. You see every line on the statement.</p></div>
+    </details>
+    <details>
+      <summary>Do I keep my own Airbnb and VRBO listings?<span class="pm" aria-hidden="true"></span></summary>
+      <div class="a"><p>Yes. The accounts stay in your name. We run them for you, but you own the listing, the reviews, and the history. If you leave, it all goes with you.</p></div>
+    </details>
+    <details>
+      <summary>Is there a contract or a lock-in?<span class="pm" aria-hidden="true"></span></summary>
+      <div class="a"><p>No long lock-in and no setup fee. We earn your business month to month. If it is not working for you, you give us reasonable notice and we hand everything back tidy.</p></div>
+    </details>
+    <details>
+      <summary>My home is outside the Carolinas. Can you still help?<span class="pm" aria-hidden="true"></span></summary>
+      <div class="a"><p>Maybe. We are taking on homes in new regions as we grow. Tell us where it is and we will be straight with you about whether we can do it well yet.</p></div>
+    </details>
+    <details>
+      <summary>How and when do I get paid?<span class="pm" aria-hidden="true"></span></summary>
+      <div class="a"><p>Monthly, with the statement. It shows what came in, what was spent at cost, our 25%, and what landed in your account. One number, no guessing.</p></div>
+    </details>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA + CONTACT + FORM ===== -->
+<section class="section final" id="estimate" aria-labelledby="cta-h">
+  <div class="wrap final-grid">
+    <div data-reveal>
+      <span class="fieldtag">Start here</span>
+      <h2 class="h-lg" id="cta-h">See what your home could earn.</h2>
+      <p class="lede">Send us the basics and we will come back with an honest estimate for your home, plus what we would change first. If it is not a fit, we will tell you that too.</p>
+      <div class="contact">
+        <a href="tel:+17049025644"><span class="lab">Phone</span>704-902-5644</a>
+        <a href="mailto:blueskyvillagerentals@gmail.com"><span class="lab">Email</span>blueskyvillagerentals@gmail.com</a>
+        <span><span class="lab">Based in</span>Mooresville, North Carolina</span>
+      </div>
+      <p class="hand" style="font-size:1.45rem;color:#E89B6F;margin-top:26px;transform:rotate(-1.5deg)">a real person reads every one of these.</p>
+    </div>
+
+    <form class="estimate" data-reveal novalidate aria-describedby="form-micro" id="estimate-form">
+      <h3>Tell us about your home</h3>
+      <p class="micro" id="form-micro">Free, no obligation. If your home isn&rsquo;t a fit, we&rsquo;ll tell you.</p>
+
+      <div class="field">
+        <label for="addr">Home address or town</label>
+        <input id="addr" name="addr" type="text" autocomplete="street-address"
+               inputmode="text" placeholder="e.g. 412 Lakeshore Dr, or just Mooresville" required>
+      </div>
+
+      <div class="field">
+        <label for="beds">Bedrooms</label>
+        <select id="beds" name="beds" required>
+          <option value="" selected>Select&hellip;</option>
+          <option>Studio</option>
+          <option>1 bedroom</option>
+          <option>2 bedrooms</option>
+          <option>3 bedrooms</option>
+          <option>4 bedrooms</option>
+          <option>5+ bedrooms</option>
+        </select>
+      </div>
+
+      <div class="two">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" autocomplete="name"
+                 inputmode="text" placeholder="First and last" required>
+        </div>
+        <div class="field">
+          <label for="contact">Email or phone</label>
+          <input id="contact" name="contact" type="text" autocomplete="email"
+                 inputmode="email" placeholder="So we can reach you" required>
+        </div>
+      </div>
+
+      <button class="btn" type="submit">See what your home could earn</button>
+      <p class="form-feedback" id="form-feedback" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap row">
+    <span>Blue Sky Village &middot; family-run since 2013 &middot; Mooresville, NC</span>
+    <span><a href="tel:+17049025644">704-902-5644</a> &middot; <a href="mailto:blueskyvillagerentals@gmail.com">blueskyvillagerentals@gmail.com</a></span>
+  </div>
+</footer>
+
+<!-- ===== §10 FOUNDATION JS (verbatim) ===== -->
+<script>
+// reveal + film "develop" + underline draw + stamp press, all reduced-motion aware
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const io = new IntersectionObserver((es)=>es.forEach(e=>{ if(!e.isIntersecting) return;
+  const el=e.target; el.style.opacity=1; el.style.transform=el.dataset.rest||'none';
+  if(el.classList.contains('develop')) el.style.filter='none';
+  if(el.classList.contains('drawme')){const p=el.querySelector('path'); if(p){const L=p.getTotalLength(); p.style.transition='stroke-dashoffset 1s var(--ease)'; p.style.strokeDashoffset='0';}}
+  io.unobserve(el);
+},{threshold:.2});
+document.querySelectorAll('[data-reveal]').forEach((el,i)=>{ if(RM){el.style.opacity=1;return;}
+  el.dataset.rest = getComputedStyle(el).transform==='none' ? 'none' : getComputedStyle(el).transform;
+  el.style.opacity=0; el.style.transform='translateY(16px)'; el.style.transition=`opacity .7s var(--ease) ${i%5*70}ms, transform .7s var(--ease) ${i%5*70}ms`;
+  io.observe(el);
+});
+if(!RM){ document.querySelectorAll('.develop').forEach(el=>{el.style.filter='saturate(.55) blur(3px)';el.style.transition='filter 1.1s var(--ease)';io.observe(el);});
+  document.querySelectorAll('.drawme path').forEach(p=>{const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;}); }
+</script>
+
+<!-- ===== CONCEPT JS: stamp press-in + form feedback ===== -->
+<script>
+(function(){
+  // stamp presses in on reveal (reduced-motion safe)
+  if(!RM){
+    document.querySelectorAll('.stamp').forEach(s=>{
+      s.style.opacity='0'; s.style.transform='rotate(-14deg) scale(1.35)';
+      s.style.transition='opacity .5s var(--ease), transform .5s var(--ease)';
+      const so=new IntersectionObserver((es)=>es.forEach(e=>{
+        if(!e.isIntersecting) return;
+        e.target.style.opacity='.92'; e.target.style.transform='rotate(-4deg) scale(1)';
+        so.unobserve(e.target);
+      },{threshold:.4});
+      so.observe(s);
+    });
+  }
+
+  // estimate form: client-side validation + aria-live feedback (no real endpoint)
+  var form = document.getElementById('estimate-form');
+  var fb = document.getElementById('form-feedback');
+  if(form){
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      var addr = form.addr.value.trim();
+      var beds = form.beds.value.trim();
+      var name = form.name.value.trim();
+      var contact = form.contact.value.trim();
+      fb.className = 'form-feedback';
+      if(!addr || !beds || !name || !contact){
+        fb.classList.add('err');
+        fb.textContent = 'Please fill the address or town, bedrooms, your name, and a way to reach you.';
+        var first = !addr ? form.addr : !beds ? form.beds : !name ? form.name : form.contact;
+        first.focus();
+        return;
+      }
+      fb.classList.add('ok');
+      fb.textContent = 'Got it, ' + name.split(' ')[0] + '. We will be in touch with an honest estimate for your home soon.';
+      form.querySelector('button[type="submit"]').textContent = 'Sent. Thank you.';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -3,114 +3,92 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#F8F4EC">
-<title>Blue Sky Village — Design Exploration</title>
+<meta name="theme-color" content="#F2EBDD">
+<title>Blue Sky Village — Design Directions</title>
 <link rel="icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340..600&family=Hanken+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,360..500;1,6..72,360..440&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#F8F4EC; --surface:#FBF8F1; --surface-sage:#E7ECE7;
-    --ink:#283744; --ink-2:#41525E; --muted:#6E7B82;
-    --accent:#E0B148; --accent-deep:#B5862A;
-    --font-display:'Fraunces','Iowan Old Style',Georgia,serif;
-    --font-body:'Hanken Grotesk',-apple-system,system-ui,sans-serif;
-    --ease:cubic-bezier(0.16,1,0.3,1);
+    --paper:#F2EBDD; --paper-2:#E7DCC6; --cream:#FBF7EE;
+    --ink:#26221E; --ink-2:#4A433B; --muted:#6B6358;
+    --rust:#BD5A2E; --rust-deep:#9A4521; --gold:#B5862A; --lake:#356B5E;
+    --font-display:'Bricolage Grotesque',-apple-system,system-ui,sans-serif;
+    --font-read:'Newsreader',Georgia,serif; --font-hand:'Caveat',cursive;
+    --ease:cubic-bezier(0.2,0.8,0.2,1);
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
-  body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-display);font-size:1.0625rem;line-height:1.55;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   .wrap{max-width:1200px;margin-inline:auto;padding-inline:clamp(20px,5vw,48px)}
-  header{padding-block:clamp(56px,9vh,104px)}
-  .brand{display:flex;align-items:center;gap:12px;margin-bottom:48px}
-  .brand img{width:42px;height:auto;border-radius:50%}
-  .brand b{font-family:var(--font-display);font-weight:500;font-size:1.2rem;letter-spacing:-.01em}
-  h1{font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;line-height:1.04;font-size:clamp(2.4rem,5.5vw,4.4rem);margin:0;max-width:18ch;text-wrap:balance}
-  h1 .hl{color:var(--accent-deep)}
-  .sub{color:var(--ink-2);font-size:1.2rem;margin-top:24px;max-width:58ch}
-  .meta{color:var(--muted);margin-top:14px;font-size:.98rem}
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(28px,4vw,56px);padding-bottom:120px}
+  header{padding-block:clamp(52px,9vh,96px)}
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:40px}
+  .brand img{width:44px;height:auto;border-radius:50%}
+  .brand b{font-family:var(--font-display);font-weight:700;font-size:1.2rem;letter-spacing:-.01em}
+  h1{font-weight:700;letter-spacing:-.025em;line-height:1.0;font-size:clamp(2.5rem,6vw,4.6rem);margin:0;max-width:16ch}
+  .sub{font-family:var(--font-read);color:var(--ink-2);font-size:1.3rem;line-height:1.5;margin-top:22px;max-width:60ch}
+  .era{padding-block:24px 80px}
+  .era-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:48px 0 8px;padding-top:30px;border-top:2px solid var(--ink)}
+  .era-head h2{font-weight:700;font-size:clamp(1.5rem,3vw,2.2rem);letter-spacing:-.02em;margin:0}
+  .era-head .tag{font-family:var(--font-hand);font-size:1.5rem;color:var(--rust-deep)}
+  .era-note{color:var(--ink-2);max-width:64ch;margin:6px 0 28px;font-size:1.05rem}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(26px,4vw,48px)}
   @media(max-width:760px){.grid{grid-template-columns:1fr}}
   .card{display:block;text-decoration:none;color:inherit}
-  .shot{position:relative;overflow:hidden;border-radius:14px;background:var(--surface-sage);aspect-ratio:16/10}
-  .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .9s var(--ease)}
-  .card:hover .shot img{transform:scale(1.035)}
-  .num{font-family:var(--font-display);color:var(--accent-deep);font-size:1rem;margin-top:18px}
-  .name{font-family:var(--font-display);font-weight:400;font-size:1.7rem;letter-spacing:-.015em;line-height:1.1;margin:4px 0 6px}
-  .desc{color:var(--muted);max-width:46ch}
-  .go{display:inline-block;margin-top:10px;color:var(--accent-deep);font-weight:560;transition:transform .25s var(--ease)}
+  .shot{position:relative;overflow:hidden;border-radius:4px;background:var(--paper-2);aspect-ratio:16/10;border:2px solid var(--ink)}
+  .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .8s var(--ease)}
+  .card:hover .shot img{transform:scale(1.04)}
+  .num{font-family:var(--font-read);color:var(--rust-deep);font-size:.95rem;margin-top:16px}
+  .era-26 .num{color:var(--gold)}
+  .name{font-weight:700;font-size:1.55rem;letter-spacing:-.015em;line-height:1.1;margin:2px 0 6px}
+  .desc{color:var(--muted);max-width:46ch;font-size:1rem}
+  .go{display:inline-block;margin-top:9px;color:var(--rust-deep);font-weight:600;transition:transform .25s var(--ease)}
+  .era-26 .go{color:var(--gold)}
   .card:hover .go{transform:translateX(4px)}
-  footer{padding-block:64px;background:var(--ink);color:#D7DEDB}
-  footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justify-content:space-between}
-  footer b{font-family:var(--font-display);color:#F1ECE0;font-weight:500;font-size:1.1rem}
-  footer a{color:var(--accent);text-decoration:none}
-  a:focus-visible,.card:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(224,177,72,.18),0 0 0 1px var(--accent-deep);border-radius:14px}
+  footer{padding-block:56px;background:var(--ink);color:#D8CFC0}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:16px 36px;align-items:center;justify-content:space-between}
+  footer b{font-family:var(--font-display);color:var(--paper);font-weight:700;font-size:1.1rem}
+  footer a{color:#E8A06B;text-decoration:none}
+  a:focus-visible,.card:focus-visible{outline:3px solid var(--lake);outline-offset:3px;border-radius:4px}
 </style>
 </head>
 <body>
 <header class="wrap">
-  <div class="brand">
-    <img src="assets/heron-badge.png" alt="Blue Sky Village heron crest" width="42" height="51">
-    <b>Blue Sky Village</b>
-  </div>
-  <h1>Seven ways to say the <span class="hl">same calm thing</span>.</h1>
-  <p class="sub">One brand, seven complete owner-acquisition pages. Built on the real homes, the warm palette, and a single idea: hand us the keys, rest easy. Pick the direction that feels right.</p>
-  <p class="meta">Vacation rental management across North &amp; South Carolina. Real photography, short copy, 25% of gross with costs at cost.</p>
+  <div class="brand"><img src="assets/heron-badge.png" alt="Blue Sky Village heron crest" width="44" height="53"><b>Blue Sky Village</b></div>
+  <h1>Two ways forward.</h1>
+  <p class="sub">Owner-acquisition concepts for a family-run vacation-rental management company in the Carolinas. Eleven complete pages, two directions: a calm, clean editorial set, and a bolder reality-first bet for where design is heading as AI floods the web. Every page uses the real homes.</p>
 </header>
 
 <main class="wrap">
-  <div class="grid">
-    <a class="card" href="01-still-water.html">
-      <div class="shot"><img src="assets/thumbs/01-still-water.png" alt="Still Water page preview" width="480" height="300" loading="lazy"></div>
-      <div class="num">01</div><div class="name">Still Water</div>
-      <p class="desc">The flagship. A full-bleed home, oceans of air, and almost no text. Calm as the product.</p>
-      <span class="go">View page</span>
-    </a>
-    <a class="card" href="02-golden-hour.html">
-      <div class="shot"><img src="assets/thumbs/02-golden-hour.png" alt="Golden Hour page preview" width="480" height="300" loading="lazy"></div>
-      <div class="num">02</div><div class="name">Golden Hour</div>
-      <p class="desc">Cinematic and photography-first. The real homes carry the page, a few lines between them.</p>
-      <span class="go">View page</span>
-    </a>
-    <a class="card" href="03-the-ledger.html">
-      <div class="shot"><img src="assets/thumbs/03-the-ledger.png" alt="The Ledger page preview" width="480" height="300" loading="lazy"></div>
-      <div class="num">03</div><div class="name">The Ledger</div>
-      <p class="desc">For the analytical owner. Earnings clarity and the 25% laid out plainly, costs at cost.</p>
-      <span class="go">View page</span>
-    </a>
-    <a class="card" href="04-heron.html">
-      <div class="shot"><img src="assets/thumbs/04-heron.png" alt="Heron page preview" width="480" height="300" loading="lazy"></div>
-      <div class="num">04</div><div class="name">Heron</div>
-      <p class="desc">Gallery minimalism built around the mark. Museum-quiet, for the owner who values restraint.</p>
-      <span class="go">View page</span>
-    </a>
-    <a class="card" href="05-concierge.html">
-      <div class="shot"><img src="assets/thumbs/05-concierge.png" alt="Concierge page preview" width="480" height="300" loading="lazy"></div>
-      <div class="num">05</div><div class="name">Concierge</div>
-      <p class="desc">Everything we handle, as an art-directed spread. Shows the breadth, justifies the fee, warmly.</p>
-      <span class="go">View page</span>
-    </a>
-    <a class="card" href="06-twilight.html">
-      <div class="shot"><img src="assets/thumbs/06-twilight.png" alt="Twilight page preview" width="480" height="300" loading="lazy"></div>
-      <div class="num">06</div><div class="name">Twilight</div>
-      <p class="desc">A dark, moody take. The real photos glow against deep ink. Proof the brand stretches.</p>
-      <span class="go">View page</span>
-    </a>
-    <a class="card" href="07-cover-story.html">
-      <div class="shot"><img src="assets/thumbs/07-cover-story.png" alt="Cover Story page preview" width="480" height="300" loading="lazy"></div>
-      <div class="num">07</div><div class="name">Cover Story</div>
-      <p class="desc">Opens like a quiet luxury travel magazine, then a short feature on the people behind it.</p>
-      <span class="go">View page</span>
-    </a>
-  </div>
+  <section class="era era-27">
+    <div class="era-head"><h2>2027 · Reality-first</h2><span class="tag">the new bet</span></div>
+    <p class="era-note">When AI makes polished and clean the default, the moat flips to what it can't fake: real homes, real people, real numbers, real place, real human hands. Field-notebook warmth, on a clean conversion spine.</p>
+    <div class="grid">
+      <a class="card" href="2027-field-notes.html"><div class="shot"><img src="assets/thumbs/2027-field-notes.png" alt="Field Notes preview" width="480" height="300" loading="lazy"></div><div class="num">01</div><div class="name">Field Notes</div><p class="desc">A manager's scrapbook: taped snapshots, handwriting, a hand-drawn Carolinas map.</p><span class="go">View page</span></a>
+      <a class="card" href="2027-the-keys.html"><div class="shot"><img src="assets/thumbs/2027-the-keys.png" alt="The Keys preview" width="480" height="300" loading="lazy"></div><div class="num">02</div><div class="name">The Keys</div><p class="desc">A first-person letter from the family, signature and all. Face-forward and accountable.</p><span class="go">View page</span></a>
+      <a class="card" href="2027-open-house.html"><div class="shot"><img src="assets/thumbs/2027-open-house.png" alt="Open House preview" width="480" height="300" loading="lazy"></div><div class="num">03</div><div class="name">Open House</div><p class="desc">Radical candor: the real work, the 25% laid bare, who we're a good fit for.</p><span class="go">View page</span></a>
+      <a class="card" href="2027-the-place.html"><div class="shot"><img src="assets/thumbs/2027-the-place.png" alt="The Place preview" width="480" height="300" loading="lazy"></div><div class="num">04</div><div class="name">The Place</div><p class="desc">Nature-first. The real landscape and homes as the thing no competitor can copy.</p><span class="go">View page</span></a>
+    </div>
+  </section>
+
+  <section class="era era-26">
+    <div class="era-head"><h2>2026 · Clean editorial</h2><span class="tag" style="color:var(--gold)">the calm set</span></div>
+    <p class="era-note">Heimby's golden-hour calm meets The Retreat's cleanliness. Premium, quiet, photography-led. Seven distinct compositions on one brand.</p>
+    <div class="grid">
+      <a class="card" href="01-still-water.html"><div class="shot"><img src="assets/thumbs/01-still-water.png" alt="Still Water preview" width="480" height="300" loading="lazy"></div><div class="num">01</div><div class="name">Still Water</div><p class="desc">The flagship. A full-bleed home, oceans of air, almost no text.</p><span class="go">View page</span></a>
+      <a class="card" href="02-golden-hour.html"><div class="shot"><img src="assets/thumbs/02-golden-hour.png" alt="Golden Hour preview" width="480" height="300" loading="lazy"></div><div class="num">02</div><div class="name">Golden Hour</div><p class="desc">Cinematic, photography-first. The homes carry the page.</p><span class="go">View page</span></a>
+      <a class="card" href="03-the-ledger.html"><div class="shot"><img src="assets/thumbs/03-the-ledger.png" alt="The Ledger preview" width="480" height="300" loading="lazy"></div><div class="num">03</div><div class="name">The Ledger</div><p class="desc">For the analytical owner. Earnings clarity and the 25% laid out plainly.</p><span class="go">View page</span></a>
+      <a class="card" href="04-heron.html"><div class="shot"><img src="assets/thumbs/04-heron.png" alt="Heron preview" width="480" height="300" loading="lazy"></div><div class="num">04</div><div class="name">Heron</div><p class="desc">Gallery minimalism built around the mark. Museum-quiet.</p><span class="go">View page</span></a>
+      <a class="card" href="05-concierge.html"><div class="shot"><img src="assets/thumbs/05-concierge.png" alt="Concierge preview" width="480" height="300" loading="lazy"></div><div class="num">05</div><div class="name">Concierge</div><p class="desc">Everything we handle, as an art-directed spread.</p><span class="go">View page</span></a>
+      <a class="card" href="06-twilight.html"><div class="shot"><img src="assets/thumbs/06-twilight.png" alt="Twilight preview" width="480" height="300" loading="lazy"></div><div class="num">06</div><div class="name">Twilight</div><p class="desc">A dark, moody take. The photos glow against deep ink.</p><span class="go">View page</span></a>
+      <a class="card" href="07-cover-story.html"><div class="shot"><img src="assets/thumbs/07-cover-story.png" alt="Cover Story preview" width="480" height="300" loading="lazy"></div><div class="num">07</div><div class="name">Cover Story</div><p class="desc">Opens like a quiet luxury travel magazine.</p><span class="go">View page</span></a>
+    </div>
+  </section>
 </main>
 
 <footer>
-  <div class="wrap">
-    <b>Blue Sky Village</b>
-    <span>704-902-5644 &nbsp;·&nbsp; <a href="mailto:blueskyvillagerentals@gmail.com">blueskyvillagerentals@gmail.com</a> &nbsp;·&nbsp; Mooresville, NC</span>
-  </div>
+  <div class="wrap"><b>Blue Sky Village</b><span>704-902-5644 &nbsp;·&nbsp; <a href="mailto:blueskyvillagerentals@gmail.com">blueskyvillagerentals@gmail.com</a> &nbsp;·&nbsp; Mooresville, NC</span></div>
 </footer>
 </body>
 </html>
