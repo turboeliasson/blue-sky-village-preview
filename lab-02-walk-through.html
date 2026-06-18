@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blue Sky Village · A walk-through at five o’clock</title>
+<meta name="description" content="Walk through one of the Carolina homes we look after, room by room. We manage your place on Airbnb and VRBO for 25% of gross, no lock-in, you keep your listing. Free, no-obligation estimate.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..800&family=Spectral:ital,wght@0,300..600;1,300..500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#F7F4EE; --paper-2:#EFEADF; --ink:#211E1A; --ink-2:#46413A; --muted:#6E6A62;
+  --line:#E4DECF; --field:#FBF9F4;
+  --font-ui:'Schibsted Grotesk',-apple-system,system-ui,sans-serif;
+  --font-read:'Spectral',Georgia,serif;
+  --ease:cubic-bezier(0.2,0.8,0.2,1);
+
+  /* --hour: 0 = 4:30pm front-door bright, 1 = dusk gold-minute on the dock.
+     Set per room; drives the one warm gradient + one window-light shape. */
+  --hour:0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-ui);
+  font-size:1.0625rem;line-height:1.55;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-weight:600;letter-spacing:-0.02em;line-height:1.05;margin:0;text-wrap:balance}
+.fig,.num{font-family:var(--font-read);font-variant-numeric:tabular-nums}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+.btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--font-ui);font-weight:600;font-size:1rem;
+  padding:14px 24px;border:0;border-radius:7px;background:var(--ink);color:var(--paper);cursor:pointer;text-decoration:none;
+  transition:transform .18s var(--ease),opacity .18s var(--ease)}
+.btn:hover{transform:translateY(-1px);opacity:.92}
+.btn--ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+input,select{font:inherit;background:var(--field);border:1.5px solid var(--line);border-radius:7px;padding:13px 14px;color:var(--ink);width:100%}
+input:focus-visible,select:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+label{display:block;font-weight:600;font-size:.82rem;letter-spacing:.01em;margin:0 0 6px}
+.skip-link{position:absolute;left:-9999px;top:auto;background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:7px;z-index:200}
+.skip-link:focus{left:14px;top:14px}
+
+/* ============ THE STAGE - interaction layer (JS on) ============
+   One home you move through. Each .room is a full-viewport panel; you advance
+   by clicking a threshold rendered on the photo. Hidden by default so JS-off
+   readers get the plain stacked document below. .js on <html> reveals it. */
+.stage{display:none}
+.html-js .stage{display:block}
+.html-js .doc{display:none}
+
+.stage{
+  position:fixed;inset:0;overflow:hidden;background:var(--ink);
+  /* The single moving sun, computed from --hour, baked into two layers below. */
+}
+.room{
+  position:absolute;inset:0;opacity:0;visibility:hidden;
+  transition:opacity .9s var(--ease),visibility 0s linear .9s;
+  display:grid;grid-template-rows:1fr auto;
+}
+.room.is-here{opacity:1;visibility:visible;transition:opacity 1.1s var(--ease)}
+
+/* the photographic ground of each room */
+.room__view{position:relative;overflow:hidden;background:#1a1714}
+.room__photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform:scale(1.06);transition:transform 6s var(--ease);will-change:transform}
+.room.is-here .room__photo{transform:scale(1)}
+
+/* THE SUN - layer A: one warm gradient overlay, warmer/lower-angled as --hour rises */
+.room__view::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:
+    radial-gradient(120% 90% at calc(82% - var(--hour)*44%) calc(8% + var(--hour)*30%),
+      hsl(42 88% 78% / calc(0.10 + var(--hour)*0.34)) 0%,
+      hsl(34 72% 60% / calc(0.04 + var(--hour)*0.26)) 34%,
+      transparent 66%),
+    linear-gradient(180deg,
+      hsl(40 40% 50% / calc(var(--hour)*0.10)) 0%,
+      transparent 40%,
+      hsl(28 30% 14% / calc(0.18 + var(--hour)*0.30)) 100%);
+  mix-blend-mode:multiply;
+  transition:background 1.4s var(--ease);
+}
+/* THE SUN - layer B: one soft window-light shape, sliding + stretching as the day lowers */
+.room__view::after{
+  content:"";position:absolute;z-index:2;pointer-events:none;
+  width:46%;height:150%;left:calc(58% - var(--hour)*30%);top:-30%;
+  background:linear-gradient(180deg, hsl(44 92% 84% / calc(0.22 + var(--hour)*0.30)), hsl(40 84% 72% / 0) 70%);
+  transform:rotate(calc(8deg + var(--hour)*22deg)) skewX(-12deg) translateY(calc(var(--hour)*6%));
+  filter:blur(18px);opacity:calc(0.5 + var(--hour)*0.5);
+  transition:transform 1.4s var(--ease),left 1.4s var(--ease),opacity 1.4s var(--ease);
+}
+
+/* room copy plate, sitting low like late light on a wall */
+.room__plate{position:absolute;z-index:5;left:clamp(18px,5vw,64px);right:clamp(18px,5vw,64px);
+  bottom:clamp(96px,16vh,150px);max-width:560px}
+.room__where{font-size:.74rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:#fff;opacity:.92;margin:0 0 12px;text-shadow:0 1px 14px rgba(20,15,8,.6)}
+.room__where .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin:0 8px 1px;vertical-align:middle;opacity:.7}
+.room__title{color:#fff;font-size:clamp(1.7rem,4.4vw,2.9rem);text-shadow:0 2px 26px rgba(20,12,4,.55);margin:0 0 10px}
+.room__worry{color:#fff;font-family:var(--font-read);font-size:clamp(1.02rem,1.9vw,1.22rem);line-height:1.5;
+  font-weight:300;max-width:46ch;text-shadow:0 1px 16px rgba(20,12,4,.6)}
+.room__worry b{font-weight:500}
+.room__note{margin-top:14px;display:inline-block;background:hsl(28 28% 8% / .58);
+  border:1px solid hsl(40 30% 90% / .22);color:#fff;font-size:.86rem;border-radius:8px;padding:9px 13px;max-width:42ch;line-height:1.4}
+.room__note .num{font-weight:500}
+
+/* THE THRESHOLD - the click target IS the pitch. A real button placed over the
+   real opening (door / steps / slider) in the photo. */
+.threshold{position:absolute;z-index:6;border:0;cursor:pointer;background:transparent;padding:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;
+  color:#fff;font-family:var(--font-ui);font-weight:600;font-size:.86rem;letter-spacing:.01em;
+  transition:transform .3s var(--ease)}
+.threshold:hover,.threshold:focus-visible{transform:translateY(-3px)}
+.threshold__frame{width:100%;height:100%;border-radius:6px;border:2px solid hsl(44 90% 88% / .7);
+  box-shadow:inset 0 0 0 9999px hsl(40 60% 75% / .06), 0 0 0 1px hsl(28 30% 8% / .25);
+  position:relative;overflow:hidden}
+.threshold__frame::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 40%, hsl(44 92% 80% / .16));
+  opacity:0;transition:opacity .3s var(--ease)}
+.threshold:hover .threshold__frame::after,.threshold:focus-visible .threshold__frame::after{opacity:1}
+.threshold__label{flex:0 0 auto;background:hsl(28 26% 9% / .62);padding:8px 13px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+  box-shadow:0 4px 18px hsl(28 30% 6% / .4);text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.threshold__label .arrow{font-size:1.05em;transform:translateY(.5px)}
+/* a slow breathing hint so the next opening reads as "go here" without spectacle */
+.room.is-here .threshold{animation:breathe 3.4s var(--ease) infinite}
+@keyframes breathe{0%,100%{opacity:.9}50%{opacity:1}}
+
+/* per-room threshold placement (over the real opening in each photo) */
+.th--door{left:40%;bottom:8%;width:16%;height:62%}
+.th--steps{right:8%;bottom:6%;width:30%;height:38%}
+.th--cook{left:32%;bottom:4%;width:24%;height:64%}
+.th--slider{left:6%;bottom:6%;width:30%;height:60%}
+.th--dock{left:22%;bottom:8%;width:34%;height:30%}
+
+/* ===== fixed dock-rail: persistent estimate + phone in EVERY room ===== */
+.rail{position:fixed;z-index:50;left:0;right:0;bottom:0;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:11px clamp(12px,4vw,28px);
+  background:linear-gradient(0deg, hsl(28 30% 6% / .92), hsl(28 30% 6% / .72));
+  border-top:1px solid hsl(40 40% 90% / .14);color:#fff}
+.html-js .rail{display:flex}
+.rail__deal{font-size:.84rem;line-height:1.35;max-width:46ch;color:#fff;opacity:.96}
+.rail__deal b{font-weight:600}
+.rail__spacer{flex:1 1 40px}
+.rail .btn{background:var(--paper);color:var(--ink)}
+.rail .btn:hover{opacity:.92}
+.rail__phone{color:#fff;font-weight:600;text-decoration:none;font-size:.98rem;display:inline-flex;align-items:center;gap:8px;
+  border:1.5px solid hsl(40 40% 90% / .5);padding:11px 16px;border-radius:7px}
+.rail__phone:hover{border-color:#fff}
+.rail__phone .lbl{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+
+/* ===== top route strip: floor-plan dots + heron compass + skip-to-dock ===== */
+.route{position:fixed;z-index:50;top:0;left:0;right:0;display:flex;align-items:center;gap:14px;
+  padding:10px clamp(12px,4vw,24px);
+  background:linear-gradient(180deg, hsl(28 30% 6% / .82), hsl(28 30% 6% / 0));color:#fff}
+.html-js .route{display:flex}
+.route__brand{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.82rem;letter-spacing:.04em}
+.route__brand img{width:26px;height:26px;filter:brightness(0) invert(1);opacity:.92}
+.route__plan{display:flex;align-items:center;gap:0;margin:0 auto;list-style:none;padding:0}
+.route__plan li{display:flex;align-items:center}
+.route__seg{width:clamp(16px,3.4vw,38px);height:2px;background:hsl(40 40% 90% / .3)}
+.route__stop{appearance:none;border:0;background:transparent;cursor:pointer;padding:7px 5px;display:flex;flex-direction:column;align-items:center;gap:5px;color:#fff}
+.route__dot{width:11px;height:11px;border-radius:50%;border:2px solid hsl(40 40% 90% / .6);background:transparent;transition:background .3s var(--ease),transform .3s var(--ease)}
+.route__stop[aria-current="step"] .route__dot{background:#fff;transform:scale(1.25)}
+.route__stop.is-done .route__dot{background:hsl(40 40% 90% / .55)}
+.route__name{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;opacity:0;transition:opacity .3s}
+.route__stop[aria-current="step"] .route__name,.route__stop:hover .route__name,.route__stop:focus-visible .route__name{opacity:.9}
+.route__skip{color:#fff;font-size:.82rem;font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.route__compass{font-size:.74rem;opacity:.85;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.route__compass .heron{display:inline-block;transition:transform .9s var(--ease)}
+
+/* mobile: stop the dots, compass and skip link crowding at ~390px.
+   Brand wordmark + compass label drop out (the heron mark, dots and skip link
+   stay); gaps and segments tighten so everything fits one comfortable row. */
+@media (max-width:560px){
+  .route{gap:8px;padding:8px clamp(10px,3vw,16px)}
+  .route__brand{font-size:0;gap:0}
+  .route__brand img{width:24px;height:24px}
+  .route__seg{width:clamp(10px,3vw,18px)}
+  .route__stop{padding:7px 4px}
+  .route__compass #compass-text{position:absolute;left:-9999px}
+  .route__skip{font-size:.78rem}
+}
+@media (max-width:380px){
+  .route__compass{display:none}
+}
+
+/* aria-live announcer (visually subtle, low-left) */
+.announce{position:fixed;left:-9999px}
+
+/* ===== the dock form panel (the destination) ===== */
+.dock .room__plate{position:relative;left:auto;right:auto;bottom:auto;max-width:none}
+.dockform{position:absolute;z-index:7;right:clamp(16px,4vw,56px);top:50%;transform:translateY(-50%);
+  width:min(420px,calc(100% - 32px));background:hsl(38 32% 97% / .99);color:var(--ink);
+  border-radius:12px;padding:24px 24px 22px;box-shadow:0 30px 70px hsl(28 40% 6% / .5)}
+.dock .room__plate{left:clamp(18px,5vw,64px);right:auto;bottom:clamp(120px,20vh,180px);max-width:460px;position:absolute}
+@media (max-width:880px){
+  .dockform{position:relative;right:auto;top:auto;transform:none;margin:0 auto;width:min(440px,calc(100% - 28px))}
+  .dock{grid-template-rows:auto;overflow-y:auto}
+  .dock .room__view{position:relative;min-height:46vh}
+  .dock .room__plate{position:absolute}
+}
+
+/* generic intro/foyer overlay copy (first room) */
+.foyer__deal{margin-top:14px;background:hsl(28 28% 8% / .5);border:1px solid hsl(40 30% 90% / .24);
+  color:#fff;border-radius:10px;padding:14px 16px;font-size:.96rem;line-height:1.5;max-width:50ch}
+.foyer__deal b{font-weight:600}
+.foyer__deal .num{font-weight:500}
+
+/* ====================================================================
+   THE PLAIN DOCUMENT (JS off, or the accessible fallback). Server-rendered,
+   fully readable, the offer never hidden behind the interaction. ==================================================================== */
+.doc{max-width:760px;margin:0 auto;padding:0 22px 120px}
+.doc__top{padding:26px 0 10px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.doc__brand{display:inline-flex;align-items:center;gap:11px;font-weight:700;letter-spacing:.02em}
+.doc__brand img{width:38px;height:38px}
+.doc__phone{font-weight:600;text-decoration:none;border:1.5px solid var(--ink);border-radius:7px;padding:10px 15px;white-space:nowrap}
+.doc__phone .lbl{display:block;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.doc h1{font-size:clamp(2rem,5vw,2.9rem);margin:34px 0 12px}
+.doc__lede{font-family:var(--font-read);font-size:1.22rem;font-weight:300;line-height:1.55;color:var(--ink-2);max-width:60ch;margin:0 0 8px}
+.doc__deal{margin:22px 0;background:var(--paper-2);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.doc__deal p{margin:0 0 6px;font-size:1.05rem}
+.doc__deal b{font-weight:600}
+.doc__deal .num{font-weight:500}
+.doc__note{font-size:.92rem;color:var(--muted);font-style:italic;font-family:var(--font-read)}
+.doc__rooms{list-style:none;padding:0;margin:34px 0 0}
+.doc__room{margin:0 0 40px;border-top:1px solid var(--line);padding-top:26px}
+.doc__room:first-child{border-top:0;padding-top:0}
+.doc__where{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.doc__room h2{font-size:1.5rem;margin:0 0 10px}
+.doc__room img{border-radius:9px;margin:14px 0;aspect-ratio:3/2;object-fit:cover;width:100%}
+.doc__room p{margin:0 0 10px;font-family:var(--font-read);font-weight:300;font-size:1.08rem;color:var(--ink-2)}
+.doc__room p b{font-weight:500;font-family:var(--font-ui);font-size:.98rem}
+
+.formcard{border:1px solid var(--line);border-radius:12px;padding:24px;background:var(--field);margin-top:8px}
+.formrow{margin:0 0 14px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){.formgrid{grid-template-columns:1fr}}
+.form__micro{font-size:.9rem;color:var(--muted);font-family:var(--font-read);font-style:italic;margin:4px 0 16px}
+.form__sub{margin-top:6px}
+.form__ok{display:none;margin-top:14px;font-family:var(--font-read);font-size:1.05rem;color:var(--ink);
+  background:var(--paper-2);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.form__ok.show{display:block}
+.expand{font-family:var(--font-read);font-style:italic;color:var(--ink-2);margin:20px 0 0}
+.footer{margin-top:46px;border-top:1px solid var(--line);padding-top:22px;color:var(--ink-2);font-size:.96rem}
+.footer a{font-weight:600}
+.footer .num{font-family:var(--font-read)}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto}
+  .room__photo{transform:none}
+  .room{transition:none}
+  .room.is-here{transition:none}
+  .room__view::before,.room__view::after{transition:none}
+}
+</style>
+</head>
+
+<body>
+<a class="skip-link" href="#dock">Skip to the dock, get my free estimate</a>
+
+<!-- =========================================================
+     PLAIN DOCUMENT - server-rendered, complete with JS off.
+     Reads as a normal page: offer up top, every room, the form.
+     ========================================================= -->
+<main class="doc" id="doc">
+  <div class="doc__top">
+    <span class="doc__brand"><img src="assets/heron-badge.png" width="38" height="38" alt="Blue Sky Village heron mark"> Blue Sky Village</span>
+    <a class="doc__phone" href="tel:+17049025644"><span class="lbl">Call the family</span><span class="num">704-902-5644</span></a>
+  </div>
+
+  <h1>A walk-through, at five o’clock.</h1>
+  <p class="doc__lede">We don’t have a brochure. We have homes. Come through one of the places we look after across the Carolinas, room by room, the way an owner sees it the evening before guests arrive. Each room answers the one thing owners actually worry about there.</p>
+
+  <div class="doc__deal">
+    <p>We manage your place on Airbnb and VRBO for <b class="num">25%</b> of gross. Cleaning and maintenance billed <b>at cost, no markup</b>. <b>No lock-in.</b> You keep your listing and your reviews.</p>
+    <p class="doc__note">Family-run, North &amp; South Carolina, since 2013, 16+ homes. Own elsewhere? We’re expanding, let’s talk.</p>
+  </div>
+
+  <ol class="doc__rooms">
+    <li class="doc__room">
+      <p class="doc__where">Front door<span> · one of the homes we look after across the Carolinas</span></p>
+      <h2>The front door</h2>
+      <img src="assets/photos/home-exterior-craftsman.jpg" width="1600" height="1066" alt="Blue craftsman home with brick base, covered porch and a real front door, late afternoon.">
+      <p>Before a single guest arrives, two things have to be right: who gets in, and how. <b>We fit a smart lock and run guest screening</b>, so the door opens for the right people, on the right dates, with a code that expires when they leave. You are never the one driving over with a spare key.</p>
+    </li>
+    <li class="doc__room">
+      <p class="doc__where">Entry &amp; living room<span> · one of the homes we look after across the Carolinas</span></p>
+      <h2>Inside the door, then the living room</h2>
+      <img src="assets/photos/entry-arch.jpg" width="1600" height="1066" alt="Sunlit entry with an arched transom over a front door fitted with a keypad lock." loading="lazy">
+      <img src="assets/photos/living-architectural.jpg" width="1600" height="1066" alt="Open living room with brick walls, tall windows and a steel staircase." loading="lazy">
+      <p>This is where a guest forms their first impression and where you’d usually be fielding the first question. <b>We handle every message and every booking across Airbnb, VRBO and Booking.com</b>, set the nightly price, and keep the calendar honest so two platforms never book the same weekend.</p>
+    </li>
+    <li class="doc__room">
+      <p class="doc__where">Kitchen<span> · one of the homes we look after across the Carolinas</span></p>
+      <h2>The kitchen</h2>
+      <img src="assets/photos/kitchen-sunlit.jpg" width="1600" height="1066" alt="Small sunlit kitchen with amber walls, open shelving and a window over the sink." loading="lazy">
+      <p>Turnover lives in the kitchen: the clean, the restock, the spotless counter the next guest photographs. <b>We schedule and manage the turnover cleaning and bill it to you at cost</b>, the cleaner’s actual price, no markup. The kitchen is ready before you’ve thought to check.</p>
+    </li>
+    <li class="doc__room">
+      <p class="doc__where">Screened porch<span> · one of the homes we look after across the Carolinas</span></p>
+      <h2>The screened porch</h2>
+      <img src="assets/photos/porch-hammock-lake.jpg" width="1600" height="1066" alt="Screened porch with a hammock chair, stone fireplace and a slider looking back into a warm interior." loading="lazy">
+      <p>This is the quiet part of the evening, and it should stay quiet for you. <b>When something breaks or a guest calls at eleven at night, the call comes to us, not to you.</b> We keep a local trade list and handle maintenance the same way as cleaning: at cost, no markup, with your sign-off on anything large.</p>
+    </li>
+    <li class="doc__room" id="dock-doc">
+      <p class="doc__where">The dock<span> · one of the homes we look after across the Carolinas</span></p>
+      <h2>The dock, at last light</h2>
+      <img src="assets/photos/lake-dock.jpg" width="1600" height="1066" alt="A wooden dock reaching into a Carolina lake with golden late-afternoon sun through a tree." loading="lazy">
+      <p>This is where the math sits. You keep <b>75%</b> of every booking; our share is the <b class="num">25%</b>, and cleaning and maintenance pass through at cost. No lock-in, no exclusivity games, you keep your listing and reviews. If it’s working we both keep going. If it isn’t, you leave.</p>
+
+      <form class="formcard" id="estimate-doc" novalidate>
+        <h2 style="font-size:1.3rem;margin-bottom:6px">Get my free estimate</h2>
+        <p class="form__micro">Free, no obligation. If your home is not a fit, we’ll tell you.</p>
+        <div class="formrow">
+          <label for="d-addr">Home address or town</label>
+          <input id="d-addr" name="addr" type="text" autocomplete="address-level2" placeholder="Street or town, NC / SC" required>
+        </div>
+        <div class="formrow">
+          <label for="d-beds">Bedrooms</label>
+          <select id="d-beds" name="beds" required>
+            <option value="" selected>Select</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
+          </select>
+        </div>
+        <div class="formrow">
+          <label for="d-name">Your name</label>
+          <input id="d-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="formgrid">
+          <div class="formrow">
+            <label for="d-email">Email</label>
+            <input id="d-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+          </div>
+          <div class="formrow">
+            <label for="d-phone">Phone <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+            <input id="d-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="704-000-0000">
+          </div>
+        </div>
+        <button class="btn form__sub" type="submit">Send it to the family</button>
+        <p class="form__ok" id="ok-doc" role="status" aria-live="polite">Thank you. We’ll be in touch from blueskyvillagerentals@gmail.com or 704-902-5644, usually within a day.</p>
+      </form>
+      <p class="expand">Own a place outside the Carolinas? We’re expanding into new regions. Same terms. Let’s talk.</p>
+    </li>
+  </ol>
+
+  <div class="footer">
+    <p>Blue Sky Village, family-run vacation-rental management, North &amp; South Carolina, since 2013.</p>
+    <p><a href="tel:+17049025644" class="num">704-902-5644</a> · <a href="mailto:blueskyvillagerentals@gmail.com">blueskyvillagerentals@gmail.com</a> · Mooresville, NC</p>
+    <p style="color:var(--muted);font-size:.86rem;margin-top:10px">The rooms above are a composite: real rooms from the homes we look after across the Carolinas, not one single house.</p>
+  </div>
+</main>
+
+<!-- =========================================================
+     THE STAGE - interaction layer. Revealed only when JS runs.
+     ========================================================= -->
+<div class="stage" aria-hidden="false">
+
+  <!-- top route strip -->
+  <nav class="route" aria-label="Floor plan route">
+    <span class="route__brand"><img src="assets/heron-badge.png" width="26" height="26" alt=""> Blue Sky Village</span>
+    <ol class="route__plan" id="plan">
+      <li><button class="route__stop" data-go="door" aria-current="step"><span class="route__dot"></span><span class="route__name">Door</span></button></li>
+      <li><span class="route__seg"></span></li>
+      <li><button class="route__stop" data-go="living"><span class="route__dot"></span><span class="route__name">Living</span></button></li>
+      <li><span class="route__seg"></span></li>
+      <li><button class="route__stop" data-go="kitchen"><span class="route__dot"></span><span class="route__name">Kitchen</span></button></li>
+      <li><span class="route__seg"></span></li>
+      <li><button class="route__stop" data-go="porch"><span class="route__dot"></span><span class="route__name">Porch</span></button></li>
+      <li><span class="route__seg"></span></li>
+      <li><button class="route__stop" data-go="dock"><span class="route__dot"></span><span class="route__name">Dock</span></button></li>
+    </ol>
+    <span class="route__compass"><span class="heron" id="compass" aria-hidden="true">&#9651;</span> <span id="compass-text">heron points to the living room</span></span>
+    <a class="route__skip" href="#dock" data-go="dock">Skip to the dock</a>
+  </nav>
+
+  <!-- ROOM 1 - FRONT DOOR (hour 0.00, bright late afternoon) -->
+  <section class="room dock-none is-here" id="door" data-hour="0" aria-label="Front door" tabindex="-1">
+    <div class="room__view">
+      <img class="room__photo" src="assets/photos/home-exterior-craftsman.jpg" width="1600" height="1066"
+           alt="Blue craftsman home with a covered porch and a real front door, bright late afternoon.">
+      <div class="room__plate">
+        <p class="room__where">Front door <span class="dot"></span> one of the homes we look after across the Carolinas</p>
+        <h2 class="room__title">Come in. It’s just gone five o’clock.</h2>
+        <p class="room__worry">The door is where it starts: who gets in, and how. <b>We fit a smart lock and screen every guest</b>, so it opens for the right people on the right dates and the code dies when they leave.</p>
+        <div class="foyer__deal">
+          We manage your place on Airbnb and VRBO for <b class="num">25%</b> of gross, no lock-in, you keep your listing. <b>Walk through to see how</b>, or skip straight to the dock.
+        </div>
+      </div>
+      <button class="threshold th--door" data-go="living" aria-label="Open the front door and step into the living room">
+        <span class="threshold__frame"></span>
+        <span class="threshold__label"><span class="arrow">&rarr;</span> Open the door</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ROOM 2 - LIVING ROOM (hour 0.28) -->
+  <section class="room" id="living" data-hour="0.28" aria-label="Living room" tabindex="-1">
+    <div class="room__view">
+      <img class="room__photo" src="assets/photos/living-architectural.jpg" width="1600" height="1066"
+           alt="Open living room with brick walls, tall windows and a steel staircase, afternoon light." loading="lazy">
+      <div class="room__plate">
+        <p class="room__where">Living room <span class="dot"></span> one of the homes we look after across the Carolinas</p>
+        <h2 class="room__title">Where the first impression happens.</h2>
+        <p class="room__worry">This is the room a guest walks into, and the room where the questions used to land on you. <b>We answer every message and run every booking</b> across Airbnb, VRBO and Booking.com, price the nights, and keep one calendar so no weekend gets double-booked.</p>
+        <span class="room__note">One inbox, one calendar: every guest message and every platform booking comes to us, so it never lands on you.</span>
+      </div>
+      <button class="threshold th--steps" data-go="kitchen" aria-label="Walk through to the kitchen">
+        <span class="threshold__frame"></span>
+        <span class="threshold__label"><span class="arrow">&rarr;</span> Into the kitchen</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ROOM 3 - KITCHEN (hour 0.52) -->
+  <section class="room" id="kitchen" data-hour="0.52" aria-label="Kitchen" tabindex="-1">
+    <div class="room__view">
+      <img class="room__photo" src="assets/photos/kitchen-sunlit.jpg" width="1600" height="1066"
+           alt="Small sunlit kitchen with amber walls and a window over the sink, sun lowering." loading="lazy">
+      <div class="room__plate">
+        <p class="room__where">Kitchen <span class="dot"></span> one of the homes we look after across the Carolinas</p>
+        <h2 class="room__title">Turnover lives in here.</h2>
+        <p class="room__worry">The clean, the restock, the counter the next guest photographs. <b>We schedule the turnover cleaning and bill it to you at cost</b>, the cleaner’s real price, no markup. It’s ready before you’d have thought to check.</p>
+        <span class="room__note">Cleaning &amp; maintenance: billed <span class="num">at cost</span>. Our fee is only the <span class="num">25%</span>.</span>
+      </div>
+      <button class="threshold th--cook" data-go="porch" aria-label="Step out to the screened porch">
+        <span class="threshold__frame"></span>
+        <span class="threshold__label"><span class="arrow">&rarr;</span> Out to the porch</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ROOM 4 - SCREENED PORCH (hour 0.76) -->
+  <section class="room" id="porch" data-hour="0.76" aria-label="Screened porch" tabindex="-1">
+    <div class="room__view">
+      <img class="room__photo" src="assets/photos/porch-hammock-lake.jpg" width="1600" height="1066"
+           alt="Screened porch with a hammock chair and a slider looking back inside, the day going gold." loading="lazy">
+      <div class="room__plate">
+        <p class="room__where">Screened porch <span class="dot"></span> one of the homes we look after across the Carolinas</p>
+        <h2 class="room__title">The quiet part of the evening.</h2>
+        <p class="room__worry">It should stay quiet for you. <b>When something breaks or a guest calls at eleven at night, the call comes to us</b>, not to you. Maintenance runs like the cleaning: at cost, no markup, your sign-off on anything large.</p>
+        <span class="room__note">That’s the whole promise: the calls come to us, not to you. The throughline is rest easy.</span>
+      </div>
+      <button class="threshold th--slider" data-go="dock" aria-label="Slide open the door and walk down to the dock">
+        <span class="threshold__frame"></span>
+        <span class="threshold__label"><span class="arrow">&rarr;</span> Down to the dock</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ROOM 5 - THE DOCK (hour 1.00, gold minute) + the form -->
+  <section class="room dock" id="dock" data-hour="1" aria-label="The dock, with the free estimate form" tabindex="-1">
+    <div class="room__view">
+      <img class="room__photo" src="assets/photos/lake-dock.jpg" width="1600" height="1066"
+           alt="A wooden dock into a Carolina lake, golden last light through a tree." loading="lazy">
+      <div class="room__plate">
+        <p class="room__where">The dock <span class="dot"></span> one of the homes we look after across the Carolinas</p>
+        <h2 class="room__title">Last light. Here’s the math.</h2>
+        <p class="room__worry">You keep <b class="num">75%</b> of every booking. Our share is the <b class="num">25%</b>; cleaning and maintenance pass through at cost. <b>No lock-in</b>, you keep your listing and reviews. If it works we both keep going. If it doesn’t, you leave.</p>
+      </div>
+
+      <form class="dockform" id="estimate" novalidate aria-label="Free estimate">
+        <h2 style="font-size:1.25rem;margin:0 0 4px">Get my free estimate</h2>
+        <p class="form__micro">Free, no obligation. If your home is not a fit, we’ll tell you.</p>
+        <div class="formrow">
+          <label for="s-addr">Home address or town</label>
+          <input id="s-addr" name="addr" type="text" autocomplete="address-level2" placeholder="Street or town, NC / SC" required>
+        </div>
+        <div class="formrow">
+          <label for="s-beds">Bedrooms</label>
+          <select id="s-beds" name="beds" required>
+            <option value="" selected>Select</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
+          </select>
+        </div>
+        <div class="formrow">
+          <label for="s-name">Your name</label>
+          <input id="s-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="formgrid">
+          <div class="formrow">
+            <label for="s-email">Email</label>
+            <input id="s-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+          </div>
+          <div class="formrow">
+            <label for="s-phone">Phone <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+            <input id="s-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="704-000-0000">
+          </div>
+        </div>
+        <button class="btn form__sub" type="submit">Send it to the family</button>
+        <p class="form__ok" id="ok" role="status" aria-live="polite">Thank you. We’ll be in touch from blueskyvillagerentals@gmail.com or 704-902-5644, usually within a day.</p>
+        <p style="font-size:.84rem;color:var(--muted);margin:14px 0 0;font-family:var(--font-read);font-style:italic">Own elsewhere? We’re expanding into new regions, same terms. Let’s talk.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- persistent dock-rail: estimate + phone in every room -->
+  <div class="rail" role="region" aria-label="Get an estimate or call">
+    <span class="rail__deal" id="rail-deal"><b class="num">25%</b> of gross · cleaning &amp; maintenance at cost · no lock-in · keep your listing.</span>
+    <span class="rail__spacer"></span>
+    <a class="rail__phone" href="tel:+17049025644"><span class="lbl">Call the family</span> <span class="num">704-902-5644</span></a>
+    <button class="btn" type="button" data-go="dock">Get my free estimate</button>
+  </div>
+
+  <p class="announce" aria-live="polite" id="announce"></p>
+</div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  root.className = (root.className ? root.className + ' ' : '') + 'html-js';
+
+  var ORDER = ['door','living','kitchen','porch','dock'];
+  var NEXT_NAME = { door:'living room', living:'kitchen', kitchen:'porch', porch:'dock' };
+  var rooms = {};
+  ORDER.forEach(function(id){ rooms[id] = document.getElementById(id); });
+  var stops = Array.prototype.slice.call(document.querySelectorAll('.route__stop'));
+  var stage = document.querySelector('.stage');
+  var announce = document.getElementById('announce');
+  var compass = document.getElementById('compass');
+  var compassText = document.getElementById('compass-text');
+
+  function setHour(h){ root.style.setProperty('--hour', h); }
+
+  function go(id, opts){
+    if(!rooms[id]) return;
+    opts = opts || {};
+    var current = ORDER.indexOf(id);
+    ORDER.forEach(function(rid){ rooms[rid].classList.toggle('is-here', rid===id); });
+
+    // pace the single sun to this room’s baked hour
+    var h = parseFloat(rooms[id].getAttribute('data-hour')) || 0;
+    setHour(h);
+
+    // route strip state
+    stops.forEach(function(b){
+      var bid = b.getAttribute('data-go');
+      var idx = ORDER.indexOf(bid);
+      b.classList.toggle('is-done', idx < current);
+      if(bid===id){ b.setAttribute('aria-current','step'); } else { b.removeAttribute('aria-current'); }
+    });
+
+    // heron compass points to the next room (or rests at the dock)
+    var next = NEXT_NAME[id];
+    if(next){
+      compassText.textContent = 'heron points to the ' + next;
+      compass.style.transform = 'rotate(' + (90 + current*18) + 'deg)';
+    } else {
+      compassText.textContent = 'you are at the dock';
+      compass.style.transform = 'rotate(180deg)';
+    }
+
+    // history + announce
+    if(opts.push !== false && ('history' in window)){
+      try{ history.replaceState(null,'','#'+id); }catch(e){}
+    }
+    var label = rooms[id].getAttribute('aria-label') || id;
+    announce.textContent = 'Now in: ' + label;
+
+    // move keyboard focus into the room so keyboard users land there
+    if(opts.focus !== false){ rooms[id].focus({preventScroll:true}); }
+  }
+
+  // thresholds, route dots, rail button, skip link
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-go]');
+    if(!t) return;
+    e.preventDefault();
+    var id = t.getAttribute('data-go');
+    go(id);
+    // arriving on the dock, send keyboard/skip users straight into the form
+    if(id==='dock'){
+      var first = document.getElementById('s-addr');
+      if(first){ first.focus({preventScroll:true}); }
+    }
+  });
+
+  // left/right arrow keys walk the route
+  document.addEventListener('keydown', function(e){
+    if(e.target && (e.target.tagName==='INPUT' || e.target.tagName==='SELECT' || e.target.tagName==='TEXTAREA')) return;
+    var cur = ORDER.find(function(rid){ return rooms[rid].classList.contains('is-here'); }) || 'door';
+    var i = ORDER.indexOf(cur);
+    if(e.key==='ArrowRight'){ if(i<ORDER.length-1){ e.preventDefault(); go(ORDER[i+1]); } }
+    else if(e.key==='ArrowLeft'){ if(i>0){ e.preventDefault(); go(ORDER[i-1]); } }
+  });
+
+  // deep-link / back-button support via #hash
+  function fromHash(){
+    var h = (location.hash||'').replace('#','');
+    if(ORDER.indexOf(h)>=0){ go(h,{push:false}); }
+    else { go('door',{push:false,focus:false}); }
+  }
+  window.addEventListener('hashchange', function(){ fromHash(); });
+  // initial: honor a hash, else open at the door (no auto-focus on load)
+  if((location.hash||'').replace('#','') && ORDER.indexOf(location.hash.replace('#',''))>=0){
+    go(location.hash.replace('#',''), {push:false, focus:false});
+  } else {
+    go('door',{push:false,focus:false});
+  }
+
+  // form handler (both stage + doc forms share behaviour)
+  function wire(formId, okId){
+    var form = document.getElementById(formId);
+    if(!form) return;
+    var ok = document.getElementById(okId);
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(!form.checkValidity()){
+        var bad = form.querySelector(':invalid');
+        if(bad) bad.focus();
+        return;
+      }
+      if(ok){ ok.classList.add('show'); ok.textContent = 'Thank you. We’ll be in touch from blueskyvillagerentals@gmail.com or 704-902-5644, usually within a day.'; }
+      form.querySelector('.form__sub').textContent = 'Sent';
+    });
+  }
+  wire('estimate','ok');
+  wire('estimate-doc','ok-doc');
+})();
+</script>
+</body>
+</html>

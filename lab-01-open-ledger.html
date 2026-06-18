@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The day-book of one home · Blue Sky Village</title>
+<meta name="description" content="One managed home's operating record for a trailing twelve months, kept the way we keep books for every owner. An illustrative year. Real terms: 25% of gross, cleaning and maintenance at cost, no lock-in, you keep your listing.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..800&family=Spectral:ital,wght@0,300..600;1,300..500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F4EE; --paper-2:#EFEADF; --ink:#211E1A; --ink-2:#46413A; --muted:#6E6A62;
+  --line:#E4DECF; --field:#FBF9F4;
+  --font-ui:'Schibsted Grotesk',-apple-system,system-ui,sans-serif;
+  --font-read:'Spectral',Georgia,serif;
+  --ease:cubic-bezier(0.2,0.8,0.2,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-ui);
+  font-size:1.0625rem;line-height:1.55;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-weight:600;letter-spacing:-0.02em;line-height:1.05;margin:0;text-wrap:balance}
+.fig,.num{font-family:var(--font-read);font-variant-numeric:tabular-nums}
+img{max-width:100%;height:auto;display:block}
+.btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--font-ui);font-weight:600;font-size:1rem;
+  padding:14px 24px;border:0;border-radius:7px;background:var(--ink);color:var(--paper);cursor:pointer;text-decoration:none;
+  transition:transform .18s var(--ease),opacity .18s var(--ease)}
+.btn:hover{transform:translateY(-1px);opacity:.92}
+input,select{font:inherit;background:var(--field);border:1.5px solid var(--line);border-radius:7px;padding:13px 14px;color:var(--ink)}
+input:focus-visible,select:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+
+/* ---- page frame ---- */
+.visually-hidden,.vh-live{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;
+  clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:0 0 7px 0;z-index:60}
+.skip:focus{left:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* ---- masthead ---- */
+.mast{padding:52px 0 30px}
+.mast-top{display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap}
+.crest{width:54px;height:54px;flex:0 0 auto;opacity:.9}
+.mast h1{font-size:clamp(1.9rem,4.2vw,3rem);max-width:18ch}
+.mast h1 .sub{display:block;font-family:var(--font-read);font-weight:400;font-style:italic;letter-spacing:0;
+  font-size:.46em;color:var(--ink-2);margin-top:.5em;line-height:1.3}
+.kept{color:var(--ink)}
+.standby{font-weight:400;color:var(--muted)}
+.illus{margin:20px 0 0;max-width:62ch;color:var(--ink-2);font-family:var(--font-read);font-size:1.18rem;line-height:1.5}
+.illus b{font-weight:500;color:var(--ink)}
+
+/* the deal, stated plainly, near the top */
+.deal{margin:26px 0 0;border-top:1.5px solid var(--line);border-bottom:1.5px solid var(--line);
+  padding:18px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:2px 28px}
+.deal div{padding:2px 0}
+.deal dt{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.deal dd{margin:3px 0 0;font-family:var(--font-read);font-size:1.06rem;line-height:1.32}
+.deal dd .fig{font-weight:500}
+@media(max-width:720px){.deal{grid-template-columns:1fr 1fr;gap:14px 22px}}
+
+/* your-home input → dual track */
+.yourhome{margin:24px 0 8px;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;
+  background:var(--paper-2);border-radius:9px;padding:16px 18px}
+.yourhome .fld{display:flex;flex-direction:column;gap:5px}
+.yourhome label{font-size:.78rem;letter-spacing:.04em;color:var(--ink-2)}
+.yourhome input{width:230px;max-width:60vw}
+.yourhome .hint{font-family:var(--font-read);font-style:italic;color:var(--muted);font-size:.96rem;max-width:30ch}
+.ghostnote{font-size:.82rem;color:var(--muted);margin:9px 0 0}
+
+/* skip-to-record chip row */
+.jump{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:22px 0 0}
+.jump a{font-size:.88rem;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px}
+.jump a:hover{border-color:var(--ink)}
+.jump .sep{color:var(--line)}
+
+/* ---- the ledger ---- */
+.ledger{padding:8px 0 10px}
+.ledger-head{display:grid;grid-template-columns:var(--cols);gap:0 26px;align-items:end;
+  position:sticky;top:0;z-index:30;background:var(--paper);
+  padding:14px 0 12px;border-bottom:1.5px solid var(--ink)}
+.ledger-head .lh{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.ledger-head .lh.r{text-align:right}
+.ledger-head .runrow{grid-column:1/-1;display:grid;grid-template-columns:var(--cols);gap:0 26px;
+  margin-top:10px;align-items:baseline}
+.run-label{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.run-pair{text-align:right;font-family:var(--font-read);font-size:1.18rem;line-height:1.1}
+.run-pair .v{font-weight:500}
+.run-pair small{display:block;font-family:var(--font-ui);font-size:.66rem;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--muted);font-weight:400}
+.run-proj{color:var(--muted)}
+.run-proj .v{font-style:italic;font-weight:400}
+
+:root{--cols:88px 1fr 150px 150px}
+@media(max-width:760px){:root{--cols:64px 1fr}}
+
+/* entries */
+ol.entries{list-style:none;margin:0;padding:0}
+ol.entries > li{display:grid;grid-template-columns:var(--cols);gap:2px 26px;align-items:baseline;
+  padding:17px 0;border-bottom:1px solid var(--line);position:relative}
+.e-date{font-family:var(--font-read);font-size:.96rem;color:var(--ink-2);white-space:nowrap;padding-top:1px}
+.e-date time{font-variant-numeric:tabular-nums}
+.e-body .what{font-size:1.04rem;line-height:1.42}
+.e-body .meta{margin-top:3px;color:var(--muted);font-size:.9rem;font-family:var(--font-read);line-height:1.4}
+.e-body .meta .ref{font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.e-kept,.e-bsv{font-family:var(--font-read);text-align:right;font-size:1.02rem;white-space:nowrap;padding-top:1px}
+.e-kept .neg,.e-bsv .neg{color:var(--ink-2)}
+.e-bsv{color:var(--ink-2)}
+.e-kept .pos{font-weight:500}
+.dash{color:var(--line)}
+@media(max-width:760px){
+  ol.entries > li{grid-template-columns:64px 1fr}
+  .e-kept,.e-bsv{grid-column:2;text-align:left;font-size:.94rem;color:var(--muted);padding-top:2px}
+  .e-kept{margin-top:4px}
+  .ledger-head .lh.r{display:none}
+  .ledger-head{grid-template-columns:64px 1fr}
+  .ledger-head .runrow{grid-template-columns:1fr auto}
+  .run-pair{font-size:1.04rem}
+}
+
+/* event type accents - structural, monochrome */
+li.t-payout .what::before,li.t-cost .what::before,li.t-human .what::before,
+li.t-refund .what::before,li.t-call .what::before,li.t-quiet .what::before{
+  content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+  margin-right:9px;vertical-align:middle;background:var(--ink);transform:translateY(-1px)}
+li.t-cost .what::before{background:transparent;border:1.5px solid var(--ink-2);width:6px;height:6px}
+li.t-human .what::before,li.t-quiet .what::before{background:var(--line);width:6px;height:6px}
+li.t-refund .what::before{background:transparent;border:1.5px solid var(--ink)}
+li.t-call .what::before{background:var(--ink-2)}
+
+/* the slow February - faint ruled empty days */
+li.t-quiet{padding:9px 0}
+li.t-quiet .e-body .what{color:var(--muted);font-family:var(--font-read);font-style:italic;font-size:.98rem}
+.feb-band{grid-column:1/-1;padding:6px 0 2px}
+.feb-band .rule{height:1px;background:var(--line);margin:11px 0}
+.feb-note{grid-column:1/-1;color:var(--muted);font-family:var(--font-read);font-style:italic;font-size:.96rem;
+  padding:2px 0 6px}
+
+/* photo entries */
+li.has-photo .e-body figure{margin:12px 0 2px;max-width:520px}
+li.has-photo .e-body img{border-radius:8px}
+li.has-photo .e-body figcaption{margin-top:7px;color:var(--muted);font-size:.86rem;font-family:var(--font-read);font-style:italic}
+
+/* a month marker */
+.month-mark{grid-column:1/-1;display:flex;align-items:baseline;gap:14px;padding:26px 0 6px}
+.month-mark .m{font-size:1.12rem;font-weight:600;letter-spacing:-.01em}
+.month-mark .yr{font-family:var(--font-read);color:var(--muted);font-size:.96rem}
+.month-mark .ln{flex:1;height:1px;background:var(--line)}
+
+/* refund row - BSV from its own side */
+li.t-refund{background:linear-gradient(to right,rgba(33,30,26,.035),transparent 60%);border-radius:6px;
+  padding-left:10px;margin-left:-10px}
+
+/* ---- close / totals ---- */
+.close{padding:44px 0 10px}
+.totals{display:grid;grid-template-columns:1fr 1fr;gap:24px;border-top:1.5px solid var(--ink);
+  padding-top:22px;max-width:620px;margin-left:auto}
+.totals .t{text-align:right}
+.totals .t .lab{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.totals .t .v{font-family:var(--font-read);font-size:1.8rem;font-weight:500;margin-top:4px;display:block}
+.totals .t.bsv .v{color:var(--ink-2);font-weight:400}
+.close p.read{font-family:var(--font-read);font-size:1.2rem;line-height:1.55;max-width:60ch;margin:30px 0 0;color:var(--ink-2)}
+.close p.read b{color:var(--ink);font-weight:500}
+
+/* ---- the form: open your record ---- */
+.record{margin:46px 0 0;background:var(--paper-2);border-radius:12px;padding:34px 30px;
+  border:1.5px solid var(--line)}
+.record h2{font-size:clamp(1.5rem,3vw,2.05rem);max-width:20ch}
+.record .lede{font-family:var(--font-read);color:var(--ink-2);font-size:1.12rem;margin:12px 0 0;max-width:54ch}
+form{margin:24px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;max-width:680px}
+form .fld{display:flex;flex-direction:column;gap:6px}
+form .fld.full{grid-column:1/-1}
+form label{font-size:.82rem;letter-spacing:.02em;color:var(--ink-2)}
+form label .req{color:var(--muted);font-weight:400}
+form .actions{grid-column:1/-1;display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:4px}
+form .micro{font-family:var(--font-read);font-style:italic;color:var(--muted);font-size:.96rem;max-width:34ch}
+.feedback{grid-column:1/-1;font-family:var(--font-read);font-size:1.06rem;color:var(--ink);
+  background:var(--field);border:1.5px solid var(--line);border-radius:8px;padding:14px 16px;display:none}
+.feedback.show{display:block}
+.feedback .street{font-weight:500}
+@media(max-width:620px){form{grid-template-columns:1fr}}
+
+/* a tiny opened-record preview after submit */
+.opened{display:none;margin:18px 0 0;border-top:1px dashed var(--line);padding-top:16px}
+.opened.show{display:block}
+.opened .oh{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.opened .line{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:8px 0;border-bottom:1px solid var(--line);
+  font-family:var(--font-read);color:var(--muted);font-style:italic}
+.opened .line:last-child{border:0}
+
+/* ---- footer / persistent human ---- */
+.foot{margin:54px 0 0;border-top:1.5px solid var(--ink);padding:26px 0 70px}
+.foot .row{display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap;align-items:baseline}
+.foot .biz{font-family:var(--font-read);color:var(--ink-2);max-width:40ch;line-height:1.5}
+.foot .biz b{color:var(--ink);font-weight:500}
+.foot a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.foot a:hover{border-color:var(--ink)}
+.foot .contact{font-family:var(--font-read);font-size:1.06rem;line-height:1.7;text-align:right}
+@media(max-width:620px){.foot .contact{text-align:left}}
+
+/* ---- persistent slim bar: phone + open record, every state ---- */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(247,244,238,.94);
+  -webkit-backdrop-filter:saturate(1.1);backdrop-filter:saturate(1.1);
+  border-top:1.5px solid var(--ink)}
+.dock .in{max-width:1120px;margin:0 auto;padding:9px 24px;display:flex;align-items:center;
+  justify-content:space-between;gap:16px}
+.dock .ph{font-family:var(--font-read);font-size:1.02rem;color:var(--ink);text-decoration:none}
+.dock .ph b{font-weight:500}
+.dock .ph .lab{font-family:var(--font-ui);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--muted);display:block;line-height:1.1;margin-bottom:1px}
+.dock .btn{padding:11px 20px;font-size:.94rem}
+body{padding-bottom:74px}
+@media(max-width:520px){.dock .ph .lab{display:none}.dock .in{padding:9px 16px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#open-record">Skip to the form: open your home&rsquo;s record</a>
+
+<header class="mast wrap">
+  <div class="mast-top">
+    <img class="crest" src="assets/heron-badge.png" alt="Blue Sky Village, a great blue heron crest" width="54" height="54">
+    <div>
+      <h1>The day-book of one home.
+        <span class="sub">Twelve months of <span class="kept">what the owner kept</span> and <span class="standby">what we earned</span>, kept the way we keep books for every home we look after.</span>
+      </h1>
+    </div>
+  </div>
+
+  <p class="illus">This is an <b>illustrative year</b>, built from how we actually work, not one family&rsquo;s private books. The <b>figures are sample</b> and names are shown to the street only. The <b>terms are real</b>: we manage your place on Airbnb, VRBO and Booking.com, we take twenty-five percent of each gross booking, and cleaning and upkeep pass through at what they cost us. Your real record would be yours.</p>
+
+  <dl class="deal" aria-label="The deal, in plain terms">
+    <div><dt>Our share</dt><dd><span class="fig">25%</span> of gross booking value</dd></div>
+    <div><dt>Cleaning &amp; upkeep</dt><dd>At cost. No markup</dd></div>
+    <div><dt>Your commitment</dt><dd>No lock-in. Leave anytime</dd></div>
+    <div><dt>Your listing</dt><dd>Stays yours, reviews and all</dd></div>
+  </dl>
+
+  <div class="yourhome" id="yourhome">
+    <div class="fld">
+      <label for="home-where">Your home, so the right column is about you</label>
+      <input id="home-where" type="text" name="home-where" placeholder="Street or town, beds" inputmode="text" autocomplete="address-line1" aria-describedby="yourhome-hint">
+    </div>
+    <p class="hint" id="yourhome-hint">Type a place and the faint right-hand line in the running tally becomes a projection for a home like yours. Nothing is sent until you open your record below.</p>
+  </div>
+  <p class="ghostnote" id="ghostnote">Right now the projected line follows a four-bedroom on Lake Norman. Change it above to fit your home.</p>
+
+  <nav class="jump" aria-label="Shortcuts">
+    Jump to:
+    <a href="#open-record">open your record (the form)</a>
+    <span class="sep">/</span>
+    <a href="#close">the year&rsquo;s totals</a>
+    <span class="sep">/</span>
+    <a href="tel:+17049025644">call 704-902-5644</a>
+  </nav>
+</header>
+
+<main class="ledger wrap" id="ledger" aria-label="The day-book">
+
+  <div class="ledger-head">
+    <span class="lh" aria-hidden="true">Date</span>
+    <span class="lh" aria-hidden="true">Entry &middot; 27 Pelican Point Rd, an illustrative home on Lake Norman</span>
+    <span class="lh r" aria-hidden="true">Owner kept</span>
+    <span class="lh r" aria-hidden="true">We earned</span>
+    <div class="runrow">
+      <span class="run-label" aria-hidden="true">Running, from Jul 1</span>
+      <span class="run-pair">
+        <span class="v fig" id="run-kept">$21,815</span>
+        <small aria-hidden="true">owner kept</small>
+      </span>
+      <span class="run-pair">
+        <span class="v fig" id="run-bsv">$7,890</span>
+        <small aria-hidden="true">we earned</small>
+      </span>
+      <span class="run-pair run-proj">
+        <span class="v fig" id="run-proj">&ndash;</span>
+        <small id="run-proj-lab" aria-hidden="true">your home, projected</small>
+      </span>
+    </div>
+  </div>
+  <p class="vh-live" id="tally-live" role="status" aria-live="polite" aria-atomic="true">Running from July 1: owner kept $21,815, we earned $7,890.</p>
+
+  <ol class="entries" id="entries">
+  <!-- Server-rendered fallback. JS re-renders the same content with the running tally and tiny count-up. -->
+
+    <li class="month-li"><div class="month-mark"><span class="m">July</span><span class="yr fig">2025</span><span class="ln"></span></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2025-07-03">Jul 3</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Six nights, the Wexler family, in from Charlotte.</span>
+      <span class="meta">Gross <span class="ref fig">$2,040</span>. Owner&rsquo;s share <span class="ref fig">$1,530</span>. Our 25 percent, <span class="ref fig">$510</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,530</span></span><span class="e-bsv"><span class="fig">$510</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2025-07-09">Jul 9</time></span>
+      <span class="e-body"><span class="what">Turnover clean after checkout.</span>
+      <span class="meta">Pelican Point cleaning crew, invoice <span class="ref">#PP-1182</span>. Billed to you at cost, <span class="ref fig">$135</span>. No markup from us.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$135</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2025-07-18">Jul 18</time></span>
+      <span class="e-body"><span class="what">Booking paid out. A long weekend, repeat guest from Raleigh.</span>
+      <span class="meta">Gross <span class="ref fig">$1,360</span>. Owner&rsquo;s share <span class="ref fig">$1,020</span>. Our 25 percent, <span class="ref fig">$340</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,020</span></span><span class="e-bsv"><span class="fig">$340</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2025-07-19">Jul 19</time></span>
+      <span class="e-body"><span class="what">Turnover clean.</span>
+      <span class="meta">Invoice <span class="ref">#PP-1190</span>, at cost <span class="ref fig">$135</span>.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$135</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="t-human has-photo"><span class="e-date"><time datetime="2025-07-26">Jul 26</time></span>
+      <span class="e-body"><span class="what">Guest left a note on the counter. We mailed the photo to the owner. Nothing to bill.</span>
+      <span class="meta">The little kitchen on this lake takes the morning sun like nothing else we manage.</span>
+      <figure><img src="assets/photos/kitchen-sunlit.jpg" alt="A small sunlit kitchen with a bright amber wall, open wood shelves and a window over the sink" width="1600" height="1066" loading="lazy"><figcaption>The kitchen, July, around eight in the morning.</figcaption></figure></span>
+      <span class="e-kept"><span class="dash">&ndash;</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="month-li"><div class="month-mark"><span class="m">August</span><span class="yr fig">2025</span><span class="ln"></span></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2025-08-02">Aug 2</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Full week, family reunion.</span>
+      <span class="meta">Gross <span class="ref fig">$2,520</span>. Owner&rsquo;s share <span class="ref fig">$1,890</span>. Our 25 percent, <span class="ref fig">$630</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,890</span></span><span class="e-bsv"><span class="fig">$630</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2025-08-09">Aug 9</time></span>
+      <span class="e-body"><span class="what">Turnover clean, plus a replacement coffee maker the last guests broke.</span>
+      <span class="meta">Clean <span class="ref">#PP-1206</span> at cost <span class="ref fig">$135</span>; coffee maker receipt forwarded, <span class="ref fig">$38</span>. Both at cost.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$173</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2025-08-21">Aug 21</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Five nights, two couples.</span>
+      <span class="meta">Gross <span class="ref fig">$1,700</span>. Owner&rsquo;s share <span class="ref fig">$1,275</span>. Our 25 percent, <span class="ref fig">$425</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,275</span></span><span class="e-bsv"><span class="fig">$425</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2025-08-22">Aug 22</time></span>
+      <span class="e-body"><span class="what">Turnover clean.</span>
+      <span class="meta">Invoice <span class="ref">#PP-1214</span>, at cost <span class="ref fig">$135</span>.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$135</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="month-li"><div class="month-mark"><span class="m">September</span><span class="yr fig">2025</span><span class="ln"></span></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2025-09-06">Sep 6</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Labor Day, four nights.</span>
+      <span class="meta">Gross <span class="ref fig">$1,880</span>. Owner&rsquo;s share <span class="ref fig">$1,410</span>. Our 25 percent, <span class="ref fig">$470</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,410</span></span><span class="e-bsv"><span class="fig">$470</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2025-09-12">Sep 12</time></span>
+      <span class="e-body"><span class="what">HVAC service call. The upstairs unit was short-cycling.</span>
+      <span class="meta">Lake Norman Heating &amp; Air, invoice <span class="ref">#LNA-3391</span>, at cost <span class="ref fig">$165</span>. We met the technician so the owner didn&rsquo;t have to drive over.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$165</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2025-09-20">Sep 20</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Three nights, a quiet couple.</span>
+      <span class="meta">Gross <span class="ref fig">$1,020</span>. Owner&rsquo;s share <span class="ref fig">$765</span>. Our 25 percent, <span class="ref fig">$255</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$765</span></span><span class="e-bsv"><span class="fig">$255</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2025-09-21">Sep 21</time></span>
+      <span class="e-body"><span class="what">Turnover clean.</span>
+      <span class="meta">Invoice <span class="ref">#PP-1239</span>, at cost <span class="ref fig">$135</span>.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$135</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="month-li"><div class="month-mark"><span class="m">October</span><span class="yr fig">2025</span><span class="ln"></span></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2025-10-04">Oct 4</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Leaf season, a full week.</span>
+      <span class="meta">Gross <span class="ref fig">$2,240</span>. Owner&rsquo;s share <span class="ref fig">$1,680</span>. Our 25 percent, <span class="ref fig">$560</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,680</span></span><span class="e-bsv"><span class="fig">$560</span></span></li>
+
+    <li class="t-human has-photo"><span class="e-date"><time datetime="2025-10-15">Oct 15</time></span>
+      <span class="e-body"><span class="what">Walked the porch before a storm came through. Tied down the hammock, checked the screens. No charge.</span>
+      <span class="meta">A screened porch like this one is the room owners worry about most, and the one we check first.</span>
+      <figure><img src="assets/photos/porch-hammock-lake.jpg" alt="A screened porch with a woven hammock chair, a stacked-stone fireplace and a slider looking back into the house" width="1600" height="1066" loading="lazy"><figcaption>The porch, mid-October, before the weather turned.</figcaption></figure></span>
+      <span class="e-kept"><span class="dash">&ndash;</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2025-10-23">Oct 23</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Long weekend, return guest.</span>
+      <span class="meta">Gross <span class="ref fig">$1,500</span>. Owner&rsquo;s share <span class="ref fig">$1,125</span>. Our 25 percent, <span class="ref fig">$375</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,125</span></span><span class="e-bsv"><span class="fig">$375</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2025-10-24">Oct 24</time></span>
+      <span class="e-body"><span class="what">Turnover clean.</span>
+      <span class="meta">Invoice <span class="ref">#PP-1268</span>, at cost <span class="ref fig">$135</span>.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$135</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="month-li"><div class="month-mark"><span class="m">November</span><span class="yr fig">2025</span><span class="ln"></span></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2025-11-22">Nov 22</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Thanksgiving week, the whole house.</span>
+      <span class="meta">Gross <span class="ref fig">$2,960</span>. Owner&rsquo;s share <span class="ref fig">$2,220</span>. Our 25 percent, <span class="ref fig">$740</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$2,220</span></span><span class="e-bsv"><span class="fig">$740</span></span></li>
+
+    <li class="t-refund"><span class="e-date"><time datetime="2025-11-29">Nov 29</time></span>
+      <span class="e-body"><span class="what">The dishwasher failed on the guest&rsquo;s second night. We refunded them one night from our own side, not the owner&rsquo;s.</span>
+      <span class="meta">Goodwill credit <span class="ref fig">$185</span>, paid out of our 25 percent. The owner&rsquo;s share for the stay was untouched. We&rsquo;d rather keep a guest than win an argument.</span></span>
+      <span class="e-kept"><span class="dash">&ndash;</span></span><span class="e-bsv"><span class="neg fig">&minus;$185</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2025-11-30">Nov 30</time></span>
+      <span class="e-body"><span class="what">Dishwasher repaired the next morning.</span>
+      <span class="meta">Appliance service, invoice <span class="ref">#LNA-3470</span>, at cost <span class="ref fig">$120</span>.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$120</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="month-li"><div class="month-mark"><span class="m">December</span><span class="yr fig">2025</span><span class="ln"></span></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2025-12-27">Dec 27</time></span>
+      <span class="e-body"><span class="what">Booking paid out. The week between the holidays, a family of seven.</span>
+      <span class="meta">Gross <span class="ref fig">$2,680</span>. Owner&rsquo;s share <span class="ref fig">$2,010</span>. Our 25 percent, <span class="ref fig">$670</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$2,010</span></span><span class="e-bsv"><span class="fig">$670</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2025-12-28">Dec 28</time></span>
+      <span class="e-body"><span class="what">Turnover clean, deep version for the new year guests.</span>
+      <span class="meta">Invoice <span class="ref">#PP-1334</span>, at cost <span class="ref fig">$165</span>.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$165</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="month-li"><div class="month-mark"><span class="m">January</span><span class="yr fig">2026</span><span class="ln"></span></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2026-01-17">Jan 17</time></span>
+      <span class="e-body"><span class="what">Booking paid out. A long weekend, lake in winter.</span>
+      <span class="meta">Gross <span class="ref fig">$1,120</span>. Owner&rsquo;s share <span class="ref fig">$840</span>. Our 25 percent, <span class="ref fig">$280</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$840</span></span><span class="e-bsv"><span class="fig">$280</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2026-01-18">Jan 18</time></span>
+      <span class="e-body"><span class="what">Turnover clean.</span>
+      <span class="meta">Invoice <span class="ref">#PP-1361</span>, at cost <span class="ref fig">$135</span>.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$135</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="month-li"><div class="month-mark"><span class="m">February</span><span class="yr fig">2026</span><span class="ln"></span></div></li>
+
+    <li class="t-quiet"><span class="e-date"><time datetime="2026-02-01">Feb 1&ndash;13</time></span>
+      <span class="e-body"><span class="what">A slow stretch. No bookings. We kept the heat at fifty-five, ran the water, walked through twice. Nothing to bill.</span></span>
+      <span class="e-kept"><span class="dash">&ndash;</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="feb-li"><div class="feb-band"><div class="rule"></div><div class="rule"></div><div class="rule"></div><div class="rule"></div><p class="feb-note">The empty ruled days are real. February on the lake is quiet, and a good steward&rsquo;s book shows the quiet honestly rather than hiding it.</p></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2026-02-14">Feb 14</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Two nights for a couple over the holiday.</span>
+      <span class="meta">Gross <span class="ref fig">$760</span>. Owner&rsquo;s share <span class="ref fig">$570</span>. Our 25 percent, <span class="ref fig">$190</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$570</span></span><span class="e-bsv"><span class="fig">$190</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2026-02-15">Feb 15</time></span>
+      <span class="e-body"><span class="what">Turnover clean.</span>
+      <span class="meta">Invoice <span class="ref">#PP-1377</span>, at cost <span class="ref fig">$135</span>.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$135</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="month-li"><div class="month-mark"><span class="m">March</span><span class="yr fig">2026</span><span class="ln"></span></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2026-03-13">Mar 13</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Spring break, a full week.</span>
+      <span class="meta">Gross <span class="ref fig">$2,360</span>. Owner&rsquo;s share <span class="ref fig">$1,770</span>. Our 25 percent, <span class="ref fig">$590</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,770</span></span><span class="e-bsv"><span class="fig">$590</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2026-03-20">Mar 20</time></span>
+      <span class="e-body"><span class="what">Dock boards reset after the winter, two replaced.</span>
+      <span class="meta">Handyman, invoice <span class="ref">#PP-1402</span>, lumber and labor at cost <span class="ref fig">$210</span>.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$210</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="t-human has-photo"><span class="e-date"><time datetime="2026-03-22">Mar 22</time></span>
+      <span class="e-body"><span class="what">Heron on the dock at 6:40 in the morning. The owner asked us to take a picture if we ever saw it again. We did. Nothing to bill.</span>
+      <span class="meta">This is the dock the lumber went into two days before. Same boards, better light.</span>
+      <figure><img src="assets/photos/lake-dock.jpg" alt="A wooden dock reaching into a calm lake at sunrise, a large oak overhead and two kayaks pulled up on the grass" width="1600" height="1066" loading="lazy"><figcaption>The dock, March 22, 6:40am.</figcaption></figure></span>
+      <span class="e-kept"><span class="dash">&ndash;</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="month-li"><div class="month-mark"><span class="m">April</span><span class="yr fig">2026</span><span class="ln"></span></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2026-04-03">Apr 3</time></span>
+      <span class="e-body"><span class="what">Booking paid out. A long weekend, early-season fishing.</span>
+      <span class="meta">Gross <span class="ref fig">$1,440</span>. Owner&rsquo;s share <span class="ref fig">$1,080</span>. Our 25 percent, <span class="ref fig">$360</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,080</span></span><span class="e-bsv"><span class="fig">$360</span></span></li>
+
+    <li class="t-call"><span class="e-date"><time datetime="2026-04-09">Apr 9</time></span>
+      <span class="e-body"><span class="what">The owner called at eight in the evening, worried about a guest review. We picked up.</span>
+      <span class="meta">Twelve minutes. We answer the phone, <a href="tel:+17049025644">704-902-5644</a>. That is the whole entry. Nothing to bill.</span></span>
+      <span class="e-kept"><span class="dash">&ndash;</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2026-04-10">Apr 10</time></span>
+      <span class="e-body"><span class="what">Turnover clean.</span>
+      <span class="meta">Invoice <span class="ref">#PP-1431</span>, at cost <span class="ref fig">$135</span>.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$135</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="month-li"><div class="month-mark"><span class="m">May</span><span class="yr fig">2026</span><span class="ln"></span></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2026-05-09">May 9</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Mother&rsquo;s Day weekend, three generations.</span>
+      <span class="meta">Gross <span class="ref fig">$1,800</span>. Owner&rsquo;s share <span class="ref fig">$1,350</span>. Our 25 percent, <span class="ref fig">$450</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,350</span></span><span class="e-bsv"><span class="fig">$450</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2026-05-10">May 10</time></span>
+      <span class="e-body"><span class="what">Turnover clean, plus fresh linens we&rsquo;d flagged as worn.</span>
+      <span class="meta">Clean <span class="ref">#PP-1458</span> at cost <span class="ref fig">$135</span>; linens receipt forwarded, <span class="ref fig">$92</span>. Both at cost.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$227</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2026-05-23">May 23</time></span>
+      <span class="e-body"><span class="what">Booking paid out. Memorial Day, the house and the dock both full.</span>
+      <span class="meta">Gross <span class="ref fig">$2,600</span>. Owner&rsquo;s share <span class="ref fig">$1,950</span>. Our 25 percent, <span class="ref fig">$650</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,950</span></span><span class="e-bsv"><span class="fig">$650</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2026-05-24">May 24</time></span>
+      <span class="e-body"><span class="what">Turnover clean.</span>
+      <span class="meta">Invoice <span class="ref">#PP-1466</span>, at cost <span class="ref fig">$135</span>.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$135</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+    <li class="month-li"><div class="month-mark"><span class="m">June</span><span class="yr fig">2026</span><span class="ln"></span></div></li>
+
+    <li class="t-payout"><span class="e-date"><time datetime="2026-06-12">Jun 12</time></span>
+      <span class="e-body"><span class="what">Booking paid out. The first full week of summer.</span>
+      <span class="meta">Gross <span class="ref fig">$2,320</span>. Owner&rsquo;s share <span class="ref fig">$1,740</span>. Our 25 percent, <span class="ref fig">$580</span>.</span></span>
+      <span class="e-kept"><span class="pos fig">+$1,740</span></span><span class="e-bsv"><span class="fig">$580</span></span></li>
+
+    <li class="t-cost"><span class="e-date"><time datetime="2026-06-13">Jun 13</time></span>
+      <span class="e-body"><span class="what">Turnover clean. Twelve months, closed.</span>
+      <span class="meta">Invoice <span class="ref">#PP-1489</span>, at cost <span class="ref fig">$135</span>. The book runs Jul 1 to Jun 30.</span></span>
+      <span class="e-kept"><span class="neg fig">&minus;$135</span></span><span class="e-bsv"><span class="dash">&ndash;</span></span></li>
+
+  </ol>
+</main>
+
+<section class="close wrap" id="close" aria-labelledby="close-h">
+  <h2 id="close-h" class="visually-hidden">The year, totalled</h2>
+  <div class="totals">
+    <div class="t kept">
+      <span class="lab">Owner kept, over the year</span>
+      <span class="v fig" id="total-kept">$21,815</span>
+    </div>
+    <div class="t bsv">
+      <span class="lab">We earned, over the year</span>
+      <span class="v fig" id="total-bsv">$7,890</span>
+    </div>
+  </div>
+  <p class="read">No pricing table built that figure. The year built it, one line at a time. Every clean and repair passed through at what it cost. The one refund came out of <b>our</b> side, not yours. The quiet days are in there too. That is the whole arrangement, and it is the same arrangement we would keep for your home.</p>
+</section>
+
+<section class="record wrap" id="open-record" aria-labelledby="record-h">
+  <h2 id="record-h">Open your home&rsquo;s record.</h2>
+  <p class="lede">Tell us a little about your place. We will send back a free, no-obligation estimate, a year laid out the way you just read one. A person reads every message.</p>
+
+  <form id="estimate-form" novalidate>
+    <div class="fld full">
+      <label for="f-address">Your home&rsquo;s address or town <span class="req">(required)</span></label>
+      <input id="f-address" name="address" type="text" required inputmode="text" autocomplete="street-address" placeholder="Street or town">
+    </div>
+    <div class="fld">
+      <label for="f-beds">Bedrooms <span class="req">(required)</span></label>
+      <input id="f-beds" name="bedrooms" type="number" min="1" max="12" step="1" required inputmode="numeric" autocomplete="off" placeholder="e.g. 4">
+    </div>
+    <div class="fld">
+      <label for="f-name">Your name <span class="req">(required)</span></label>
+      <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="First and last">
+    </div>
+    <div class="fld full">
+      <label for="f-contact">Email or phone <span class="req">(required)</span></label>
+      <input id="f-contact" name="contact" type="text" required inputmode="text" autocomplete="off" placeholder="Where we can reach you">
+    </div>
+    <div class="actions">
+      <button class="btn" type="submit">Open your home&rsquo;s record</button>
+      <p class="micro">Free, no obligation. If your home is not a fit, we will tell you.</p>
+    </div>
+    <p class="feedback" id="form-feedback" role="status" aria-live="polite"></p>
+    <div class="opened" id="opened" aria-hidden="true">
+      <p class="oh">Your record, page one</p>
+      <div class="line"><span id="opened-date">&ndash;</span><span><span id="opened-street">your home</span> &ndash; opened. Blank, for now.</span></div>
+      <div class="line"><span>next</span><span>A steward reads your note and pencils in the first real entries.</span></div>
+    </div>
+  </form>
+</section>
+
+<footer class="foot wrap">
+  <div class="row">
+    <p class="biz"><b>Blue Sky Village.</b> Family-run vacation-rental management across North and South Carolina since 2013, looking after 16+ homes. Own elsewhere? We&rsquo;re expanding, let&rsquo;s talk.</p>
+    <p class="contact">
+      <a href="tel:+17049025644">704-902-5644</a><br>
+      <a href="mailto:blueskyvillagerentals@gmail.com">blueskyvillagerentals@gmail.com</a><br>
+      Mooresville, NC
+    </p>
+  </div>
+</footer>
+
+<div class="dock" role="region" aria-label="Reach a person">
+  <div class="in">
+    <a class="ph" href="tel:+17049025644"><span class="lab">Call a steward, we pick up</span><b>704-902-5644</b></a>
+    <a class="btn" href="#open-record">Open your record</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- 1. Running two-track tally, accumulated down the year ----
+  // Parse the server-rendered entries so the JS layer enhances rather than owns the content.
+  function money(str){
+    if(!str) return 0;
+    var s = str.replace(/[^0-9.\-]/g,'');
+    if(!s) return 0;
+    var v = parseFloat(s);
+    // minus sign rendered as U+2212; normalize: detect a leading minus glyph
+    if(/−|\-/.test(str.replace(/[0-9.,$\s]/g,''))) v = -Math.abs(v);
+    return isNaN(v)?0:v;
+  }
+  function fmt(n){
+    var neg = n < 0; n = Math.round(Math.abs(n));
+    return (neg?'−$':'$') + n.toLocaleString('en-US');
+  }
+
+  var lis = Array.prototype.slice.call(document.querySelectorAll('#entries > li'));
+  var runKept = 0, runBsv = 0, projTotal = 0;
+  var PROJ_FACTOR = 0.92; // illustrative projection vs the sample home; adjusted by beds input
+
+  // attach per-entry running snapshots, and carry the active month/year forward
+  var curMonth = '';
+  lis.forEach(function(li){
+    var mark = li.querySelector('.month-mark');
+    if(mark){
+      var m = mark.querySelector('.m'), y = mark.querySelector('.yr');
+      curMonth = (m ? m.textContent.trim() : '') + (y ? ' ' + y.textContent.trim() : '');
+    }
+    var keptEl = li.querySelector('.e-kept .fig');
+    var bsvEl  = li.querySelector('.e-bsv .fig');
+    var k = keptEl ? money(keptEl.textContent) : 0;
+    var b = bsvEl  ? money(bsvEl.textContent)  : 0;
+    runKept += k; runBsv += b;
+    li.dataset.runKept = runKept;
+    li.dataset.runBsv = runBsv;
+    li.dataset.month = curMonth;
+  });
+
+  var elKept = document.getElementById('run-kept');
+  var elBsv  = document.getElementById('run-bsv');
+  var elProj = document.getElementById('run-proj');
+  var elProjLab = document.getElementById('run-proj-lab');
+  var elLive = document.getElementById('tally-live');
+  var ghost = document.getElementById('ghostnote');
+
+  // dual-track projection from the "your home" input
+  var homeInput = document.getElementById('home-where');
+  var projHasHome = false;
+  function recomputeFactor(){
+    // crude, transparent: pull a bedroom count if typed, scale the projection a touch.
+    var t = (homeInput.value||'').toLowerCase();
+    var m = t.match(/(\d+)\s*(?:bd|bed|br)/);
+    var beds = m ? parseInt(m[1],10) : null;
+    if(beds){ PROJ_FACTOR = Math.max(0.5, Math.min(1.6, beds/4 * 0.92)); }
+    projHasHome = t.trim().length > 0;
+  }
+
+  // current displayed running figure (for the slow count-up)
+  var shownKept = 0, shownBsv = 0;
+  function paint(targetKept, targetBsv){
+    var tProj = targetKept * PROJ_FACTOR;
+    if(reduce){
+      elKept.textContent = fmt(targetKept);
+      elBsv.textContent  = fmt(targetBsv);
+      elProj.textContent = projHasHome ? fmt(tProj) : '–';
+      shownKept = targetKept; shownBsv = targetBsv;
+      return;
+    }
+    // ease the shown figure toward the target as you scroll
+    var stepK = (targetKept - shownKept) * 0.18;
+    var stepB = (targetBsv  - shownBsv)  * 0.18;
+    shownKept += Math.abs(stepK) < 1 ? (targetKept - shownKept) : stepK;
+    shownBsv  += Math.abs(stepB) < 1 ? (targetBsv  - shownBsv)  : stepB;
+    elKept.textContent = fmt(shownKept);
+    elBsv.textContent  = fmt(shownBsv);
+    elProj.textContent = projHasHome ? fmt(shownKept * PROJ_FACTOR) : '–';
+    if(Math.abs(targetKept - shownKept) > 1 || Math.abs(targetBsv - shownBsv) > 1){
+      requestAnimationFrame(function(){ paint(targetKept, targetBsv); });
+    }
+  }
+
+  // which entry is the deepest one above the sticky header?
+  var headerH = 150;
+  var targetK = 0, targetB = 0, raf = null, announcedMonth = '';
+  function announce(month, k, b){
+    if(!elLive || month === announcedMonth) return;
+    announcedMonth = month;
+    var head = month ? 'Through ' + month : 'Running from July 1';
+    elLive.textContent = head + ': owner kept ' + fmt(k) + ', we earned ' + fmt(b) + '.';
+  }
+  function findCurrent(){
+    var line = headerH + 8;
+    var curK = 0, curB = 0, curMon = '';
+    for(var i=0;i<lis.length;i++){
+      var r = lis[i].getBoundingClientRect();
+      if(r.top <= line){
+        if(lis[i].dataset.runKept !== undefined) curK = parseFloat(lis[i].dataset.runKept);
+        if(lis[i].dataset.runBsv  !== undefined) curB = parseFloat(lis[i].dataset.runBsv);
+        if(lis[i].dataset.month) curMon = lis[i].dataset.month;
+      } else break;
+    }
+    targetK = curK; targetB = curB;
+    // announce the tally when scrolling crosses into a new month marker
+    announce(curMon, curK, curB);
+  }
+  function onScroll(){
+    if(raf) return;
+    raf = requestAnimationFrame(function(){
+      raf = null;
+      findCurrent();
+      paint(targetK, targetB);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+
+  if(homeInput){
+    homeInput.addEventListener('input', function(){
+      recomputeFactor();
+      if(projHasHome){
+        elProjLab.textContent = 'your home, projected';
+        ghost.textContent = 'Projected for ' + (homeInput.value.trim()) + '. A sample line, not a quote, scaled from the illustrative home above.';
+      } else {
+        elProjLab.textContent = 'your home, projected';
+        ghost.textContent = 'Right now the projected line follows a four-bedroom on Lake Norman. Change it above to fit your home.';
+      }
+      paint(targetK, targetB);
+    });
+  }
+
+  // ---- 2. gentle reveal of photo entries (transform/opacity only) ----
+  if(!reduce && 'IntersectionObserver' in window){
+    var figs = document.querySelectorAll('#entries figure');
+    Array.prototype.forEach.call(figs, function(f){
+      f.style.opacity = '0';
+      f.style.transform = 'translateY(10px)';
+      f.style.transition = 'opacity .7s var(--ease), transform .7s var(--ease)';
+    });
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          e.target.style.opacity='1';
+          e.target.style.transform='none';
+          io.unobserve(e.target);
+        }
+      });
+    }, {rootMargin:'0px 0px -12% 0px'});
+    Array.prototype.forEach.call(figs, function(f){ io.observe(f); });
+  }
+
+  // init: with JS on, the visible counter starts at the top of the book ($0),
+  // so seed the live region to match before any scroll. JS-off keeps the
+  // server-rendered final figures, which read correctly on their own.
+  if(elLive) elLive.textContent = 'Running from July 1: owner kept $0, we earned $0.';
+  recomputeFactor();
+  findCurrent();
+  paint(targetK, targetB);
+
+  // ---- 3. form: open your record ----
+  var form = document.getElementById('estimate-form');
+  var fb = document.getElementById('form-feedback');
+  var opened = document.getElementById('opened');
+  if(form){
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      var addr = form.address.value.trim();
+      var beds = form.bedrooms.value.trim();
+      var name = form.name.value.trim();
+      var contact = form.contact.value.trim();
+      if(!addr || !beds || !name || !contact){
+        fb.textContent = 'We need an address or town, bedrooms, your name, and one way to reach you. Then we can open the record.';
+        fb.classList.add('show');
+        var firstEmpty = !addr?form.address:!beds?form.bedrooms:!name?form.name:form.contact;
+        if(firstEmpty) firstEmpty.focus();
+        return;
+      }
+      fb.innerHTML = 'Thank you, ' + escapeHtml(name.split(' ')[0]) + '. We have your note for <span class="street">' + escapeHtml(addr) + '</span>. A steward will read it and send your record, free and with no obligation. If your home is not a fit, we will tell you. If you would rather talk now, call 704-902-5644.';
+      fb.classList.add('show');
+      // open a tiny blank record with their street at the top
+      var d = new Date();
+      var opts = {month:'short', day:'numeric'};
+      document.getElementById('opened-date').textContent = d.toLocaleDateString('en-US', opts);
+      document.getElementById('opened-street').textContent = addr;
+      opened.classList.add('show');
+      opened.setAttribute('aria-hidden','false');
+      fb.focus && fb.focus();
+    });
+  }
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+})();
+</script>
+</body>
+</html>

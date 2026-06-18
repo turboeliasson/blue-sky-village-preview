@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Color of the House · Blue Sky Village</title>
+<meta name="description" content="Every color on this page is measured from a real Carolina home we manage. Eleven homes, eleven real colors. Vacation-rental management, North and South Carolina, since 2013.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..800&family=Spectral:ital,wght@0,300..600;1,300..500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#F7F4EE; --paper-2:#EFEADF; --ink:#211E1A; --ink-2:#46413A; --muted:#6E6A62;
+  --line:#E4DECF; --field:#FBF9F4;
+  --font-ui:'Schibsted Grotesk',-apple-system,system-ui,sans-serif;
+  --font-read:'Spectral',Georgia,serif;
+  --ease:cubic-bezier(0.2,0.8,0.2,1);
+
+  /* === Measured colors, baked from the real pixels of each home (DESIGN-3.md). ===
+     Each home: --kN key color, then a 3-swatch chord --kN-a/b/c.
+     Build-time AA decided the on-tint text color per band (see --kN-text). */
+  --k1:#AA9764; --k1-a:#8BB5F4; --k1-b:#605D4E; --k1-c:#878280; --k1-text:var(--ink);    /* craftsman  ink 5.79 */
+  --k2:#5175BD; --k2-a:#B89C6A; --k2-b:#C4ACA1; --k2-c:#605B52; --k2-text:none;           /* cottage    fails AA -> neutral chip */
+  --k3:#B2AB9C; --k3-a:#DAD6D0; --k3-b:#C9C0B0; --k3-c:#726359; --k3-text:var(--ink);    /* entry-arch ink 7.27 */
+  --k4:#9B8973; --k4-a:#A8A6A2; --k4-b:#625D57; --k4-c:#767F7F; --k4-text:var(--ink);    /* living-arch ink 4.92 */
+  --k5:#8F765B; --k5-a:#D5CEC1; --k5-b:#A9A396; --k5-c:#57524C; --k5-text:none;           /* fireside   fails AA -> neutral chip */
+  --k6:#A9956A; --k6-a:#D9C6B2; --k6-b:#CBB6A3; --k6-c:#7A7457; --k6-text:var(--ink);    /* open-plan  ink 5.69 */
+  --k7:#C9964C; --k7-a:#AB6E21; --k7-b:#D1C4AF; --k7-c:#3B3A33; --k7-text:var(--ink);    /* kitchen    ink 6.28 */
+  --k8:#A9ADA8; --k8-a:#C7C3B5; --k8-b:#69665E; --k8-c:#D3D4D0; --k8-text:var(--ink);    /* dining     ink 7.29 */
+  --k9:#AE9967; --k9-a:#CBBCA1; --k9-b:#97613A; --k9-c:#E2DCD5; --k9-text:var(--ink);    /* bedroom    ink 5.97 */
+  --k10:#837D87; --k10-a:#BDB6AD; --k10-b:#AC8F6A; --k10-c:#615F54; --k10-text:none;      /* porch      fails AA -> neutral chip */
+  --k11:#595937; --k11-a:#A79162; --k11-b:#8D7249; --k11-c:#C9CCC6; --k11-text:var(--paper); /* dock    paper 6.58 */
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-ui);
+  font-size:1.0625rem;line-height:1.55;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-weight:600;letter-spacing:-0.02em;line-height:1.05;margin:0;text-wrap:balance}
+.fig,.num{font-family:var(--font-read);font-variant-numeric:tabular-nums}
+img{max-width:100%;height:auto;display:block}
+.btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--font-ui);font-weight:600;font-size:1rem;
+  padding:14px 24px;border:0;border-radius:7px;background:var(--ink);color:var(--paper);cursor:pointer;text-decoration:none;
+  transition:transform .18s var(--ease),opacity .18s var(--ease)}
+.btn:hover{transform:translateY(-1px);opacity:.92}
+.btn--ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn--ghost:hover{opacity:1;background:rgba(33,30,26,.05)}
+input,select{font:inherit;background:var(--field);border:1.5px solid var(--line);border-radius:7px;padding:13px 14px;color:var(--ink);width:100%}
+input:focus-visible,select:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+a{color:inherit}
+
+/* ---- skip link ---- */
+.skip{position:absolute;left:8px;top:-48px;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:7px;z-index:200;
+  transition:top .15s var(--ease);font-weight:600;font-size:.95rem;text-decoration:none}
+.skip:focus{top:8px}
+
+/* ============================================================
+   STRUCTURE: a vertical "color strip" reader.
+   The spine between homes is neutral warm-white/near-black.
+   Eleven measured bands; one home shows its color at a time.
+   ============================================================ */
+
+/* ---- persistent contact rail (every state) ---- */
+.rail{position:fixed;left:0;right:0;bottom:0;z-index:120;
+  background:var(--ink);color:var(--paper);
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:10px clamp(14px,4vw,40px);
+  box-shadow:0 -1px 0 rgba(247,244,238,.08)}
+.rail__deal{display:flex;align-items:baseline;gap:10px;min-width:0}
+.rail__deal b{font-weight:700;white-space:nowrap}
+.rail__deal span{color:#CFC8BB;font-size:.92rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rail__acts{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.rail a.tel{color:var(--paper);text-decoration:none;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rail a.tel:hover{text-decoration:underline}
+.rail .btn{background:var(--paper);color:var(--ink);padding:10px 18px}
+.rail .btn:hover{opacity:1;transform:translateY(-1px)}
+@media (max-width:680px){
+  .rail__deal span{display:none}
+  .rail{padding:8px 12px}
+}
+
+/* ---- masthead ---- */
+.crest{display:flex;align-items:center;gap:12px}
+.crest img{width:40px;height:40px;object-fit:contain;
+  /* the mark inks itself in the currently-centered home's key hue */
+  transition:filter .6s var(--ease)}
+.crest .wm{font-weight:700;letter-spacing:-.01em;font-size:1.02rem;line-height:1.1}
+.crest .wm small{display:block;font-weight:400;color:var(--muted);font-size:.78rem;letter-spacing:0}
+
+header.top{padding:clamp(22px,4vw,40px) clamp(14px,4vw,48px) 0;display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap}
+.top__nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.top__nav a{font-weight:600;font-size:.92rem;text-decoration:none;color:var(--ink-2)}
+.top__nav a:hover{text-decoration:underline}
+.tag{font-size:.8rem;color:var(--muted);font-weight:500}
+
+.intro{padding:clamp(26px,5vw,64px) clamp(14px,4vw,48px) clamp(14px,3vw,30px);max-width:980px}
+.intro h1{font-size:clamp(2rem,5.6vw,3.7rem);max-width:16ch}
+.intro h1 .fig{font-weight:600;letter-spacing:-.02em}
+.intro p.lede{font-family:var(--font-read);font-size:clamp(1.12rem,2.3vw,1.4rem);color:var(--ink-2);max-width:54ch;margin:.9em 0 0;line-height:1.45}
+.intro .truth{margin-top:1.4em;font-size:.95rem;color:var(--muted);max-width:60ch}
+.intro .truth b{color:var(--ink);font-weight:600}
+
+/* deal line, plain, near the top: a skeptic gets it in ~3s */
+.deal{margin:clamp(20px,3vw,30px) clamp(14px,4vw,48px) 0;max-width:1080px;
+  background:var(--paper-2);border:1.5px solid var(--line);border-radius:12px;
+  padding:clamp(16px,2.4vw,22px) clamp(18px,3vw,26px)}
+.deal h2{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:700}
+.deal ul{list-style:none;margin:.7em 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 26px}
+.deal li{font-family:var(--font-read);font-size:1.06rem;display:flex;align-items:baseline;gap:9px;max-width:34ch}
+.deal li b{font-family:var(--font-ui);font-weight:700;color:var(--ink)}
+.deal .dot{flex:0 0 auto;width:9px;height:9px;border-radius:2px;margin-top:.45em;background:var(--ink)}
+
+/* legend of the eleven measured colors - readable with JS off, a real anchor list */
+.legend{margin:clamp(22px,3vw,34px) clamp(14px,4vw,48px) 0;max-width:1080px}
+.legend p{color:var(--muted);font-size:.95rem;margin:0 0 12px}
+.legend ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.legend li a{display:flex;align-items:center;gap:7px;text-decoration:none;font-size:.84rem;color:var(--ink-2);
+  border:1px solid var(--line);border-radius:999px;padding:5px 11px 5px 6px;background:var(--field)}
+.legend li a:hover{border-color:var(--ink)}
+.legend .sw{width:15px;height:15px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(33,30,26,.18)}
+
+/* ============================================================
+   THE STRIP - the structural novelty.
+   Each home is one full-bleed "stop". Between stops, a slim
+   neutral spine band returns. Color is never two-at-once.
+   ============================================================ */
+main{padding-bottom:96px}
+.spine{height:clamp(74px,11vh,150px);background:var(--paper);position:relative;display:flex;align-items:center;justify-content:center}
+.spine::before{content:"";position:absolute;left:50%;top:14%;bottom:14%;width:2px;transform:translateX(-50%);
+  background:linear-gradient(var(--line),var(--ink-2),var(--line))}
+.spine span{position:relative;background:var(--paper);padding:6px 14px;color:var(--muted);font-size:.8rem;letter-spacing:.04em;z-index:1}
+
+/* a stop = the band (left) + the developing photo (right). Reads as a normal block JS-off. */
+.stop{position:relative;display:grid;grid-template-columns:minmax(180px,30%) 1fr;gap:0;align-items:stretch;min-height:clamp(420px,72vh,640px)}
+.stop__band{position:relative;background:var(--tint);display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(20px,3vw,40px) clamp(18px,2.5vw,34px);overflow:hidden}
+/* chord stripes baked from the measured 3-swatch chord, as a subtle proof the whole chord is real */
+.chord{position:absolute;right:0;top:0;bottom:0;width:14px;display:flex;flex-direction:column}
+.chord i{flex:1;display:block}
+
+.stop__no{font-family:var(--font-read);font-size:1rem;opacity:.7;color:var(--bt);margin-bottom:.5em}
+.stop__band h2{color:var(--bt);font-size:clamp(1.5rem,2.6vw,2.15rem);max-width:14ch}
+.stop__town{color:var(--bt);opacity:.82;font-size:.96rem;margin:.5em 0 0;font-weight:500}
+/* hex readout - the literal measured value, in Spectral tabular numerals */
+.hexline{margin-top:1.1em;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.hex{font-family:var(--font-read);font-variant-numeric:tabular-nums;font-size:1.04rem;letter-spacing:.02em;color:var(--bt)}
+.hex small{font-family:var(--font-ui);font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;opacity:.7}
+
+/* When AA fails on the raw tint, on-tint text lives in a guaranteed-contrast neutral chip. */
+.stop[data-aa="fail"] .stop__no,
+.stop[data-aa="fail"] .stop__band h2,
+.stop[data-aa="fail"] .stop__town,
+.stop[data-aa="fail"] .hex{color:var(--ink)}
+.stop[data-aa="fail"] .textwrap{background:rgba(247,244,238,.93);border-radius:10px;padding:clamp(16px,2vw,24px);
+  box-shadow:0 1px 0 rgba(33,30,26,.06)}
+.stop[data-aa="fail"] .stop__no{color:var(--muted)}
+.aa-note{margin-top:1em;font-size:.74rem;color:var(--muted);max-width:30ch;line-height:1.35}
+.stop:not([data-aa="fail"]) .aa-note{color:var(--bt);opacity:.62}
+
+/* the developing photo side */
+.stop__photo{position:relative;overflow:hidden;background:var(--tint)}
+.stop__photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* "develops into" the band: a tint veil over the photo that lifts as the stop reaches center.
+   Default opacity:0 so the real photo is visible with JS off (the proof must survive no-JS).
+   JS adds .js-veiled to re-cover, then .is-open lifts it for the animated develop. */
+.stop__veil{position:absolute;inset:0;background:var(--tint);opacity:0;transition:opacity 1.1s var(--ease)}
+.stop.js-veiled .stop__veil{opacity:1}
+.stop.is-open .stop__veil{opacity:0}
+@media (prefers-reduced-motion:no-preference){
+  /* Only desaturate/scale once JS has armed the develop (.js-veiled); JS-off = full-color photo. */
+  .stop.js-veiled .stop__photo img{transform:scale(1.04);transition:transform 1.4s var(--ease),filter 1.1s var(--ease);filter:saturate(.72)}
+  .stop.js-veiled.is-open .stop__photo img{transform:scale(1);filter:saturate(1)}
+  .stop__band{transition:flex-basis .9s var(--ease)}
+}
+
+/* PROOF OF SAMPLE - a hairline pointer from the band hex to the approximate photo region
+   the color was lifted from, plus a downsampled swatch grid. This is the honesty move.
+   The pointer marks the area sampled, not a single exact pixel. */
+.proof{position:absolute;z-index:4;pointer-events:none}
+.proof__ring{position:absolute;width:var(--pw,68px);height:var(--ph,68px);left:var(--px,50%);top:var(--py,50%);
+  transform:translate(-50%,-50%);border:2px solid var(--paper);border-radius:8px;
+  box-shadow:0 0 0 2px rgba(33,30,26,.35), inset 0 0 0 1px rgba(33,30,26,.2);
+  opacity:0;transition:opacity .7s var(--ease) .25s}
+.stop.is-open .proof__ring{opacity:1}
+.proof__tag{position:absolute;left:var(--tx,50%);top:var(--ty,50%);transform:translate(-50%,0);
+  background:var(--paper);color:var(--ink);border-radius:6px;padding:5px 9px;font-size:.74rem;font-weight:600;white-space:nowrap;
+  box-shadow:0 2px 8px rgba(33,30,26,.18);opacity:0;transition:opacity .7s var(--ease) .35s;pointer-events:none}
+.stop.is-open .proof__tag{opacity:1}
+.proof__line{position:absolute;height:1.5px;background:var(--paper);transform-origin:left center;
+  left:var(--lx,50%);top:var(--ly,50%);width:var(--lw,60px);transform:rotate(var(--lr,0deg));
+  box-shadow:0 0 0 1px rgba(33,30,26,.2);opacity:0;transition:opacity .7s var(--ease) .3s}
+.stop.is-open .proof__line{opacity:1}
+
+/* downsampled pixel-grid swatch, baked from the chord - sits inside the band as literal "lifted pixels" */
+.pixgrid{margin-top:1.2em;display:grid;grid-template-columns:repeat(6,1fr);gap:2px;width:clamp(108px,16vw,140px);
+  border-radius:6px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(33,30,26,.14)}
+.pixgrid i{aspect-ratio:1/1;display:block}
+.pixcap{margin-top:.5em;font-size:.72rem;color:var(--bt);opacity:.78}
+.stop[data-aa="fail"] .pixcap{color:var(--muted);opacity:1}
+
+/* ---- the EMPTY band = the CTA ---- */
+.stop--cta{grid-template-columns:1fr}
+.stop--cta .stop__band{background:var(--paper);color:var(--ink);justify-content:center;align-items:center;text-align:center;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cta-wrap{width:100%;max-width:760px;margin:0 auto;padding:clamp(20px,4vw,40px) 0}
+.cta-swatch{width:clamp(64px,9vw,92px);height:clamp(64px,9vw,92px);margin:0 auto 18px;border-radius:12px;
+  background:repeating-conic-gradient(var(--paper-2) 0 25%, var(--field) 0 50%) 50% / 22px 22px;
+  box-shadow:inset 0 0 0 1.5px var(--line)}
+.cta-wrap h2{font-size:clamp(1.6rem,3.4vw,2.4rem)}
+.cta-wrap p.sub{font-family:var(--font-read);font-size:1.18rem;color:var(--ink-2);max-width:46ch;margin:.7em auto 0}
+.cta-deal{margin:1.3em auto 0;max-width:50ch;color:var(--muted);font-size:.95rem}
+.cta-deal b{color:var(--ink);font-weight:600}
+
+/* ---- the form (the destination) ---- */
+.form-card{margin:1.8em auto 0;max-width:560px;text-align:left;background:var(--field);border:1.5px solid var(--line);
+  border-radius:14px;padding:clamp(20px,3vw,30px)}
+.form-card h3{font-size:1.2rem;margin-bottom:.2em}
+.form-card p.micro{color:var(--muted);font-size:.92rem;margin:.3em 0 1.2em;font-family:var(--font-read)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{margin-bottom:14px}
+.field.full{grid-column:1/-1}
+.field label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px}
+.field .hint{font-weight:400;color:var(--muted);font-size:.82rem}
+.form-card .btn{width:100%;justify-content:center;margin-top:6px;padding:15px}
+.form-status{margin-top:12px;font-size:.95rem;font-family:var(--font-read);min-height:1.2em}
+.form-status[data-ok="1"]{color:var(--ink)}
+.form-contact{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);font-size:.92rem;color:var(--muted)}
+.form-contact a{color:var(--ink);font-weight:600;text-decoration:none}
+.form-contact a:hover{text-decoration:underline}
+@media (max-width:520px){.field-row{grid-template-columns:1fr}}
+
+/* ---- closing human ---- */
+.closer{margin:0 clamp(14px,4vw,48px);padding:clamp(36px,6vw,72px) 0;max-width:760px}
+.closer h2{font-size:clamp(1.5rem,3vw,2.1rem)}
+.closer p{font-family:var(--font-read);font-size:1.15rem;color:var(--ink-2);margin:.8em 0 0;max-width:52ch}
+.closer .lines{margin-top:1.6em;display:flex;flex-wrap:wrap;gap:8px 28px;font-size:1.02rem}
+.closer .lines a{font-weight:600;text-decoration:none}
+.closer .lines a:hover{text-decoration:underline}
+.closer .expand{margin-top:1.4em;font-family:var(--font-read);font-size:1.08rem;color:var(--ink)}
+
+footer.foot{border-top:1px solid var(--line);padding:24px clamp(14px,4vw,48px) 110px;color:var(--muted);font-size:.86rem;
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+@media (max-width:760px){
+  .stop{grid-template-columns:1fr;min-height:auto}
+  .stop__photo{min-height:300px;order:2}
+  .stop__band{order:1;padding:clamp(22px,6vw,34px)}
+  /* Keep the guaranteed-contrast neutral card on fail bands at narrow widths too:
+     the raw cottage/fireside/porch tints sit under 4.5:1 against ink, so text must
+     stay on the .textwrap card here exactly as it does on wide screens. */
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto}
+  .stop__veil{opacity:0}
+  .stop__photo img{filter:saturate(1);transform:none}
+  .proof__ring,.proof__tag,.proof__line{opacity:1}
+}
+</style>
+<noscript><style>
+  /* JS off: show every photo in full color with its proof overlay drawn.
+     The whole proof of the basis (real rooms behind real colors) must survive no-JS. */
+  .stop__veil{opacity:0}
+  .stop__photo img{filter:saturate(1);transform:none}
+  .proof__ring,.proof__tag,.proof__line{opacity:1}
+</style></noscript>
+</head>
+<body>
+<a class="skip" href="#estimate">Skip to the free estimate form</a>
+
+<header class="top">
+  <div class="crest">
+    <img id="crest" src="assets/heron-badge.png" alt="Blue Sky Village heron badge" width="40" height="40">
+    <span class="wm">Blue Sky Village
+      <small>Vacation-rental management · the Carolinas · since 2013</small>
+    </span>
+  </div>
+  <nav class="top__nav" aria-label="Primary">
+    <a href="#deal">The deal</a>
+    <a href="#strip">The colors</a>
+    <a href="#estimate">Free estimate</a>
+    <a class="tag" href="tel:+17049025644">704-902-5644</a>
+  </nav>
+</header>
+
+<section class="intro" aria-labelledby="h1">
+  <h1 id="h1">Eleven Carolina homes. <span class="fig">Eleven</span> real colors.</h1>
+  <p class="lede">Most management sites pick a brand color out of the air. This one has none.
+  Every color below was measured from the actual pixels of a home we look after. Nothing here is invented.</p>
+  <p class="truth">We can show you <b>11</b> of them here. We currently manage <b>16+ homes</b> across North and
+  South Carolina, and we are expanding. The other rooms stay private, the way yours would.</p>
+</section>
+
+<!-- DEAL: plain, near the top, scannable in ~3 seconds -->
+<section class="deal" id="deal" aria-labelledby="deal-h">
+  <h2 id="deal-h">The deal, plainly</h2>
+  <ul>
+    <li><span class="dot" aria-hidden="true"></span><span><b>25% of gross</b> bookings. That is the whole management fee.</span></li>
+    <li><span class="dot" aria-hidden="true"></span><span>Cleaning and maintenance billed <b>at cost</b>, no markup.</span></li>
+    <li><span class="dot" aria-hidden="true"></span><span><b>No lock-in.</b> Leave whenever. You keep your listing and reviews.</span></li>
+    <li><span class="dot" aria-hidden="true"></span><span>We list on <b>Airbnb, VRBO and Booking.com</b> and answer the 11pm call.</span></li>
+  </ul>
+</section>
+
+<!-- LEGEND: the eleven measured colors as a real anchor list (works JS-off) -->
+<section class="legend" aria-labelledby="legend-h">
+  <p id="legend-h">The eleven measured colors. Each links to its home below.</p>
+  <ol>
+    <li><a href="#home-1"><span class="sw" style="background:var(--k1)"></span>Craftsman · #AA9764</a></li>
+    <li><a href="#home-2"><span class="sw" style="background:var(--k2)"></span>Blue cottage · #5175BD</a></li>
+    <li><a href="#home-3"><span class="sw" style="background:var(--k3)"></span>Front arch · #B2AB9C</a></li>
+    <li><a href="#home-4"><span class="sw" style="background:var(--k4)"></span>Architectural living · #9B8973</a></li>
+    <li><a href="#home-5"><span class="sw" style="background:var(--k5)"></span>Fireside view · #8F765B</a></li>
+    <li><a href="#home-6"><span class="sw" style="background:var(--k6)"></span>Open plan · #A9956A</a></li>
+    <li><a href="#home-7"><span class="sw" style="background:var(--k7)"></span>Sunlit kitchen · #C9964C</a></li>
+    <li><a href="#home-8"><span class="sw" style="background:var(--k8)"></span>Dining · #A9ADA8</a></li>
+    <li><a href="#home-9"><span class="sw" style="background:var(--k9)"></span>Midcentury bedroom · #AE9967</a></li>
+    <li><a href="#home-10"><span class="sw" style="background:var(--k10)"></span>Lake porch · #837D87</a></li>
+    <li><a href="#home-11"><span class="sw" style="background:var(--k11)"></span>The dock · #595937</a></li>
+  </ol>
+</section>
+
+<main id="strip">
+
+  <!-- ============ HOME 1 - craftsman (AA pass: ink) ============ -->
+  <div class="spine"><span>one home at a time</span></div>
+  <article class="stop" id="home-1" data-key="1" data-aa="pass"
+    style="--tint:var(--k1);--bt:var(--k1-text)">
+    <div class="stop__band">
+      <div class="chord" aria-hidden="true"><i style="background:var(--k1-a)"></i><i style="background:var(--k1-b)"></i><i style="background:var(--k1-c)"></i></div>
+      <div class="textwrap">
+        <div class="stop__no fig">01 / 11</div>
+        <h2>The craftsman, in its own tan</h2>
+        <p class="stop__town">A home we manage near Lake Norman, NC</p>
+        <div class="hexline"><span class="hex">#AA9764 <small>measured key</small></span></div>
+        <div class="pixgrid" aria-hidden="true">
+          <i style="background:var(--k1)"></i><i style="background:var(--k1-c)"></i><i style="background:var(--k1)"></i><i style="background:var(--k1-b)"></i><i style="background:var(--k1)"></i><i style="background:var(--k1-c)"></i>
+          <i style="background:var(--k1-b)"></i><i style="background:var(--k1)"></i><i style="background:var(--k1)"></i><i style="background:var(--k1-c)"></i><i style="background:var(--k1)"></i><i style="background:var(--k1-b)"></i>
+        </div>
+        <p class="pixcap">Downsampled from the siding and trim.</p>
+        <p class="aa-note">Text inks itself black here: this tan clears 4.5:1.</p>
+      </div>
+    </div>
+    <div class="stop__photo">
+      <img src="assets/photos/home-exterior-craftsman.jpg" alt="A craftsman-style vacation home with tan siding under trees" width="1600" height="1066" loading="lazy" decoding="async">
+      <div class="stop__veil" aria-hidden="true"></div>
+      <div class="proof" aria-hidden="true" style="--px:32%;--py:55%;--pw:84px;--ph:60px;--tx:32%;--ty:70%;--lx:18%;--ly:42%;--lw:88px;--lr:24deg">
+        <span class="proof__line"></span><span class="proof__ring"></span><span class="proof__tag">lifted from this area</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ HOME 2 - blue cottage (AA FAIL -> neutral chip) ============ -->
+  <div class="spine"><span>back to neutral</span></div>
+  <article class="stop" id="home-2" data-key="2" data-aa="fail"
+    style="--tint:var(--k2);--bt:var(--k2-text)">
+    <div class="stop__band">
+      <div class="chord" aria-hidden="true"><i style="background:var(--k2-a)"></i><i style="background:var(--k2-b)"></i><i style="background:var(--k2-c)"></i></div>
+      <div class="textwrap">
+        <div class="stop__no fig">02 / 11</div>
+        <h2>The cottage and its blue door</h2>
+        <p class="stop__town">A home we manage in the South Carolina low country</p>
+        <div class="hexline"><span class="hex">#5175BD <small>measured key</small></span></div>
+        <div class="pixgrid" aria-hidden="true">
+          <i style="background:var(--k2)"></i><i style="background:var(--k2-b)"></i><i style="background:var(--k2)"></i><i style="background:var(--k2-c)"></i><i style="background:var(--k2)"></i><i style="background:var(--k2-a)"></i>
+          <i style="background:var(--k2-c)"></i><i style="background:var(--k2)"></i><i style="background:var(--k2)"></i><i style="background:var(--k2-b)"></i><i style="background:var(--k2)"></i><i style="background:var(--k2)"></i>
+        </div>
+        <p class="pixcap">Downsampled from the painted door and shutters.</p>
+        <p class="aa-note">This blue cannot carry readable text either way, so words move to a neutral card. The color stays honest.</p>
+      </div>
+    </div>
+    <div class="stop__photo">
+      <img src="assets/photos/home-exterior-cottage.jpg" alt="A cottage-style vacation home with a blue painted entrance" width="1600" height="1066" loading="lazy" decoding="async">
+      <div class="stop__veil" aria-hidden="true"></div>
+      <div class="proof" aria-hidden="true" style="--px:50%;--py:48%;--pw:70px;--ph:78px;--tx:50%;--ty:74%;--lx:36%;--ly:36%;--lw:74px;--lr:30deg">
+        <span class="proof__line"></span><span class="proof__ring"></span><span class="proof__tag">lifted from this area</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ HOME 3 - entry arch (AA pass: ink) ============ -->
+  <div class="spine"><span>one home at a time</span></div>
+  <article class="stop" id="home-3" data-key="3" data-aa="pass"
+    style="--tint:var(--k3);--bt:var(--k3-text)">
+    <div class="stop__band">
+      <div class="chord" aria-hidden="true"><i style="background:var(--k3-a)"></i><i style="background:var(--k3-b)"></i><i style="background:var(--k3-c)"></i></div>
+      <div class="textwrap">
+        <div class="stop__no fig">03 / 11</div>
+        <h2>The front arch, warm stone-grey</h2>
+        <p class="stop__town">A home we manage in the Carolina foothills</p>
+        <div class="hexline"><span class="hex">#B2AB9C <small>measured key</small></span></div>
+        <div class="pixgrid" aria-hidden="true">
+          <i style="background:var(--k3)"></i><i style="background:var(--k3-a)"></i><i style="background:var(--k3)"></i><i style="background:var(--k3-b)"></i><i style="background:var(--k3)"></i><i style="background:var(--k3-c)"></i>
+          <i style="background:var(--k3-b)"></i><i style="background:var(--k3)"></i><i style="background:var(--k3)"></i><i style="background:var(--k3-a)"></i><i style="background:var(--k3)"></i><i style="background:var(--k3-b)"></i>
+        </div>
+        <p class="pixcap">Downsampled from the plaster around the door.</p>
+        <p class="aa-note">Text inks itself black here: this stone clears 4.5:1.</p>
+      </div>
+    </div>
+    <div class="stop__photo">
+      <img src="assets/photos/entry-arch.jpg" alt="An arched front entry with a transom over the door" width="1600" height="1066" loading="lazy" decoding="async">
+      <div class="stop__veil" aria-hidden="true"></div>
+      <div class="proof" aria-hidden="true" style="--px:62%;--py:40%;--pw:74px;--ph:64px;--tx:62%;--ty:58%;--lx:78%;--ly:28%;--lw:70px;--lr:152deg">
+        <span class="proof__line"></span><span class="proof__ring"></span><span class="proof__tag">lifted from this area</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ HOME 4 - architectural living (AA pass: ink) ============ -->
+  <div class="spine"><span>back to neutral</span></div>
+  <article class="stop" id="home-4" data-key="4" data-aa="pass"
+    style="--tint:var(--k4);--bt:var(--k4-text)">
+    <div class="stop__band">
+      <div class="chord" aria-hidden="true"><i style="background:var(--k4-a)"></i><i style="background:var(--k4-b)"></i><i style="background:var(--k4-c)"></i></div>
+      <div class="textwrap">
+        <div class="stop__no fig">04 / 11</div>
+        <h2>The architectural room, wood-warm</h2>
+        <p class="stop__town">A home we manage on Lake Norman, NC</p>
+        <div class="hexline"><span class="hex">#9B8973 <small>measured key</small></span></div>
+        <div class="pixgrid" aria-hidden="true">
+          <i style="background:var(--k4)"></i><i style="background:var(--k4-b)"></i><i style="background:var(--k4)"></i><i style="background:var(--k4-a)"></i><i style="background:var(--k4)"></i><i style="background:var(--k4-c)"></i>
+          <i style="background:var(--k4-a)"></i><i style="background:var(--k4)"></i><i style="background:var(--k4)"></i><i style="background:var(--k4-b)"></i><i style="background:var(--k4)"></i><i style="background:var(--k4)"></i>
+        </div>
+        <p class="pixcap">Downsampled from the ceiling beams.</p>
+        <p class="aa-note">Text inks itself black here: this wood-brown clears 4.5:1.</p>
+      </div>
+    </div>
+    <div class="stop__photo">
+      <img src="assets/photos/living-architectural.jpg" alt="An architectural living room with exposed wood beams" width="1600" height="1066" loading="lazy" decoding="async">
+      <div class="stop__veil" aria-hidden="true"></div>
+      <div class="proof" aria-hidden="true" style="--px:44%;--py:30%;--pw:96px;--ph:46px;--tx:44%;--ty:46%;--lx:30%;--ly:22%;--lw:80px;--lr:18deg">
+        <span class="proof__line"></span><span class="proof__ring"></span><span class="proof__tag">lifted from this area</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ HOME 5 - fireside view (AA FAIL -> neutral chip) ============ -->
+  <div class="spine"><span>one home at a time</span></div>
+  <article class="stop" id="home-5" data-key="5" data-aa="fail"
+    style="--tint:var(--k5);--bt:var(--k5-text)">
+    <div class="stop__band">
+      <div class="chord" aria-hidden="true"><i style="background:var(--k5-a)"></i><i style="background:var(--k5-b)"></i><i style="background:var(--k5-c)"></i></div>
+      <div class="textwrap">
+        <div class="stop__no fig">05 / 11</div>
+        <h2>The fireside, deep clay-brown</h2>
+        <p class="stop__town">A home we manage in the North Carolina mountains</p>
+        <div class="hexline"><span class="hex">#8F765B <small>measured key</small></span></div>
+        <div class="pixgrid" aria-hidden="true">
+          <i style="background:var(--k5)"></i><i style="background:var(--k5-c)"></i><i style="background:var(--k5)"></i><i style="background:var(--k5-b)"></i><i style="background:var(--k5)"></i><i style="background:var(--k5-a)"></i>
+          <i style="background:var(--k5-b)"></i><i style="background:var(--k5)"></i><i style="background:var(--k5)"></i><i style="background:var(--k5-c)"></i><i style="background:var(--k5)"></i><i style="background:var(--k5)"></i>
+        </div>
+        <p class="pixcap">Downsampled from the hearth surround.</p>
+        <p class="aa-note">This clay-brown falls just short of 4.5:1 against either text, so words move to a neutral card. The color stays honest.</p>
+      </div>
+    </div>
+    <div class="stop__photo">
+      <img src="assets/photos/living-fireside-view.jpg" alt="A living room with a fireplace and a view beyond" width="1600" height="1066" loading="lazy" decoding="async">
+      <div class="stop__veil" aria-hidden="true"></div>
+      <div class="proof" aria-hidden="true" style="--px:28%;--py:62%;--pw:70px;--ph:70px;--tx:28%;--ty:80%;--lx:14%;--ly:50%;--lw:78px;--lr:22deg">
+        <span class="proof__line"></span><span class="proof__ring"></span><span class="proof__tag">lifted from this area</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ HOME 6 - open plan (AA pass: ink) ============ -->
+  <div class="spine"><span>back to neutral</span></div>
+  <article class="stop" id="home-6" data-key="6" data-aa="pass"
+    style="--tint:var(--k6);--bt:var(--k6-text)">
+    <div class="stop__band">
+      <div class="chord" aria-hidden="true"><i style="background:var(--k6-a)"></i><i style="background:var(--k6-b)"></i><i style="background:var(--k6-c)"></i></div>
+      <div class="textwrap">
+        <div class="stop__no fig">06 / 11</div>
+        <h2>The open plan, oat-gold</h2>
+        <p class="stop__town">A home we manage near Asheville, NC</p>
+        <div class="hexline"><span class="hex">#A9956A <small>measured key</small></span></div>
+        <div class="pixgrid" aria-hidden="true">
+          <i style="background:var(--k6)"></i><i style="background:var(--k6-c)"></i><i style="background:var(--k6)"></i><i style="background:var(--k6-a)"></i><i style="background:var(--k6)"></i><i style="background:var(--k6-b)"></i>
+          <i style="background:var(--k6-a)"></i><i style="background:var(--k6)"></i><i style="background:var(--k6)"></i><i style="background:var(--k6-c)"></i><i style="background:var(--k6)"></i><i style="background:var(--k6)"></i>
+        </div>
+        <p class="pixcap">Downsampled from the open-plan walls.</p>
+        <p class="aa-note">Text inks itself black here: this oat-gold clears 4.5:1.</p>
+      </div>
+    </div>
+    <div class="stop__photo">
+      <img src="assets/photos/living-open-plan.jpg" alt="An open-plan living and kitchen area" width="1600" height="1066" loading="lazy" decoding="async">
+      <div class="stop__veil" aria-hidden="true"></div>
+      <div class="proof" aria-hidden="true" style="--px:58%;--py:52%;--pw:88px;--ph:54px;--tx:58%;--ty:70%;--lx:72%;--ly:34%;--lw:72px;--lr:148deg">
+        <span class="proof__line"></span><span class="proof__ring"></span><span class="proof__tag">lifted from this area</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ HOME 7 - sunlit kitchen (AA pass: ink) - the amber payoff ============ -->
+  <div class="spine"><span>one home at a time</span></div>
+  <article class="stop" id="home-7" data-key="7" data-aa="pass"
+    style="--tint:var(--k7);--bt:var(--k7-text)">
+    <div class="stop__band">
+      <div class="chord" aria-hidden="true"><i style="background:var(--k7-a)"></i><i style="background:var(--k7-b)"></i><i style="background:var(--k7-c)"></i></div>
+      <div class="textwrap">
+        <div class="stop__no fig">07 / 11</div>
+        <h2>The sunlit kitchen. This amber was always its.</h2>
+        <p class="stop__town">A home we manage in Mooresville, NC</p>
+        <div class="hexline"><span class="hex">#C9964C <small>measured key</small></span></div>
+        <div class="pixgrid" aria-hidden="true">
+          <i style="background:var(--k7)"></i><i style="background:var(--k7-a)"></i><i style="background:var(--k7)"></i><i style="background:var(--k7-b)"></i><i style="background:var(--k7)"></i><i style="background:var(--k7-c)"></i>
+          <i style="background:var(--k7-a)"></i><i style="background:var(--k7)"></i><i style="background:var(--k7)"></i><i style="background:var(--k7-b)"></i><i style="background:var(--k7)"></i><i style="background:var(--k7)"></i>
+        </div>
+        <p class="pixcap">Downsampled from the cabinet faces in afternoon light.</p>
+        <p class="aa-note">Text inks itself black here: this amber clears 4.5:1.</p>
+      </div>
+    </div>
+    <div class="stop__photo">
+      <img src="assets/photos/kitchen-sunlit.jpg" alt="A small kitchen in warm afternoon light with amber-toned cabinets" width="1600" height="1066" loading="lazy" decoding="async">
+      <div class="stop__veil" aria-hidden="true"></div>
+      <div class="proof" aria-hidden="true" style="--px:38%;--py:46%;--pw:80px;--ph:64px;--tx:38%;--ty:64%;--lx:24%;--ly:36%;--lw:80px;--lr:20deg">
+        <span class="proof__line"></span><span class="proof__ring"></span><span class="proof__tag">lifted from this area</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ HOME 8 - dining (AA pass: ink) ============ -->
+  <div class="spine"><span>back to neutral</span></div>
+  <article class="stop" id="home-8" data-key="8" data-aa="pass"
+    style="--tint:var(--k8);--bt:var(--k8-text)">
+    <div class="stop__band">
+      <div class="chord" aria-hidden="true"><i style="background:var(--k8-a)"></i><i style="background:var(--k8-b)"></i><i style="background:var(--k8-c)"></i></div>
+      <div class="textwrap">
+        <div class="stop__no fig">08 / 11</div>
+        <h2>The dining room, soft sage-grey</h2>
+        <p class="stop__town">A home we manage near Charlotte, NC</p>
+        <div class="hexline"><span class="hex">#A9ADA8 <small>measured key</small></span></div>
+        <div class="pixgrid" aria-hidden="true">
+          <i style="background:var(--k8)"></i><i style="background:var(--k8-b)"></i><i style="background:var(--k8)"></i><i style="background:var(--k8-a)"></i><i style="background:var(--k8)"></i><i style="background:var(--k8-c)"></i>
+          <i style="background:var(--k8-a)"></i><i style="background:var(--k8)"></i><i style="background:var(--k8)"></i><i style="background:var(--k8-b)"></i><i style="background:var(--k8)"></i><i style="background:var(--k8)"></i>
+        </div>
+        <p class="pixcap">Downsampled from the wall behind the table.</p>
+        <p class="aa-note">Text inks itself black here: this sage-grey clears 4.5:1.</p>
+      </div>
+    </div>
+    <div class="stop__photo">
+      <img src="assets/photos/dining-kitchen.jpg" alt="A dining area open to the kitchen in soft grey light" width="1600" height="1066" loading="lazy" decoding="async">
+      <div class="stop__veil" aria-hidden="true"></div>
+      <div class="proof" aria-hidden="true" style="--px:50%;--py:34%;--pw:92px;--ph:48px;--tx:50%;--ty:50%;--lx:64%;--ly:24%;--lw:66px;--lr:150deg">
+        <span class="proof__line"></span><span class="proof__ring"></span><span class="proof__tag">lifted from this area</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ HOME 9 - bedroom (AA pass: ink) ============ -->
+  <div class="spine"><span>one home at a time</span></div>
+  <article class="stop" id="home-9" data-key="9" data-aa="pass"
+    style="--tint:var(--k9);--bt:var(--k9-text)">
+    <div class="stop__band">
+      <div class="chord" aria-hidden="true"><i style="background:var(--k9-a)"></i><i style="background:var(--k9-b)"></i><i style="background:var(--k9-c)"></i></div>
+      <div class="textwrap">
+        <div class="stop__no fig">09 / 11</div>
+        <h2>The midcentury bedroom, in honey</h2>
+        <p class="stop__town">A home we manage in the South Carolina midlands</p>
+        <div class="hexline"><span class="hex">#AE9967 <small>measured key</small></span></div>
+        <div class="pixgrid" aria-hidden="true">
+          <i style="background:var(--k9)"></i><i style="background:var(--k9-b)"></i><i style="background:var(--k9)"></i><i style="background:var(--k9-a)"></i><i style="background:var(--k9)"></i><i style="background:var(--k9-c)"></i>
+          <i style="background:var(--k9-a)"></i><i style="background:var(--k9)"></i><i style="background:var(--k9)"></i><i style="background:var(--k9-b)"></i><i style="background:var(--k9)"></i><i style="background:var(--k9)"></i>
+        </div>
+        <p class="pixcap">Downsampled from the headboard wood.</p>
+        <p class="aa-note">Text inks itself black here: this honey clears 4.5:1.</p>
+      </div>
+    </div>
+    <div class="stop__photo">
+      <img src="assets/photos/bedroom-midcentury.jpg" alt="A midcentury-styled bedroom with honey-toned wood furniture" width="1600" height="1066" loading="lazy" decoding="async">
+      <div class="stop__veil" aria-hidden="true"></div>
+      <div class="proof" aria-hidden="true" style="--px:34%;--py:58%;--pw:78px;--ph:58px;--tx:34%;--ty:76%;--lx:20%;--ly:46%;--lw:78px;--lr:24deg">
+        <span class="proof__line"></span><span class="proof__ring"></span><span class="proof__tag">lifted from this area</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ HOME 10 - porch (AA FAIL -> neutral chip) ============ -->
+  <div class="spine"><span>back to neutral</span></div>
+  <article class="stop" id="home-10" data-key="10" data-aa="fail"
+    style="--tint:var(--k10);--bt:var(--k10-text)">
+    <div class="stop__band">
+      <div class="chord" aria-hidden="true"><i style="background:var(--k10-a)"></i><i style="background:var(--k10-b)"></i><i style="background:var(--k10-c)"></i></div>
+      <div class="textwrap">
+        <div class="stop__no fig">10 / 11</div>
+        <h2>The screened porch, dusk-violet-grey</h2>
+        <p class="stop__town">A home we manage on a North Carolina lake</p>
+        <div class="hexline"><span class="hex">#837D87 <small>measured key</small></span></div>
+        <div class="pixgrid" aria-hidden="true">
+          <i style="background:var(--k10)"></i><i style="background:var(--k10-c)"></i><i style="background:var(--k10)"></i><i style="background:var(--k10-b)"></i><i style="background:var(--k10)"></i><i style="background:var(--k10-a)"></i>
+          <i style="background:var(--k10-b)"></i><i style="background:var(--k10)"></i><i style="background:var(--k10)"></i><i style="background:var(--k10-c)"></i><i style="background:var(--k10)"></i><i style="background:var(--k10)"></i>
+        </div>
+        <p class="pixcap">Downsampled from the screen-light on the boards.</p>
+        <p class="aa-note">This dusk-grey lands just under 4.5:1, so words move to a neutral card. The color stays honest.</p>
+      </div>
+    </div>
+    <div class="stop__photo">
+      <img src="assets/photos/porch-hammock-lake.jpg" alt="A screened porch with a hammock looking out to a lake" width="1600" height="1066" loading="lazy" decoding="async">
+      <div class="stop__veil" aria-hidden="true"></div>
+      <div class="proof" aria-hidden="true" style="--px:56%;--py:50%;--pw:74px;--ph:62px;--tx:56%;--ty:68%;--lx:70%;--ly:36%;--lw:66px;--lr:150deg">
+        <span class="proof__line"></span><span class="proof__ring"></span><span class="proof__tag">lifted from this area</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ HOME 11 - dock (AA pass: paper) ============ -->
+  <div class="spine"><span>one home at a time</span></div>
+  <article class="stop" id="home-11" data-key="11" data-aa="pass"
+    style="--tint:var(--k11);--bt:var(--k11-text)">
+    <div class="stop__band">
+      <div class="chord" aria-hidden="true"><i style="background:var(--k11-a)"></i><i style="background:var(--k11-b)"></i><i style="background:var(--k11-c)"></i></div>
+      <div class="textwrap">
+        <div class="stop__no fig">11 / 11</div>
+        <h2>The dock, deep cedar-green</h2>
+        <p class="stop__town">A home we manage on Lake Norman, NC</p>
+        <div class="hexline"><span class="hex">#595937 <small>measured key</small></span></div>
+        <div class="pixgrid" aria-hidden="true">
+          <i style="background:var(--k11)"></i><i style="background:var(--k11-a)"></i><i style="background:var(--k11)"></i><i style="background:var(--k11-b)"></i><i style="background:var(--k11)"></i><i style="background:var(--k11-c)"></i>
+          <i style="background:var(--k11-a)"></i><i style="background:var(--k11)"></i><i style="background:var(--k11)"></i><i style="background:var(--k11-b)"></i><i style="background:var(--k11)"></i><i style="background:var(--k11)"></i>
+        </div>
+        <p class="pixcap">Downsampled from the water and far tree line.</p>
+        <p class="aa-note">Text turns warm-white here: this deep green clears 4.5:1 the other way.</p>
+      </div>
+    </div>
+    <div class="stop__photo">
+      <img src="assets/photos/lake-dock.jpg" alt="A wooden dock reaching into a calm green lake" width="1600" height="1066" loading="lazy" decoding="async">
+      <div class="stop__veil" aria-hidden="true"></div>
+      <div class="proof" aria-hidden="true" style="--px:52%;--py:42%;--pw:96px;--ph:50px;--tx:52%;--ty:58%;--lx:38%;--ly:32%;--lw:74px;--lr:18deg">
+        <span class="proof__line"></span><span class="proof__ring"></span><span class="proof__tag">lifted from this area</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ THE EMPTY BAND = THE CTA ============ -->
+  <div class="spine"><span>and one color we have not measured yet</span></div>
+  <article class="stop stop--cta" id="estimate" aria-labelledby="cta-h">
+    <div class="stop__band">
+      <div class="cta-wrap">
+        <div class="cta-swatch" aria-hidden="true"></div>
+        <h2 id="cta-h">Your home&rsquo;s color isn&rsquo;t here yet</h2>
+        <p class="sub">This band stays neutral grey on purpose. When you list with us, we measure your light too,
+        and your color joins the eleven.</p>
+        <p class="cta-deal">The terms, again, plainly: <b>25% of gross</b>, cleaning and maintenance
+        <b>at cost</b>, <b>no lock-in</b>, you keep your listing and reviews. Free estimate, no obligation.</p>
+
+        <form class="form-card" id="estimate-form" novalidate aria-describedby="form-micro">
+          <h3>Get your free estimate</h3>
+          <p class="micro" id="form-micro">Free, no obligation. If your home is not a fit, we will tell you.</p>
+          <div class="field full">
+            <label for="f-addr">Home address or town <span class="hint">(street optional, town is enough)</span></label>
+            <input id="f-addr" name="address" type="text" autocomplete="address-line1" inputmode="text" placeholder="e.g. Mooresville, NC" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-beds">Bedrooms</label>
+              <select id="f-beds" name="bedrooms" autocomplete="off">
+                <option value="">Choose…</option>
+                <option>1</option><option>2</option><option>3</option>
+                <option>4</option><option>5</option><option>6 or more</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-name">Your name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" inputmode="text" placeholder="First name is fine" required>
+            </div>
+          </div>
+          <div class="field full">
+            <label for="f-contact">Email or phone <span class="hint">(whichever is easier)</span></label>
+            <input id="f-contact" name="contact" type="text" autocomplete="on" inputmode="text" placeholder="So we can reach you" required>
+          </div>
+          <button class="btn" type="submit">Get my free estimate</button>
+          <p class="form-status fig" id="form-status" role="status" aria-live="polite"></p>
+          <div class="form-contact">
+            Or reach a person now:
+            <a href="tel:+17049025644">704-902-5644</a> ·
+            <a href="mailto:blueskyvillagerentals@gmail.com">blueskyvillagerentals@gmail.com</a> ·
+            Mooresville, NC
+          </div>
+        </form>
+      </div>
+    </div>
+  </article>
+
+</main>
+
+<!-- ============ CLOSE ON THE HUMAN ============ -->
+<section class="closer" aria-labelledby="closer-h">
+  <h2 id="closer-h">A family has run this since 2013</h2>
+  <p>We answer our own phone. We tell you the honest number, not the hopeful one. If your place is not a
+  fit for short-term rental, we will say so before you spend a cent.</p>
+  <div class="lines">
+    <a href="tel:+17049025644">704-902-5644</a>
+    <a href="mailto:blueskyvillagerentals@gmail.com">blueskyvillagerentals@gmail.com</a>
+    <span>Mooresville, NC</span>
+  </div>
+  <p class="expand">Own elsewhere? We&rsquo;re expanding, and we&rsquo;d like to talk.</p>
+</section>
+
+<footer class="foot">
+  <span>Blue Sky Village · Vacation-rental management · North &amp; South Carolina · since 2013</span>
+  <span>Eleven colors shown, measured from real homes. 16+ homes managed.</span>
+</footer>
+
+<!-- persistent contact + deal rail, present in every state -->
+<div class="rail" role="region" aria-label="Contact and offer">
+  <div class="rail__deal">
+    <b>25% of gross. No lock-in.</b>
+    <span>Cleaning &amp; maintenance at cost. You keep your listing.</span>
+  </div>
+  <div class="rail__acts">
+    <a class="tel" href="tel:+17049025644">704-902-5644</a>
+    <a class="btn" href="#estimate">Free estimate</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var stops = Array.prototype.slice.call(document.querySelectorAll('.stop'));
+  var crest = document.getElementById('crest');
+
+  // Map each stop's key var to a real hex so the heron mark can ink itself in the centered home's hue.
+  var keyHex = {
+    "1":"#AA9764","2":"#5175BD","3":"#B2AB9C","4":"#9B8973","5":"#8F765B","6":"#A9956A",
+    "7":"#C9964C","8":"#A9ADA8","9":"#AE9967","10":"#837D87","11":"#595937"
+  };
+
+  // Ink the heron badge (a dark PNG) toward a hue via a cheap filter approximation.
+  // Falls back silently if filters are unsupported.
+  function inkCrest(hex){
+    if(!crest || !hex) { return; }
+    // derive a hue-rotate + sepia recipe from the hex; purely cosmetic.
+    var r=parseInt(hex.substr(1,2),16),g=parseInt(hex.substr(3,2),16),b=parseInt(hex.substr(5,2),16);
+    var max=Math.max(r,g,b),min=Math.min(r,g,b),h=0,d=max-min;
+    if(d!==0){
+      if(max===r) h=((g-b)/d)%6; else if(max===g) h=(b-r)/d+2; else h=(r-g)/d+4;
+      h=Math.round(h*60); if(h<0) h+=360;
+    }
+    crest.style.filter='sepia(1) saturate(2.4) hue-rotate('+(h-40)+'deg) brightness(.92)';
+  }
+
+  if(prefersReduced){
+    // Static: everything open, photos full color, proof visible, no observers.
+    stops.forEach(function(s){ s.classList.add('is-open'); });
+    return;
+  }
+
+  // Arm the develop: cover each photo now that JS is driving the reveal. Without this
+  // class the veil defaults to clear, so a JS-off visitor still sees every real photo.
+  stops.forEach(function(s){ s.classList.add('js-veiled'); });
+
+  // Reveal/develop: when a stop reaches center, open it (veil lifts, photo develops, proof draws).
+  // Color appears one home at a time; others sit closed so the page never becomes a rainbow.
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var s = e.target;
+      if(e.isIntersecting && e.intersectionRatio > 0.55){
+        s.classList.add('is-open');
+        var k = s.getAttribute('data-key');
+        if(k){ inkCrest(keyHex[k]); }
+      }
+    });
+  }, { rootMargin: "-12% 0px -12% 0px", threshold:[0,0.3,0.55,0.8] });
+
+  stops.forEach(function(s){ io.observe(s); });
+
+  // Form: honest, no fake backend. Acknowledge + restate the human path. aria-live announces it.
+  var form = document.getElementById('estimate-form');
+  var status = document.getElementById('form-status');
+  if(form){
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      var addr = (document.getElementById('f-addr').value||'').trim();
+      var name = (document.getElementById('f-name').value||'').trim();
+      var contact = (document.getElementById('f-contact').value||'').trim();
+      if(!addr || !name || !contact){
+        status.textContent = 'Please add your town, your name, and a way to reach you.';
+        status.setAttribute('data-ok','0');
+        return;
+      }
+      var first = name.split(' ')[0];
+      status.textContent = 'Thank you, ' + first + '. We have your details for ' + addr +
+        ' and a person will reply within one business day. To talk sooner, call 704-902-5644.';
+      status.setAttribute('data-ok','1');
+      form.querySelector('button[type="submit"]').textContent = 'Sent. We will be in touch.';
+    });
+  }
+})();
+</script>
+</body>
+</html>
