@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#F8F4EC">
+<title>Blue Sky Village · Vacation Rental Management, North &amp; South Carolina</title>
+<meta name="description" content="Family-run vacation rental management across North and South Carolina since 2013. We list it, price it, clean it, and look after your guests.">
+<link rel="icon" href="assets/favicon.png">
+
+<!-- ===== §11 SHARED FOUNDATION (verbatim) ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340..600&family=Hanken+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#F8F4EC; --surface:#FBF8F1; --surface-sage:#E7ECE7;
+  --ink:#283744; --ink-2:#41525E; --muted:#6E7B82;
+  --sage:#C5D2D0; --sage-2:#AFC0BC; --sage-deep:#9DABAC;
+  --accent:#E0B148; --accent-deep:#B5862A; --accent-wash:rgba(224,177,72,.12);
+  --line:#E2DAC9; --line-sage:#B9C6C2; --line-ink:rgba(40,55,68,.14);
+  --ink-deep:#1F2B34; --cream:#F1ECE0;
+  --success:#4F7A5B; --error:#B4532E;
+  --font-display:'Fraunces','Iowan Old Style','Newsreader',Georgia,serif;
+  --font-body:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:var(--font-body);
+  --container:1200px; --measure:60ch; --radius:10px; --pill:999px;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--font-body); font-size:1.0625rem; line-height:1.6;
+  font-variant-numeric:tabular-nums; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+body::before{ /* paper grain */
+  content:""; position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+h1,h2,h3,.display{font-family:var(--font-display); font-weight:400; letter-spacing:-0.018em; line-height:1.08; text-wrap:balance; color:var(--ink); margin:0}
+h1 em,h2 em,h3 em,.display em{font-style:normal; font-weight:inherit}
+.hl{color:var(--accent-deep)}
+p{text-wrap:pretty; max-width:var(--measure)}
+a{color:var(--accent-deep); text-underline-offset:3px; text-decoration-thickness:1px}
+.eyebrow{font-family:var(--font-body); font-size:.85rem; font-weight:560; letter-spacing:0; text-transform:none; color:var(--muted)}
+.wrap{max-width:var(--container); margin-inline:auto; padding-inline:clamp(20px,5vw,48px)}
+.section{padding-block:clamp(80px,12vh,160px)}
+.btn{display:inline-flex; align-items:center; gap:.6em; font-family:var(--font-body); font-weight:560; font-size:1rem; padding:15px 28px; border-radius:var(--pill); border:1px solid transparent; cursor:pointer; text-decoration:none; transition:transform .25s var(--ease), background-color .25s var(--ease), color .25s var(--ease)}
+.btn-primary{background:var(--accent); color:var(--ink)}
+.btn-primary:hover{transform:translateY(-1px); background:#D8A638}
+.btn-secondary{background:transparent; color:var(--ink); border-color:var(--ink)}
+.btn-secondary:hover{background:var(--ink); color:var(--cream)}
+:focus-visible{outline:none; box-shadow:0 0 0 3px var(--accent-wash),0 0 0 1px var(--accent-deep); border-radius:6px}
+.stat-num{font-family:var(--font-display); font-size:clamp(2.4rem,4vw,3.4rem); line-height:1; letter-spacing:-.01em}
+img{max-width:100%; height:auto; display:block}
+
+/* golden-hour gradient placeholder system - DECORATIVE FALLBACK ONLY; prefer real <img> from assets/photos/ */
+.photo{position:relative; overflow:hidden; background:#cdb89a; border-radius:var(--radius); isolation:isolate}
+.photo::after{content:""; position:absolute; inset:0; opacity:.5; mix-blend-mode:overlay; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+.photo>.cap{position:absolute; left:14px; bottom:12px; z-index:2; font-family:var(--font-body); font-size:.8rem; letter-spacing:0; text-transform:none; color:rgba(255,255,255,.92); background:rgba(31,43,52,.42); backdrop-filter:blur(3px); padding:5px 10px; border-radius:6px}
+.photo--lake{background:radial-gradient(120% 90% at 80% 18%, #F6D27A 0%, #E7A95A 26%, #B97E54 52%, #5E6E6A 78%, #3C4F52 100%)}
+.photo--dusk{background:radial-gradient(110% 80% at 72% 22%, #F4C778 0%, #D98E55 30%, #8C6A66 60%, #34434C 100%)}
+.sun{background:radial-gradient(circle at 50% 50%, rgba(224,177,72,.55) 0%, rgba(224,177,72,.18) 45%, transparent 70%)}
+
+/* real-photo helpers */
+.shot{position:relative; overflow:hidden; border-radius:var(--radius)}
+.shot img{width:100%; height:100%; object-fit:cover}
+.shot .cap{position:absolute; left:14px; bottom:12px; font-family:var(--font-body); font-size:.8rem; letter-spacing:0; text-transform:none; color:rgba(255,255,255,.92); background:rgba(31,43,52,.4); backdrop-filter:blur(3px); padding:4px 10px; border-radius:6px}
+.scrim::before{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(31,43,52,.55), rgba(31,43,52,0) 55%)}
+
+@media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important; scroll-behavior:auto!important} }
+@media (max-width:768px){ .section{padding-block:64px} }
+</style>
+
+<!-- ===== CONCEPT 01 · STILL WATER ===== -->
+<style>
+/* ---- Floating nav ---- */
+.nav{
+  position:fixed; inset:16px 16px auto 16px; z-index:100;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  max-width:calc(var(--container) + 32px); margin-inline:auto;
+  padding:10px 12px 10px 18px;
+  background:rgba(248,244,236,.78); backdrop-filter:blur(12px) saturate(120%);
+  border-radius:var(--pill);
+}
+.nav__brand{display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--ink)}
+.nav__crest{width:30px; height:auto; border-radius:50%}
+.nav__word{font-family:var(--font-display); font-size:1.06rem; letter-spacing:-.01em; line-height:1}
+.nav__links{display:flex; align-items:center; gap:26px}
+.nav__links a{color:var(--ink-2); text-decoration:none; font-size:.95rem}
+.nav__links a:hover{color:var(--ink)}
+.nav .btn{padding:11px 20px; font-size:.92rem}
+@media (max-width:760px){ .nav__links a:not(.nav__phone){display:none} .nav__phone{font-size:.9rem} }
+
+/* ---- Hero: full-bleed photo, copy lower-left third ---- */
+.hero{position:relative; height:100svh; min-height:600px; width:100%; overflow:hidden}
+.hero__media{position:absolute; inset:0; overflow:hidden}
+.hero__media img{width:100%; height:100%; object-fit:cover; transform-origin:62% 42%;}
+.hero__media::after{ /* lower-left scrim, never centered */
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(105deg, rgba(31,43,52,.62) 0%, rgba(31,43,52,.30) 34%, rgba(31,43,52,0) 60%),
+    linear-gradient(to top, rgba(31,43,52,.50) 0%, rgba(31,43,52,0) 42%);
+}
+.hero__copy{
+  position:absolute; left:0; bottom:0; z-index:2;
+  width:100%; max-width:var(--container); margin-inline:auto; right:0;
+  padding:0 clamp(20px,5vw,48px) clamp(40px,8vh,84px);
+}
+.hero__inner{max-width:30ch}
+.hero .eyebrow{color:rgba(241,236,224,.82)}
+.hero h1{
+  color:#F4F0E6; font-size:clamp(2.6rem,6vw,5rem); letter-spacing:-.02em; line-height:1.02;
+  margin:.5rem 0 0;
+}
+.hero h1 .hl{color:var(--accent)}
+.hero__sub{color:rgba(241,236,224,.9); font-size:1.18rem; max-width:34ch; margin:1.15rem 0 0; line-height:1.5}
+.hero__cta{display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin-top:2rem}
+.hero__call{color:#F4F0E6; font-size:.98rem; text-decoration:underline; text-decoration-color:rgba(224,177,72,.7); text-underline-offset:5px; text-decoration-thickness:1px; transition:text-decoration-color .25s var(--ease)}
+.hero__call:hover{text-decoration-color:var(--accent)}
+.hero__scroll{
+  position:absolute; right:clamp(20px,5vw,48px); bottom:clamp(40px,8vh,84px); z-index:2;
+  font-family:var(--font-body); font-size:.8rem; letter-spacing:0; text-transform:none;
+  color:rgba(241,236,224,.7); writing-mode:vertical-rl;
+}
+@media (max-width:760px){ .hero__scroll{display:none} .hero__inner{max-width:none} }
+
+/* ---- Proof row ---- */
+.proof{background:var(--surface-sage)}
+.proof__grid{display:flex; flex-wrap:wrap; gap:clamp(24px,6vw,80px); align-items:baseline; padding-block:clamp(48px,7vh,72px)}
+.proof__item{display:flex; flex-direction:column; gap:8px}
+.proof__num{font-family:var(--font-display); font-size:clamp(1.5rem,2.4vw,2rem); line-height:1; letter-spacing:-.01em}
+.proof__lbl{font-family:var(--font-body); font-size:.95rem; letter-spacing:0; text-transform:none; color:var(--muted)}
+
+/* ---- Generic asymmetric split 7/5 ---- */
+.split{display:grid; grid-template-columns:7fr 5fr; gap:clamp(32px,6vw,80px); align-items:center}
+.split--reverse{grid-template-columns:5fr 7fr}
+.split--reverse .split__media{order:-1}
+.lede h2{font-size:clamp(2rem,4vw,3.25rem); margin-top:.6rem}
+.lede p{color:var(--ink-2); font-size:1.2rem; line-height:1.5; margin:1.1rem 0 0}
+.lede .eyebrow{display:block}
+@media (max-width:860px){ .split,.split--reverse{grid-template-columns:1fr; gap:32px} .split--reverse .split__media{order:0} }
+
+/* ---- Arched photo (signature), framed by a solid colour mat, no hairlines ---- */
+.oval{position:relative; padding:clamp(14px,2vw,22px); background:var(--surface-sage); border-radius:200px 200px var(--radius) var(--radius)}
+.oval .shot{border-radius:188px 188px 6px 6px; aspect-ratio:3/4}
+.oval .shot img{transform-origin:center}
+
+/* ---- What we do : photo trio, uneven ---- */
+.gallery{display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(14px,2vw,22px)}
+.gallery .shot{aspect-ratio:3/2}
+.g-a{grid-column:1 / 8; aspect-ratio:16/10 !important}
+.g-b{grid-column:8 / 13}
+.g-c{grid-column:1 / 6}
+.g-d{grid-column:6 / 13; aspect-ratio:16/10 !important}
+@media (max-width:760px){ .gallery{grid-template-columns:1fr} .gallery .shot{grid-column:1/-1 !important; aspect-ratio:3/2 !important} }
+
+/* ---- Steps ---- */
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(32px,5vw,64px); counter-reset:step}
+.step{position:relative; padding-top:8px}
+.step__n{display:block; font-family:var(--font-display); font-size:clamp(2rem,3vw,2.6rem); line-height:1; color:var(--accent-deep)}
+.step h3{font-size:1.4rem; margin:.7rem 0 .4rem}
+.step p{color:var(--ink-2); margin:0; font-size:1.02rem}
+@media (max-width:760px){ .steps{grid-template-columns:1fr; gap:40px} .step{padding-block:0} .step+.step{margin-top:0} }
+
+/* ---- Handle list (fragments) ---- */
+.handle-band{background:var(--surface-sage)}
+.handle{display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(18px,3vw,28px) clamp(28px,5vw,56px); margin:0; padding:0}
+.handle li{
+  list-style:none; font-size:1.12rem; line-height:1.35; color:var(--ink)
+}
+@media (max-width:620px){ .handle{grid-template-columns:1fr} }
+
+/* ---- Pricing band (sage) ---- */
+.pricing{background:var(--surface-sage)}
+.pricing__grid{display:grid; grid-template-columns:5fr 7fr; gap:clamp(32px,6vw,72px); align-items:center}
+.pricing__fee{font-family:var(--font-display); font-size:clamp(3.4rem,9vw,6rem); line-height:.95; letter-spacing:-.03em}
+.pricing__fee span{font-size:.34em; vertical-align:.55em; color:var(--accent-deep); letter-spacing:.02em}
+.pricing__terms{list-style:none; margin:0; padding:0; display:grid; gap:clamp(16px,2.5vw,22px)}
+.pricing__terms li{font-size:1.1rem; line-height:1.4; color:var(--ink)}
+.pricing__terms strong{font-weight:560}
+@media (max-width:860px){ .pricing__grid{grid-template-columns:1fr; gap:32px} }
+
+/* ---- Testimonial ---- */
+.quote{display:grid; grid-template-columns:5fr 7fr; gap:clamp(32px,6vw,72px); align-items:center}
+.quote blockquote{margin:0}
+.quote q{font-family:var(--font-display); font-style:normal; font-size:clamp(1.6rem,3.2vw,2.35rem); line-height:1.28; letter-spacing:-.012em; quotes:"\201C""\201D"; color:var(--ink)}
+.quote cite{display:block; margin-top:1.4rem; font-style:normal; font-family:var(--font-body); font-size:.98rem; letter-spacing:0; text-transform:none; color:var(--muted)}
+.quote .shot{aspect-ratio:3/2}
+@media (max-width:860px){ .quote{grid-template-columns:1fr; gap:28px} .quote .shot{order:-1} }
+
+/* ---- FAQ ---- */
+.faq{max-width:760px; display:grid; gap:10px}
+.faq details{background:var(--surface-sage); border-radius:var(--radius); overflow:hidden; transition:background-color .2s var(--ease)}
+.faq details[open]{background:var(--surface)}
+.faq summary{
+  list-style:none; cursor:pointer; padding:20px 22px; display:flex; align-items:center; justify-content:space-between; gap:20px;
+  font-weight:520; font-size:1.12rem; color:var(--ink)
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .chev{flex:0 0 auto; width:14px; height:14px; transition:transform .3s var(--ease)}
+.faq details[open] summary .chev{transform:rotate(90deg)}
+.faq p{margin:0 22px 22px; color:var(--ink-2); max-width:62ch}
+
+/* ---- Closing band (dark) + form ---- */
+.close{background:var(--ink-deep); color:#D7DEDB; position:relative; overflow:hidden}
+.close .wrap{position:relative; z-index:2}
+.close__crest{display:block; width:84px; margin:0 0 28px; border-radius:50%}
+.close h2{color:var(--cream); font-size:clamp(2rem,4vw,3.25rem)}
+.close__lead{color:var(--sage); font-size:1.18rem; max-width:42ch; margin:1.1rem 0 0}
+.close__grid{display:grid; grid-template-columns:7fr 5fr; gap:clamp(40px,7vw,88px); margin-top:clamp(40px,6vh,64px)}
+@media (max-width:860px){ .close__grid{grid-template-columns:1fr; gap:40px} }
+
+/* sun-glow behind crest */
+.close__glow{position:absolute; z-index:0; top:-120px; left:-80px; width:520px; height:520px; pointer-events:none; will-change:opacity,transform}
+
+/* form */
+.form{display:grid; gap:16px}
+.field{display:flex; flex-direction:column; gap:7px}
+.field label{font-family:var(--font-body); font-size:.92rem; font-weight:500; letter-spacing:0; text-transform:none; color:var(--sage)}
+.field input,.field select{
+  font-family:var(--font-body); font-size:1rem; color:var(--ink);
+  background:var(--surface); border:0; border-radius:8px; padding:14px 16px; width:100%;
+  transition:background-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.field input::placeholder{color:var(--muted)}
+.field input:focus,.field select:focus{outline:none; background:#FFFDF8; box-shadow:0 0 0 3px var(--accent-wash)}
+.field--row{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.form .btn-primary{width:100%; justify-content:center; margin-top:6px}
+.form__micro{font-size:.9rem; color:var(--sage); margin:2px 0 0; max-width:none}
+.form__feedback{font-size:1rem; min-height:0}
+.form__feedback.is-ok{color:#9DD5A8}
+.form__feedback.is-err{color:#E5A187}
+.contact{margin-top:40px; display:flex; flex-wrap:wrap; gap:8px 36px}
+.contact a{color:var(--cream); text-decoration:underline; text-decoration-color:rgba(224,177,72,.55); text-underline-offset:4px; text-decoration-thickness:1px; transition:text-decoration-color .25s var(--ease)}
+.contact a:hover{text-decoration-color:var(--accent)}
+.contact__addr{color:var(--sage)}
+.expand{margin-top:24px; color:var(--sage); font-size:1.02rem; max-width:46ch}
+
+/* footer */
+.foot{background:var(--ink-deep); color:var(--sage)}
+.foot .wrap{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; padding-block:28px}
+.foot__brand{display:flex; align-items:center; gap:11px; font-family:var(--font-display); color:var(--cream); font-size:1.02rem}
+.foot__brand img{width:26px; border-radius:50%}
+.foot small{font-size:.86rem; color:var(--sage-deep)}
+
+/* signature drift + glow keyframes (transform/opacity only) */
+@keyframes heroDrift{
+  0%{transform:scale(1.04) translate3d(0,0,0)}
+  50%{transform:scale(1.08) translate3d(-1.4%,-1.2%,0)}
+  100%{transform:scale(1.04) translate3d(0,0,0)}
+}
+@keyframes glowBreathe{ 0%,100%{opacity:.42; transform:scale(.96)} 50%{opacity:.95; transform:scale(1.1)} }
+
+.skip{position:absolute; left:-9999px; top:0; z-index:200; background:var(--ink); color:var(--cream); padding:12px 18px; border-radius:0 0 8px 0}
+.skip:focus{left:0}
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+  <nav class="nav" aria-label="Primary">
+    <a class="nav__brand" href="#top" aria-label="Blue Sky Village, home">
+      <img class="nav__crest" src="assets/heron-badge.png" width="30" height="36" alt="">
+      <span class="nav__word">Blue Sky Village</span>
+    </a>
+    <div class="nav__links">
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a class="nav__phone" href="tel:+17049025644">704-902-5644</a>
+      <a class="btn btn-secondary" href="#estimate">See what your home could earn</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <span id="top"></span>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" aria-label="Introduction">
+    <div class="hero__media">
+      <img id="heroImg" src="assets/photos/lake-dock.jpg" width="1600" height="1066"
+           alt="A wooden dock reaching into still lake water through tall trees at golden hour in the Carolinas."
+           fetchpriority="high">
+    </div>
+    <div class="hero__copy">
+      <div class="hero__inner" data-reveal>
+        <h1>Your home,<br>looked after <span class="hl">like ours</span></h1>
+        <p class="hero__sub">Family-run management across North &amp; South Carolina since 2013.</p>
+        <div class="hero__cta">
+          <a class="btn btn-primary" href="#estimate">See what your home could earn</a>
+          <a class="hero__call" href="tel:+17049025644">Or call us, 704-902-5644</a>
+        </div>
+      </div>
+    </div>
+    <span class="hero__scroll" aria-hidden="true">Scroll</span>
+  </section>
+
+  <!-- ===== PROOF ROW ===== -->
+  <section class="proof" aria-label="At a glance">
+    <div class="wrap proof__grid">
+      <div class="proof__item" data-reveal>
+        <span class="proof__num">Since 2013</span>
+        <span class="proof__lbl">Family-run</span>
+      </div>
+      <div class="proof__item" data-reveal>
+        <span class="proof__num">16+ homes</span>
+        <span class="proof__lbl">Under our care</span>
+      </div>
+      <div class="proof__item" data-reveal>
+        <span class="proof__num">North &amp; South Carolina</span>
+        <span class="proof__lbl">And growing</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHAT WE DO (split + oval frame) ===== -->
+  <section class="section" aria-labelledby="do-h">
+    <div class="wrap split">
+      <div class="lede" data-reveal>
+        <h2 id="do-h">Full-service,<br>start to finish</h2>
+        <p>We list it, price it, clean it, and look after your guests. You keep the calm.</p>
+      </div>
+      <div class="split__media oval" data-reveal aria-hidden="false">
+        <div class="shot">
+          <img src="assets/photos/home-exterior-craftsman.jpg" width="1600" height="1066" loading="lazy"
+               alt="A handsome two-story craftsman home with deep porches, kept clean and ready for guests.">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY ===== -->
+  <section class="section" style="padding-top:0" aria-label="Homes under our care">
+    <div class="wrap">
+      <div class="gallery">
+        <figure class="shot g-a scrim" data-reveal>
+          <img src="assets/photos/living-fireside-view.jpg" width="1600" height="1066" loading="lazy"
+               alt="A bright living room with a linear fireplace and wide windows looking onto the water.">
+          <figcaption class="cap">Living, fireside</figcaption>
+        </figure>
+        <figure class="shot g-b" data-reveal>
+          <img src="assets/photos/porch-hammock-lake.jpg" width="1600" height="1066" loading="lazy"
+               alt="A screened porch with a hanging chair and a calm lake view beyond.">
+          <figcaption class="cap">Porch</figcaption>
+        </figure>
+        <figure class="shot g-c" data-reveal>
+          <img src="assets/photos/kitchen-sunlit.jpg" width="1600" height="1066" loading="lazy"
+               alt="A sunlit kitchen with open shelving, clean and ready.">
+          <figcaption class="cap">Kitchen</figcaption>
+        </figure>
+        <figure class="shot g-d scrim" data-reveal>
+          <img src="assets/photos/living-open-plan.jpg" width="1600" height="1066" loading="lazy"
+               alt="A bright open-plan living and kitchen space with a green sofa.">
+          <figcaption class="cap">Open plan</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="section" id="how" aria-labelledby="how-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="lede" data-reveal style="margin-bottom:clamp(40px,6vh,64px)">
+        <h2 id="how-h">Three steps.<br>Most homes live within <span class="hl">three weeks</span>.</h2>
+      </div>
+      <div class="steps">
+        <div class="step" data-reveal>
+          <span class="step__n">01</span>
+          <h3>Tell us about your home</h3>
+          <p>A short call, a look at the place.</p>
+        </div>
+        <div class="step" data-reveal>
+          <span class="step__n">02</span>
+          <h3>We list and run it</h3>
+          <p>Photos, pricing, guests, cleaning, upkeep.</p>
+        </div>
+        <div class="step" data-reveal>
+          <span class="step__n">03</span>
+          <h3>You get paid</h3>
+          <p>Bookings come in. So do the deposits.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHAT WE HANDLE ===== -->
+  <section class="section handle-band" aria-labelledby="handle-h">
+    <div class="wrap split--reverse">
+      <ul class="handle" data-reveal>
+        <li>Listing across Airbnb, VRBO, Booking.com</li>
+        <li>Daily pricing</li>
+        <li>Professional cleaning every stay</li>
+        <li>Guest care, day and night</li>
+        <li>Maintenance and small repairs</li>
+        <li>Clear owner updates</li>
+      </ul>
+      <div class="split__media lede" data-reveal>
+        <h2 id="handle-h">Everything,<br>so <span class="hl">you don’t</span></h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY US ===== -->
+  <section class="section" aria-labelledby="why-h">
+    <div class="wrap split">
+      <div class="split__media oval" data-reveal>
+        <div class="shot">
+          <img src="assets/photos/bedroom-midcentury.jpg" width="1600" height="1066" loading="lazy"
+               alt="A calm mid-century bedroom with a soft green accent wall, freshly made for arrival.">
+        </div>
+      </div>
+      <div class="lede" data-reveal>
+        <h2 id="why-h">Local attention,<br>not one of 40,000 homes</h2>
+        <p>Family-run since 2013. Your home gets a person, not a queue.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING ===== -->
+  <section class="section pricing" id="pricing" aria-labelledby="price-h">
+    <div class="wrap pricing__grid">
+      <div data-reveal>
+        <h2 id="price-h" style="font-size:clamp(1.8rem,3vw,2.4rem)">One fee.<br>No surprises.</h2>
+        <div class="pricing__fee">25<span>% of gross</span></div>
+      </div>
+      <ul class="pricing__terms" data-reveal>
+        <li><strong>Cleaning &amp; maintenance at cost.</strong></li>
+        <li><strong>No lock-in.</strong></li>
+        <li><strong>Your listing, your reviews.</strong></li>
+        <li>We only earn when your home does.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== TRUST ===== -->
+  <section class="section" aria-labelledby="trust-h">
+    <div class="wrap split--reverse">
+      <div class="split__media oval" data-reveal>
+        <div class="shot">
+          <img src="assets/photos/entry-arch.jpg" width="1600" height="1066" loading="lazy"
+               alt="A bright arched entry and sitting area, spotless and welcoming.">
+        </div>
+      </div>
+      <div class="lede" data-reveal>
+        <h2 id="trust-h">Cleaned and inspected,<br><span class="hl">every single stay</span></h2>
+        <p>The right protections in place. Clear updates whenever you want them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROOF / TESTIMONIAL ===== -->
+  <section class="section" aria-labelledby="proof-h" style="padding-top:0">
+    <h2 id="proof-h" class="sr-only">What owners say</h2>
+    <div class="wrap">
+      <div class="quote">
+        <div class="shot" data-reveal>
+          <img src="assets/photos/dining-kitchen.jpg" width="1600" height="1066" loading="lazy"
+               alt="A dining nook with blue cabinetry and a pendant light, set and tidy.">
+        </div>
+        <blockquote data-reveal>
+          <q>We stopped watching the calendar. They just handle it, and the place comes back cleaner than we leave it.</q>
+          <cite>A homeowner in Davidson, NC</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="section" aria-labelledby="faq-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="lede" data-reveal style="margin-bottom:clamp(32px,5vh,48px)">
+        <h2 id="faq-h">Good to know</h2>
+      </div>
+      <div class="faq">
+        <details data-reveal>
+          <summary>What does it cost?<svg class="chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 3l5 4-5 4"/></svg></summary>
+          <p>25% of gross booking value. Cleaning and maintenance are billed at cost, never marked up.</p>
+        </details>
+        <details data-reveal>
+          <summary>Am I locked in?<svg class="chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 3l5 4-5 4"/></svg></summary>
+          <p>No lock-in. You stay because it works, not because a contract says so.</p>
+        </details>
+        <details data-reveal>
+          <summary>Can I still use my home?<svg class="chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 3l5 4-5 4"/></svg></summary>
+          <p>Of course. Block off the dates you want and the rest earns.</p>
+        </details>
+        <details data-reveal>
+          <summary>Who cleans, and how often?<svg class="chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 3l5 4-5 4"/></svg></summary>
+          <p>Our cleaners, after every stay, with an inspection before the next guest.</p>
+        </details>
+        <details data-reveal>
+          <summary>Which channels do you list on?<svg class="chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 3l5 4-5 4"/></svg></summary>
+          <p>Airbnb, VRBO, and Booking.com. You keep your listing and your reviews.</p>
+        </details>
+        <details data-reveal>
+          <summary>How soon will it earn?<svg class="chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 3l5 4-5 4"/></svg></summary>
+          <p>Most homes are live within three weeks.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CLOSING CTA + FORM ===== -->
+  <section class="section close" id="estimate" aria-labelledby="close-h">
+    <div class="sun close__glow" id="closeGlow" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="close__grid">
+        <div data-reveal>
+          <img class="close__crest" src="assets/heron-badge.png" width="84" height="101" alt="Blue Sky Village heron crest.">
+          <h2 id="close-h">See what your home <span class="hl">could earn</span></h2>
+          <p class="close__lead">A few details about the place. We’ll come back within a day.</p>
+          <p class="expand">Own elsewhere? We’re growing into new regions. Let’s talk.</p>
+          <div class="contact" aria-label="Contact">
+            <a href="tel:+17049025644">704-902-5644</a>
+            <a href="mailto:blueskyvillagerentals@gmail.com">blueskyvillagerentals@gmail.com</a>
+            <span class="contact__addr">320&nbsp;Bridgewater, Mooresville&nbsp;NC</span>
+          </div>
+        </div>
+
+        <form class="form" id="estimateForm" data-reveal novalidate>
+          <div class="field">
+            <label for="place">Address or town</label>
+            <input id="place" name="place" type="text" inputmode="text" autocomplete="address-level2"
+                   placeholder="Mooresville, NC…" required>
+          </div>
+          <div class="field">
+            <label for="bedrooms">Bedrooms</label>
+            <select id="bedrooms" name="bedrooms" required>
+              <option value="" selected disabled>Choose…</option>
+              <option>Studio</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5+</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="Jane Doe…" required>
+          </div>
+          <div class="field">
+            <label for="contact">Email or phone</label>
+            <input id="contact" name="contact" type="text" inputmode="text" autocomplete="off"
+                   placeholder="you@email.com…" required>
+          </div>
+          <button class="btn btn-primary" type="submit">See what your home could earn</button>
+          <p class="form__micro">Free, no obligation. We’ll tell you honestly if your home isn’t a fit.</p>
+          <p class="form__feedback" id="formFeedback" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span class="foot__brand"><img src="assets/heron-badge.png" width="26" height="31" alt="">Blue Sky Village</span>
+    <small>Vacation rental management · North &amp; South Carolina · Since 2013</small>
+  </div>
+</footer>
+
+<script>
+// ===== §11 scroll-entry (verbatim) =====
+const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity=1;e.target.style.transform='none';io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('[data-reveal]').forEach((el,i)=>{ if(RM){el.style.opacity=1;return;} el.style.opacity=0;el.style.transform='translateY(14px)';el.style.transition=`opacity .7s var(--ease) ${i%6*80}ms, transform .7s var(--ease) ${i%6*80}ms`;io.observe(el)});
+
+// ===== Signature motion (gated behind reduced-motion) =====
+if(!RM){
+  // very slow hero scale-drift (transform only, continuous calm breath)
+  const hero=document.getElementById('heroImg');
+  if(hero){ hero.style.willChange='transform'; hero.style.animation='heroDrift 28s ease-in-out infinite both'; }
+  // soft golden sun-glow breathing behind the crest (opacity + transform only)
+  const glow=document.getElementById('closeGlow');
+  if(glow) glow.style.animation='glowBreathe 7s ease-in-out infinite';
+}
+
+// ===== Estimate form (no backend; calm confirmation) =====
+const form=document.getElementById('estimateForm');
+const fb=document.getElementById('formFeedback');
+form.addEventListener('submit',(e)=>{
+  e.preventDefault();
+  const place=form.place.value.trim();
+  const beds=form.bedrooms.value;
+  const name=form.name.value.trim();
+  const contact=form.contact.value.trim();
+  if(!place||!beds||!name||!contact){
+    fb.textContent='Please fill in each field so we can come back to you.';
+    fb.className='form__feedback is-err';
+    return;
+  }
+  fb.textContent='Thank you, '+name.split(' ')[0]+'. We’ll get back within a day.';
+  fb.className='form__feedback is-ok';
+  form.querySelector('button').disabled=true;
+});
+</script>
+</body>
+</html>

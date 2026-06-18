@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F8F4EC">
+<title>Blue Sky Village — Design Exploration</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340..600&family=Hanken+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F8F4EC; --surface:#FBF8F1; --surface-sage:#E7ECE7;
+    --ink:#283744; --ink-2:#41525E; --muted:#6E7B82;
+    --accent:#E0B148; --accent-deep:#B5862A;
+    --font-display:'Fraunces','Iowan Old Style',Georgia,serif;
+    --font-body:'Hanken Grotesk',-apple-system,system-ui,sans-serif;
+    --ease:cubic-bezier(0.16,1,0.3,1);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .wrap{max-width:1200px;margin-inline:auto;padding-inline:clamp(20px,5vw,48px)}
+  header{padding-block:clamp(56px,9vh,104px)}
+  .brand{display:flex;align-items:center;gap:12px;margin-bottom:48px}
+  .brand img{width:42px;height:auto;border-radius:50%}
+  .brand b{font-family:var(--font-display);font-weight:500;font-size:1.2rem;letter-spacing:-.01em}
+  h1{font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;line-height:1.04;font-size:clamp(2.4rem,5.5vw,4.4rem);margin:0;max-width:18ch;text-wrap:balance}
+  h1 .hl{color:var(--accent-deep)}
+  .sub{color:var(--ink-2);font-size:1.2rem;margin-top:24px;max-width:58ch}
+  .meta{color:var(--muted);margin-top:14px;font-size:.98rem}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(28px,4vw,56px);padding-bottom:120px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{display:block;text-decoration:none;color:inherit}
+  .shot{position:relative;overflow:hidden;border-radius:14px;background:var(--surface-sage);aspect-ratio:16/10}
+  .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .9s var(--ease)}
+  .card:hover .shot img{transform:scale(1.035)}
+  .num{font-family:var(--font-display);color:var(--accent-deep);font-size:1rem;margin-top:18px}
+  .name{font-family:var(--font-display);font-weight:400;font-size:1.7rem;letter-spacing:-.015em;line-height:1.1;margin:4px 0 6px}
+  .desc{color:var(--muted);max-width:46ch}
+  .go{display:inline-block;margin-top:10px;color:var(--accent-deep);font-weight:560;transition:transform .25s var(--ease)}
+  .card:hover .go{transform:translateX(4px)}
+  footer{padding-block:64px;background:var(--ink);color:#D7DEDB}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:center;justify-content:space-between}
+  footer b{font-family:var(--font-display);color:#F1ECE0;font-weight:500;font-size:1.1rem}
+  footer a{color:var(--accent);text-decoration:none}
+  a:focus-visible,.card:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(224,177,72,.18),0 0 0 1px var(--accent-deep);border-radius:14px}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="brand">
+    <img src="assets/heron-badge.png" alt="Blue Sky Village heron crest" width="42" height="51">
+    <b>Blue Sky Village</b>
+  </div>
+  <h1>Seven ways to say the <span class="hl">same calm thing</span>.</h1>
+  <p class="sub">One brand, seven complete owner-acquisition pages. Built on the real homes, the warm palette, and a single idea: hand us the keys, rest easy. Pick the direction that feels right.</p>
+  <p class="meta">Vacation rental management across North &amp; South Carolina. Real photography, short copy, 25% of gross with costs at cost.</p>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+    <a class="card" href="01-still-water.html">
+      <div class="shot"><img src="assets/thumbs/01-still-water.png" alt="Still Water page preview" width="480" height="300" loading="lazy"></div>
+      <div class="num">01</div><div class="name">Still Water</div>
+      <p class="desc">The flagship. A full-bleed home, oceans of air, and almost no text. Calm as the product.</p>
+      <span class="go">View page</span>
+    </a>
+    <a class="card" href="02-golden-hour.html">
+      <div class="shot"><img src="assets/thumbs/02-golden-hour.png" alt="Golden Hour page preview" width="480" height="300" loading="lazy"></div>
+      <div class="num">02</div><div class="name">Golden Hour</div>
+      <p class="desc">Cinematic and photography-first. The real homes carry the page, a few lines between them.</p>
+      <span class="go">View page</span>
+    </a>
+    <a class="card" href="03-the-ledger.html">
+      <div class="shot"><img src="assets/thumbs/03-the-ledger.png" alt="The Ledger page preview" width="480" height="300" loading="lazy"></div>
+      <div class="num">03</div><div class="name">The Ledger</div>
+      <p class="desc">For the analytical owner. Earnings clarity and the 25% laid out plainly, costs at cost.</p>
+      <span class="go">View page</span>
+    </a>
+    <a class="card" href="04-heron.html">
+      <div class="shot"><img src="assets/thumbs/04-heron.png" alt="Heron page preview" width="480" height="300" loading="lazy"></div>
+      <div class="num">04</div><div class="name">Heron</div>
+      <p class="desc">Gallery minimalism built around the mark. Museum-quiet, for the owner who values restraint.</p>
+      <span class="go">View page</span>
+    </a>
+    <a class="card" href="05-concierge.html">
+      <div class="shot"><img src="assets/thumbs/05-concierge.png" alt="Concierge page preview" width="480" height="300" loading="lazy"></div>
+      <div class="num">05</div><div class="name">Concierge</div>
+      <p class="desc">Everything we handle, as an art-directed spread. Shows the breadth, justifies the fee, warmly.</p>
+      <span class="go">View page</span>
+    </a>
+    <a class="card" href="06-twilight.html">
+      <div class="shot"><img src="assets/thumbs/06-twilight.png" alt="Twilight page preview" width="480" height="300" loading="lazy"></div>
+      <div class="num">06</div><div class="name">Twilight</div>
+      <p class="desc">A dark, moody take. The real photos glow against deep ink. Proof the brand stretches.</p>
+      <span class="go">View page</span>
+    </a>
+    <a class="card" href="07-cover-story.html">
+      <div class="shot"><img src="assets/thumbs/07-cover-story.png" alt="Cover Story page preview" width="480" height="300" loading="lazy"></div>
+      <div class="num">07</div><div class="name">Cover Story</div>
+      <p class="desc">Opens like a quiet luxury travel magazine, then a short feature on the people behind it.</p>
+      <span class="go">View page</span>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>Blue Sky Village</b>
+    <span>704-902-5644 &nbsp;·&nbsp; <a href="mailto:blueskyvillagerentals@gmail.com">blueskyvillagerentals@gmail.com</a> &nbsp;·&nbsp; Mooresville, NC</span>
+  </div>
+</footer>
+</body>
+</html>
