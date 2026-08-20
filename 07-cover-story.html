@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#F8F4EC">
-<title>Blue Sky Village · Vacation Rental Management, North &amp; South Carolina</title>
-<meta name="description" content="Family-run vacation rental management across North and South Carolina since 2013. We list it, price it, clean it, and look after your guests.">
+<title>Blue Sky Village · Vacation Rental Management, the Carolinas &amp; Georgia</title>
+<meta name="description" content="Family-run vacation rental management across North Carolina, South Carolina and Georgia since 2013. We list it, price it, clean it, and look after your guests.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 
 <!-- ============ SHARED FOUNDATION (§11, verbatim) ============ -->
@@ -349,6 +349,7 @@ img{max-width:100%; height:auto; display:block}
     <a class="nav__link" href="#feature">The Story</a>
     <a class="nav__link" href="#contents">What We Handle</a>
     <a class="nav__link" href="#pricing">Pricing</a>
+    <a class="nav__link" href="https://blueskyvillage.guestybookings.com/" target="_blank" rel="noopener">Book a stay</a>
   </div>
   <a class="btn btn-primary" href="#estimate">See what your home could earn</a>
 </nav>
@@ -363,7 +364,7 @@ img{max-width:100%; height:auto; display:block}
   <div class="masthead">
     <h1 class="masthead__title set d1" aria-label="Blue Sky Village">Blue Sky Village</h1>
     <div class="masthead__rule set d2">
-      <span class="masthead__issue">North &amp; South Carolina · Est. 2013</span>
+      <span class="masthead__issue">The Carolinas &amp; Georgia · Est. 2013</span>
     </div>
   </div>
 
@@ -390,14 +391,14 @@ img{max-width:100%; height:auto; display:block}
         <div class="opener__proof" data-reveal>
           <div class="proof__item"><span class="proof__num">2013</span><span class="proof__lab">Family-run since</span></div>
           <div class="proof__item"><span class="proof__num">16+</span><span class="proof__lab">Homes</span></div>
-          <div class="proof__item"><span class="proof__num">N&amp;S&nbsp;Carolina</span><span class="proof__lab">Where we run</span></div>
+          <div class="proof__item"><span class="proof__num">NC&nbsp;·&nbsp;SC&nbsp;·&nbsp;GA</span><span class="proof__lab">Where we run</span></div>
         </div>
       </div>
       <div class="plate plate-reveal" data-platereveal>
         <div class="shot scrim clip">
-          <img src="assets/photos/living-architectural.jpg" width="1600" height="1066"
-               alt="A double-height living room with exposed brick in a managed Carolina home" loading="lazy">
-          <span class="cap">Davidson, NC</span>
+          <img src="assets/photos/lakenorman-living.jpg" width="1024" height="683"
+               alt="A double-height living room opening to the lake at The Retreat at Lake Norman" loading="lazy">
+          <span class="cap">The Retreat at Lake Norman · Mooresville, NC</span>
         </div>
       </div>
     </div>
@@ -412,12 +413,13 @@ img{max-width:100%; height:auto; display:block}
       </div>
       <div class="do__pair">
         <div class="shot" data-reveal>
-          <img src="assets/photos/kitchen-sunlit.jpg" width="1600" height="1066"
-               alt="A sunlit kitchen with open shelving in a managed home" loading="lazy">
+          <img src="assets/photos/lakenorman-pool.jpg" width="1024" height="683"
+               alt="The travertine pool terrace at The Retreat at Lake Norman, a managed lakefront home" loading="lazy">
+          <span class="cap">The Retreat at Lake Norman</span>
         </div>
         <div class="shot" data-reveal>
-          <img src="assets/photos/living-fireside-view.jpg" width="1600" height="1066"
-               alt="A fireside living room with a view in a managed Carolina home" loading="lazy">
+          <img src="assets/photos/kitchen-sunlit.jpg" width="1600" height="1066"
+               alt="A sunlit kitchen with open shelving in a managed home" loading="lazy">
         </div>
       </div>
     </div>
@@ -601,6 +603,8 @@ img{max-width:100%; height:auto; display:block}
           <input id="f-contact" name="contact" type="text" inputmode="text" autocomplete="off"
                  placeholder="How we reach you…" required>
         </div>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"
+               style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0">
         <button class="btn btn-primary" type="submit">See what your home could earn</button>
         <p class="estimate__micro">Free, no obligation. We&rsquo;ll tell you honestly if your home isn&rsquo;t a fit.</p>
         <p class="estimate__fb" id="form-fb" role="status" aria-live="polite"></p>
@@ -612,7 +616,8 @@ img{max-width:100%; height:auto; display:block}
 <footer class="foot">
   <div class="foot__inner">
     <span>Blue Sky Village · Est. 2013</span>
-    <span>North &amp; South Carolina</span>
+    <span>North &amp; South Carolina · Georgia</span>
+    <a href="https://blueskyvillage.guestybookings.com/" target="_blank" rel="noopener">Book a stay</a>
     <a href="tel:+17049025644">704-902-5644</a>
   </div>
 </footer>
@@ -644,11 +649,12 @@ document.querySelectorAll('[data-reveal]').forEach((el,i)=>{ if(RM){el.style.opa
   }
 })();
 
-/* ---- estimate form (no backend; calm inline confirmation) ---- */
+/* ---- estimate form -> owner-enquiry endpoint, email fallback ---- */
 (function(){
+  const ENDPOINT='https://photo.proptonomy.ai/bsv-lead';
   const form=document.getElementById('estimate-form');
   const fb=document.getElementById('form-fb');
-  form.addEventListener('submit',(ev)=>{
+  form.addEventListener('submit',async (ev)=>{
     ev.preventDefault();
     const place=form.place.value.trim();
     const beds=form.bedrooms.value;
@@ -659,9 +665,21 @@ document.querySelectorAll('[data-reveal]').forEach((el,i)=>{ if(RM){el.style.opa
       fb.className='estimate__fb err';
       return;
     }
-    fb.textContent='Thank you, '+name+'. We’ll get back to you within a day.';
-    fb.className='estimate__fb ok';
-    form.querySelector('button[type=submit]').disabled=true;
+    const btn=form.querySelector('button[type=submit]');
+    btn.disabled=true;
+    fb.textContent='Sending…';
+    fb.className='estimate__fb';
+    try{
+      const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({place,bedrooms:beds,name,contact,website:form.website.value})});
+      if(!r.ok) throw new Error('send failed');
+      fb.textContent='Thank you, '+name+'. We’ll get back to you within a day.';
+      fb.className='estimate__fb ok';
+    }catch(e){
+      btn.disabled=false;
+      fb.innerHTML='Something went wrong sending this. Please email us at <a href="mailto:blueskyvillagerentals@gmail.com" style="color:inherit">blueskyvillagerentals@gmail.com</a> or call 704-902-5644.';
+      fb.className='estimate__fb err';
+    }
   });
 })();
 </script>
