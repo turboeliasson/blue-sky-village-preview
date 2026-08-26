@@ -4,8 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#F8F4EC">
-<title>Blue Sky Village · Vacation Rental Management, North &amp; South Carolina</title>
-<meta name="description" content="Family-run vacation rental management across North and South Carolina since 2013. We list it, price it, clean it, and look after your guests.">
+<title>Blue Sky Village · Vacation Rental Management, the Carolinas &amp; Georgia</title>
+<meta name="description" content="Family-run vacation rental management across North Carolina, South Carolina and Georgia since 2013. We list it, price it, clean it, and look after your guests.">
+<link rel="canonical" href="https://blueskyvillagerentals.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blue Sky Village · Vacation Rental Management, the Carolinas &amp; Georgia">
+<meta property="og:description" content="Family-run vacation rental management since 2013. We list it, price it, clean it, and look after your guests.">
+<meta property="og:url" content="https://blueskyvillagerentals.com/">
+<meta property="og:image" content="https://blueskyvillagerentals.com/assets/photos/home-exterior-craftsman.jpg">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 
 <!-- ============ SHARED FOUNDATION (§11, verbatim) ============ -->
@@ -91,8 +97,11 @@ img{max-width:100%; height:auto; display:block}
 .nav__crest{width:30px; height:36px; object-fit:contain; flex:none; filter:drop-shadow(0 1px 4px rgba(31,43,52,.4))}
 .nav.is-stuck .nav__crest{filter:none}
 .nav__word{font-family:var(--font-display); font-size:1.02rem; letter-spacing:0; font-weight:480; white-space:nowrap}
-.nav__links{display:flex; align-items:center; gap:26px}
-.nav__link{font-family:var(--font-body); font-size:.95rem; letter-spacing:0; color:inherit; text-decoration:none; opacity:.82}
+.nav__links{display:flex; align-items:center; gap:26px; color:var(--cream); transition:color .4s var(--ease)}
+.nav.is-stuck .nav__links{color:var(--ink)}
+.nav__link{font-family:var(--font-body); font-size:.95rem; letter-spacing:0; color:inherit; text-decoration:none; opacity:.92;
+  text-shadow:0 1px 8px rgba(31,43,52,.5); transition:text-shadow .4s var(--ease)}
+.nav.is-stuck .nav__link{text-shadow:none; opacity:.82}
 .nav__link:hover{opacity:1}
 .nav .btn{padding:10px 20px; font-size:.92rem}
 @media (max-width:860px){ .nav__links .nav__link{display:none} }
@@ -109,16 +118,18 @@ img{max-width:100%; height:auto; display:block}
 @keyframes coverDrift{ to{ transform:scale(1.0) } }
 /* readability scrims - top for masthead, bottom for cover line */
 .cover::before{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
-  background:linear-gradient(to bottom, rgba(31,43,52,.42) 0%, rgba(31,43,52,0) 26%, rgba(31,43,52,0) 52%, rgba(31,43,52,.62) 100%)}
+  background:linear-gradient(to bottom, rgba(31,43,52,.72) 0%, rgba(31,43,52,.34) 20%, rgba(31,43,52,0) 40%, rgba(31,43,52,0) 48%, rgba(31,43,52,.5) 74%, rgba(31,43,52,.82) 100%)}
+.cover::after{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:radial-gradient(120% 90% at 6% 96%, rgba(31,43,52,.72) 0%, rgba(31,43,52,.28) 34%, rgba(31,43,52,0) 60%)}
 
 /* masthead block at top */
 .masthead{padding:clamp(74px,11vh,120px) clamp(20px,5vw,48px) 0; text-align:center; position:relative; z-index:2}
 .masthead__title{font-family:var(--font-display); color:var(--cream); font-weight:380;
   font-size:clamp(2.1rem,8.4vw,6.4rem); letter-spacing:.02em; line-height:.96; text-wrap:balance;
-  text-shadow:0 2px 30px rgba(31,43,52,.45)}
+  text-shadow:0 1px 3px rgba(31,43,52,.55), 0 3px 16px rgba(31,43,52,.6), 0 6px 40px rgba(31,43,52,.5)}
 .masthead__rule{display:flex; align-items:center; justify-content:center; margin-top:20px}
 .masthead__issue{font-family:var(--font-body); font-size:clamp(.92rem,1.8vw,1.08rem); letter-spacing:0;
-  color:rgba(241,236,224,.92); white-space:nowrap}
+  color:rgba(241,236,224,.96); white-space:nowrap; text-shadow:0 1px 4px rgba(31,43,52,.55), 0 2px 18px rgba(31,43,52,.45)}
 
 /* settle-in animation for masthead pieces */
 .set{opacity:0; transform:translateY(16px)}
@@ -134,11 +145,11 @@ img{max-width:100%; height:auto; display:block}
 .coverline{padding:0 clamp(20px,5vw,48px) clamp(40px,7vh,84px); position:relative; z-index:2; max-width:920px}
 .coverline__h1{font-family:var(--font-display); color:#FBF8F1; font-weight:400;
   font-size:clamp(2.4rem,5.8vw,4.8rem); line-height:1.03; letter-spacing:-.02em; max-width:18ch;
-  text-shadow:0 2px 26px rgba(31,43,52,.5)}
+  text-shadow:0 1px 3px rgba(31,43,52,.7), 0 2px 14px rgba(31,43,52,.7), 0 4px 34px rgba(31,43,52,.55)}
 .coverline__h1 em{font-style:normal; font-weight:inherit; color:inherit}
 .coverline__h1 .hl{color:var(--accent)}
-.coverline__sub{font-family:var(--font-body); color:rgba(241,236,224,.94); font-size:clamp(1rem,1.6vw,1.18rem);
-  line-height:1.5; max-width:46ch; margin:20px 0 26px}
+.coverline__sub{font-family:var(--font-body); color:rgba(241,236,224,.96); font-size:clamp(1rem,1.6vw,1.18rem);
+  line-height:1.5; max-width:46ch; margin:20px 0 26px; text-shadow:0 1px 3px rgba(31,43,52,.65), 0 2px 12px rgba(31,43,52,.6)}
 .coverline__cta{display:flex; align-items:center; gap:22px; flex-wrap:wrap}
 .coverline__call{color:#F1ECE0; text-decoration:none; font-size:.96rem}
 .coverline__call:hover{text-decoration:underline; text-underline-offset:3px}
@@ -349,6 +360,7 @@ img{max-width:100%; height:auto; display:block}
     <a class="nav__link" href="#feature">The Story</a>
     <a class="nav__link" href="#contents">What We Handle</a>
     <a class="nav__link" href="#pricing">Pricing</a>
+    <a class="nav__link" href="https://blueskyvillage.guestybookings.com/" target="_blank" rel="noopener">Book a stay</a>
   </div>
   <a class="btn btn-primary" href="#estimate">See what your home could earn</a>
 </nav>
@@ -363,7 +375,7 @@ img{max-width:100%; height:auto; display:block}
   <div class="masthead">
     <h1 class="masthead__title set d1" aria-label="Blue Sky Village">Blue Sky Village</h1>
     <div class="masthead__rule set d2">
-      <span class="masthead__issue">North &amp; South Carolina · Est. 2013</span>
+      <span class="masthead__issue">The Carolinas &amp; Georgia · Est. 2013</span>
     </div>
   </div>
 
@@ -390,14 +402,14 @@ img{max-width:100%; height:auto; display:block}
         <div class="opener__proof" data-reveal>
           <div class="proof__item"><span class="proof__num">2013</span><span class="proof__lab">Family-run since</span></div>
           <div class="proof__item"><span class="proof__num">16+</span><span class="proof__lab">Homes</span></div>
-          <div class="proof__item"><span class="proof__num">N&amp;S&nbsp;Carolina</span><span class="proof__lab">Where we run</span></div>
+          <div class="proof__item"><span class="proof__num">NC&nbsp;·&nbsp;SC&nbsp;·&nbsp;GA</span><span class="proof__lab">Where we run</span></div>
         </div>
       </div>
       <div class="plate plate-reveal" data-platereveal>
         <div class="shot scrim clip">
-          <img src="assets/photos/living-architectural.jpg" width="1600" height="1066"
-               alt="A double-height living room with exposed brick in a managed Carolina home" loading="lazy">
-          <span class="cap">Davidson, NC</span>
+          <img src="assets/photos/lakenorman-living.jpg" width="1024" height="683"
+               alt="A double-height living room opening to the lake at The Retreat at Lake Norman" loading="lazy">
+          <span class="cap">The Retreat at Lake Norman · Mooresville, NC</span>
         </div>
       </div>
     </div>
@@ -412,12 +424,13 @@ img{max-width:100%; height:auto; display:block}
       </div>
       <div class="do__pair">
         <div class="shot" data-reveal>
-          <img src="assets/photos/kitchen-sunlit.jpg" width="1600" height="1066"
-               alt="A sunlit kitchen with open shelving in a managed home" loading="lazy">
+          <img src="assets/photos/lakenorman-pool.jpg" width="1024" height="683"
+               alt="The travertine pool terrace at The Retreat at Lake Norman, a managed lakefront home" loading="lazy">
+          <span class="cap">The Retreat at Lake Norman</span>
         </div>
         <div class="shot" data-reveal>
-          <img src="assets/photos/living-fireside-view.jpg" width="1600" height="1066"
-               alt="A fireside living room with a view in a managed Carolina home" loading="lazy">
+          <img src="assets/photos/kitchen-sunlit.jpg" width="1600" height="1066"
+               alt="A sunlit kitchen with open shelving in a managed home" loading="lazy">
         </div>
       </div>
     </div>
@@ -601,6 +614,8 @@ img{max-width:100%; height:auto; display:block}
           <input id="f-contact" name="contact" type="text" inputmode="text" autocomplete="off"
                  placeholder="How we reach you…" required>
         </div>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"
+               style="position:absolute;left:-9999px;height:0;width:0;border:0;padding:0">
         <button class="btn btn-primary" type="submit">See what your home could earn</button>
         <p class="estimate__micro">Free, no obligation. We&rsquo;ll tell you honestly if your home isn&rsquo;t a fit.</p>
         <p class="estimate__fb" id="form-fb" role="status" aria-live="polite"></p>
@@ -612,7 +627,8 @@ img{max-width:100%; height:auto; display:block}
 <footer class="foot">
   <div class="foot__inner">
     <span>Blue Sky Village · Est. 2013</span>
-    <span>North &amp; South Carolina</span>
+    <span>North &amp; South Carolina · Georgia</span>
+    <a href="https://blueskyvillage.guestybookings.com/" target="_blank" rel="noopener">Book a stay</a>
     <a href="tel:+17049025644">704-902-5644</a>
   </div>
 </footer>
@@ -644,11 +660,12 @@ document.querySelectorAll('[data-reveal]').forEach((el,i)=>{ if(RM){el.style.opa
   }
 })();
 
-/* ---- estimate form (no backend; calm inline confirmation) ---- */
+/* ---- estimate form -> owner-enquiry endpoint, email fallback ---- */
 (function(){
+  const ENDPOINT='https://photo.proptonomy.ai/bsv-lead';
   const form=document.getElementById('estimate-form');
   const fb=document.getElementById('form-fb');
-  form.addEventListener('submit',(ev)=>{
+  form.addEventListener('submit',async (ev)=>{
     ev.preventDefault();
     const place=form.place.value.trim();
     const beds=form.bedrooms.value;
@@ -659,9 +676,21 @@ document.querySelectorAll('[data-reveal]').forEach((el,i)=>{ if(RM){el.style.opa
       fb.className='estimate__fb err';
       return;
     }
-    fb.textContent='Thank you, '+name+'. We’ll get back to you within a day.';
-    fb.className='estimate__fb ok';
-    form.querySelector('button[type=submit]').disabled=true;
+    const btn=form.querySelector('button[type=submit]');
+    btn.disabled=true;
+    fb.textContent='Sending…';
+    fb.className='estimate__fb';
+    try{
+      const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({place,bedrooms:beds,name,contact,website:form.website.value})});
+      if(!r.ok) throw new Error('send failed');
+      fb.textContent='Thank you, '+name+'. We’ll get back to you within a day.';
+      fb.className='estimate__fb ok';
+    }catch(e){
+      btn.disabled=false;
+      fb.innerHTML='Something went wrong sending this. Please email us at <a href="mailto:blueskyvillagerentals@gmail.com" style="color:inherit">blueskyvillagerentals@gmail.com</a> or call 704-902-5644.';
+      fb.className='estimate__fb err';
+    }
   });
 })();
 </script>

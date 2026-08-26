@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Sky · Brand Guideline v2 · Carolina Sky</title>
+<link rel="icon" type="image/png" href="assets/heron-badge.png">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky-950:#0C1F30; --sky-800:#163A56; --sky-600:#1F66AE; --sky-100:#E2EEF9;
+  --cloud:#F5F8FB; --paper:#FEFEFE; --mist:#5E7386; --mist-2:#93A7B8; --line:#D8E2EB;
+  --display:'Cabinet Grotesk',sans-serif; --body:'Satoshi',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--cloud); color:var(--sky-950); font-family:var(--body); font-size:1.03rem; line-height:1.62}
+.wrap{max-width:1080px; margin-inline:auto; padding-inline:clamp(20px,5vw,48px)}
+header.gh{background:linear-gradient(to bottom,var(--sky-950),#123049); color:#fff; padding:clamp(64px,10vh,110px) 0 clamp(48px,7vh,80px)}
+header.gh h1{font-family:var(--display); font-weight:800; font-size:clamp(2.4rem,5vw,3.8rem); letter-spacing:-.02em; line-height:1.02; margin:0}
+header.gh .sub{color:#A7BDCE; margin-top:16px; max-width:60ch}
+header.gh img{width:52px; height:64px; object-fit:contain; margin-bottom:22px; background:#fff; border-radius:50%; padding:6px}
+h2{font-family:var(--display); font-weight:700; font-size:clamp(1.5rem,2.6vw,2rem); letter-spacing:-.015em; margin:0 0 18px}
+h3{font-family:var(--display); font-weight:700; font-size:1.15rem; margin:0 0 8px}
+section{padding-block:clamp(48px,7vh,80px); border-bottom:1px solid var(--line)}
+p{max-width:68ch; margin:0 0 14px}
+.muted{color:var(--mist)}
+table{border-collapse:collapse; width:100%; font-size:.97rem}
+th{text-align:left; font-size:.82rem; text-transform:uppercase; letter-spacing:.05em; color:var(--mist); padding:6px 10px; border-bottom:1px solid var(--line)}
+td{padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+code{font-family:ui-monospace,Menlo,monospace; font-size:.88em; background:var(--sky-100); border-radius:5px; padding:1px 6px}
+.grid{display:grid; gap:16px}
+.g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:760px){ .g2,.g3,.g4{grid-template-columns:1fr} }
+.sw{border-radius:14px; overflow:hidden; border:1px solid var(--line); background:var(--paper)}
+.sw .chip{height:84px}
+.sw .m{padding:10px 14px; font-size:.9rem}
+.sw .m b{display:block; font-family:var(--display)}
+.card{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:22px}
+.do{border-left:4px solid #2E7D5B}
+.dont{border-left:4px solid #B4532E}
+.typo-demo{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:26px}
+.btn-demo{display:inline-flex; align-items:center; font-family:var(--body); font-weight:700; padding:14px 26px; border-radius:999px; text-decoration:none; margin-right:12px}
+img.ph{width:100%; border-radius:14px; display:block}
+figure{margin:0} figcaption{font-size:.88rem; color:var(--mist-2); margin-top:8px}
+.before{background:#F8F4EC; border:1px solid #E2DAC9; border-radius:14px; padding:22px; color:#283744}
+.before h3{color:#283744}
+.tick{padding-left:22px; position:relative}
+.tick::before{content:""; position:absolute; left:0; top:.5em; width:11px; height:6px; border-left:2px solid var(--sky-600); border-bottom:2px solid var(--sky-600); transform:rotate(-45deg)}
+ul{padding-left:20px; margin:0 0 14px}
+li{margin-bottom:6px}
+footer{padding:28px 0 48px; color:var(--mist-2); font-size:.9rem}
+</style>
+</head>
+<body>
+
+<header class="gh">
+  <div class="wrap">
+    <img src="assets/heron-badge.png" alt="Blue Sky heron crest">
+    <h1>Carolina Sky<br>Brand Guideline v2</h1>
+    <p class="sub">The Blue Sky Portfolio Group and Blue Sky Village · prepared 26 August 2026. This document maps the system the sites are built on: identity, color, type, imagery, components, motion and voice, plus the audit of the system it replaces.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>1 · Brand architecture</h2>
+    <table>
+      <tr><th>Brand</th><th>Role</th><th>Audience</th><th>Domain</th></tr>
+      <tr><td><b>The Blue Sky Portfolio Group</b></td><td>The management company. Owner acquisition, trust, pricing, the estimate funnel.</td><td>Second-home owners, NC / SC / GA</td><td>theblueskyportfoliogroup.com</td></tr>
+      <tr><td><b>Blue Sky Village</b></td><td>The guest-facing rental brand. Stays, direct booking, hospitality.</td><td>Guests</td><td>blueskyvillagerentals.com</td></tr>
+    </table>
+    <p class="muted" style="margin-top:14px">One family, two doors. Both share the heron crest, the Carolina Sky palette and the same photography, so an owner who later books a stay recognises the house style instantly. Established 2013; the wordmark is always set in Cabinet Grotesk 800.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>2 · The principle</h2>
+    <p><b>The sky is the brand.</b> A company named Blue Sky earns a blue-anchored, daylight-lit identity. The interface stays cool, composed and quiet; all warmth on the page comes from photography, never from gold chrome or beige surfaces. If a screen feels warm, the photo is doing it, and that is correct.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>3 · Color</h2>
+    <div class="grid g4">
+      <div class="sw"><div class="chip" style="background:#0C1F30"></div><div class="m"><b>Sky 950</b>#0C1F30 · ink, dark bands</div></div>
+      <div class="sw"><div class="chip" style="background:#163A56"></div><div class="m"><b>Sky 800</b>#163A56 · secondary ink</div></div>
+      <div class="sw"><div class="chip" style="background:#1F66AE"></div><div class="m"><b>Sky 600</b>#1F66AE · THE accent</div></div>
+      <div class="sw"><div class="chip" style="background:#E2EEF9"></div><div class="m"><b>Sky 100</b>#E2EEF9 · washes, tints</div></div>
+      <div class="sw"><div class="chip" style="background:#F5F8FB"></div><div class="m"><b>Cloud</b>#F5F8FB · page background</div></div>
+      <div class="sw"><div class="chip" style="background:#FEFEFE; border-bottom:1px solid #D8E2EB"></div><div class="m"><b>Paper</b>#FEFEFE · cards, surfaces</div></div>
+      <div class="sw"><div class="chip" style="background:#5E7386"></div><div class="m"><b>Mist</b>#5E7386 · muted text</div></div>
+      <div class="sw"><div class="chip" style="background:#D8E2EB"></div><div class="m"><b>Line</b>#D8E2EB · hairlines</div></div>
+    </div>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card do"><h3>Do</h3><ul>
+        <li>One accent on the whole page: Sky 600, for CTAs, links, focus and key numbers.</li>
+        <li>Feedback colors only in feedback: success #2E7D5B, error #B4532E.</li>
+        <li>Dark bands run Sky 950, optionally fading to #123049.</li>
+      </ul></div>
+      <div class="card dont"><h3>Don't</h3><ul>
+        <li>No gold, brass or beige chrome anywhere (the old accent #E0B148 is retired).</li>
+        <li>No second accent, no purple, no teal, no decorative gradients.</li>
+        <li>Never pure #000 or #FFF backgrounds.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>4 · Typography</h2>
+    <div class="typo-demo">
+      <p style="font-family:var(--display); font-weight:800; font-size:clamp(2rem,4.5vw,3.4rem); letter-spacing:-.02em; line-height:1.02; margin:0">Your lake house, <span style="color:var(--sky-600)">in good hands.</span></p>
+      <p style="margin:18px 0 0; color:var(--mist)">Cabinet Grotesk 800 for display, Satoshi for everything else. Tracking tight (-0.02em), leading 1.02 on display. Numbers set tabular in Satoshi 700.</p>
+    </div>
+    <table style="margin-top:18px">
+      <tr><th>Role</th><th>Face</th><th>Size</th></tr>
+      <tr><td>Hero display</td><td>Cabinet Grotesk 800</td><td><code>clamp(2.6rem, 5.2vw, 4.4rem)</code></td></tr>
+      <tr><td>Section H2</td><td>Cabinet Grotesk 700</td><td><code>clamp(1.9rem, 3.2vw, 2.7rem)</code></td></tr>
+      <tr><td>Card H3</td><td>Cabinet Grotesk 700</td><td><code>1.22rem</code></td></tr>
+      <tr><td>Body</td><td>Satoshi 400/500</td><td><code>1.0625rem / 1.6</code></td></tr>
+      <tr><td>Small / captions</td><td>Satoshi 400, Mist</td><td><code>0.9rem</code></td></tr>
+    </table>
+    <p class="muted" style="margin-top:14px">No serif anywhere in the system (the old Fraunces is retired). Emphasis inside a headline is done with the accent color, never with a different font family. Both faces load from Fontshare and are free for commercial use.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>5 · Imagery: how pictures look and how they are framed</h2>
+    <p>Photography is the only warm element in the system and carries the whole emotional load. Every image must read as a real Carolina lake-country property in believable light.</p>
+    <div class="grid g2" style="margin:18px 0">
+      <figure>
+        <img class="ph" src="assets/photos/lakenorman-living.jpg" alt="Living room at The Retreat at Lake Norman" style="aspect-ratio:4/3; object-fit:cover">
+        <figcaption>The Retreat at Lake Norman, Mooresville NC</figcaption>
+      </figure>
+      <figure>
+        <img class="ph" src="assets/photos/lakenorman-pool.jpg" alt="Pool terrace at a managed home" style="aspect-ratio:4/3; object-fit:cover">
+        <figcaption>Captions sit under the frame in Mist, never on the photo.</figcaption>
+      </figure>
+    </div>
+    <div class="grid g2">
+      <div class="card do"><h3>Art direction</h3><ul>
+        <li>Golden-hour or soft morning light; true-to-life color, no HDR.</li>
+        <li>Lived-in and calm: a thrown blanket, an open door, no staged people.</li>
+        <li>Ratio system: hero 3:2 · editorial 4:3 · band 21:9 · detail 4:5.</li>
+      </ul></div>
+      <div class="card do"><h3>The frame system</h3><ul>
+        <li>Images sit full-bleed (hero, bands) or in 18px-radius frames with a sky-tinted shadow <code>0 18px 44px rgba(12,31,48,.16)</code>.</li>
+        <li>Text over a photo requires a scrim: <code>linear-gradient(to top, rgba(12,31,48,.62), transparent 55%)</code>.</li>
+        <li>Hover inside frames: image scales 1.03 over 900ms. Nothing else moves.</li>
+      </ul></div>
+    </div>
+    <div class="card dont" style="margin-top:16px"><h3>Retired image habits</h3><ul>
+      <li>No caption chips or pills overlaid on photos (the old blurred dark pill is gone).</li>
+      <li>No gradient "golden hour" placeholder blocks; a slot without a real photo stays an explicit TODO.</li>
+      <li>No paper-grain overlay on top of photography.</li>
+    </ul></div>
+    <p class="muted" style="margin-top:14px">Pending assets (generation queued until the Kie.ai balance is topped up): a dawn Blue Ridge 21:9 band, a linens detail 3:4 and a key-on-porch detail 3:4. Slots are marked <code>TODO(gen)</code> in the site source.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>6 · Shape, space and components</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Radius rule</h3><p style="font-size:.95rem">Interactive elements are pills. Images and cards are 18px. Inputs are 10px. Nothing else.</p></div>
+      <div class="card"><h3>Space</h3><p style="font-size:.95rem">Container 1180px. Sections breathe at <code>clamp(72px, 10vh, 128px)</code>. Grids gap 16 to 48px.</p></div>
+      <div class="card"><h3>Elevation</h3><p style="font-size:.95rem">Shadows exist only under photography and the form card, always tinted Sky 950, never black.</p></div>
+    </div>
+    <div style="margin-top:22px">
+      <a class="btn-demo" style="background:var(--sky-600); color:#fff">Primary · pill, Sky 600</a>
+      <a class="btn-demo" style="background:transparent; color:var(--sky-950); border:1px solid var(--line)">Ghost · hairline</a>
+    </div>
+    <p class="muted" style="margin-top:14px">One CTA intent per page, one label for it everywhere: "See what your home could earn". The guest link "Book a stay" is navigation, not a CTA. Forms: label above input, Cloud fill, Line border, Sky 600 focus ring, error text below in #B4532E.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>7 · Motion</h2>
+    <ul>
+      <li class="tick">Entry: hero content rises 12px and fades, staggered 80ms, once.</li>
+      <li class="tick">Scroll: IntersectionObserver reveals only; each element animates once and settles.</li>
+      <li class="tick">Hover: CTAs lift 1px; framed photos scale 1.03 over 900ms.</li>
+      <li class="tick">Nav turns solid after the hero via an observer sentinel, never a scroll listener.</li>
+      <li class="tick">Nothing loops, nothing parallaxes, nothing hijacks scroll. All of it collapses under <code>prefers-reduced-motion</code>.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>8 · Voice</h2>
+    <p>Plainspoken, honest, first-person plural, short sentences. The line that defines it: <b>"We'll tell you honestly if your home isn't a fit."</b> Numbers are said simply (25% of gross booking value). Never "elevate", "seamless", "unleash" or any next-gen filler. Norwegian for internal work, English on everything an owner or guest sees.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>9 · What this replaces (the v1 audit)</h2>
+    <div class="before">
+      <h3>The 2026 "Cover Story" system, retired 26.08.2026</h3>
+      <p style="font-size:.97rem">Warm paper cream #F8F4EC with sage #C5D2D0 and a gold accent #E0B148; Fraunces serif display over Hanken Grotesk; a magazine conceit (centered masthead cover, dropcaps, table-of-contents section, pull-quote band); paper-grain overlay at 3.5%; caption chips overlaid on photos; a scroll cue; gradient placeholder blocks standing in for photography.</p>
+      <p style="font-size:.95rem; margin-bottom:0"><b>Why it lost:</b> a brand named Blue Sky had no blue in it; the cream-serif-gold combination is the most generic look in AI-era web design; the magazine framing read decorative where owners need trustworthy; chips and cues added clutter; and the masthead pushed the CTA below the fold on small laptops. What was worth keeping (the honest voice, the heron, the real Lake Norman photography, the proof numbers, the estimate funnel) is all carried into v2.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Carolina Sky v2 · The Blue Sky Portfolio Group / Blue Sky Village · prepared by Proptonomy, 26 August 2026 · source of truth: v2/DESIGN.md + v2/REQUIREMENTS.md</div>
+</footer>
+</body>
+</html>
