@@ -11,6 +11,8 @@
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
 /* ============ CAROLINA SKY · v2.1 ============ */
@@ -20,6 +22,7 @@
   --mist:#5E7386; --mist-2:#93A7B8; --line:#D8E2EB;
   --success:#2E7D5B; --error:#B4532E;
   --display:'Cabinet Grotesk','Avenir Next',sans-serif;
+  --hand:'Caveat',cursive;
   --body:'Satoshi',-apple-system,'Segoe UI',system-ui,sans-serif;
   --container:1180px; --r-img:18px; --r-input:10px;
   --ease:cubic-bezier(0.16,1,0.3,1);
@@ -77,7 +80,8 @@ img{max-width:100%; display:block}
 }
 
 /* ============ HERO ============ */
-.hero{display:grid; grid-template-columns:minmax(0,46fr) minmax(0,54fr); min-height:100dvh; background:var(--cloud)}
+.hero{display:grid; grid-template-columns:minmax(0,46fr) minmax(0,54fr); min-height:100dvh;
+  background:linear-gradient(178deg, #E4EFFA 0%, var(--cloud) 46%, #FBF4E9 100%)}
 .hero__copy{display:flex; flex-direction:column; justify-content:center;
   padding:clamp(92px,13vh,148px) clamp(28px,4.5vw,72px) clamp(52px,8vh,88px) clamp(20px,5vw,64px)}
 .hero__kicker{font-size:.97rem; font-weight:500; color:var(--mist); margin-bottom:20px}
@@ -145,13 +149,19 @@ img{max-width:100%; display:block}
   max-width:calc(var(--container) + 2*clamp(20px,5vw,48px)); margin-inline:auto;
   scrollbar-width:none}
 .homes__strip::-webkit-scrollbar{display:none}
-.home{scroll-snap-align:start}
-.home .frame{border-radius:var(--r-img); overflow:hidden; box-shadow:var(--shadow-photo); aspect-ratio:4/3}
-.home img{width:100%; height:100%; object-fit:cover; transition:transform .9s var(--ease)}
-.home .frame:hover img{transform:scale(1.03)}
-.home figcaption{margin-top:12px}
-.home .n{font-family:var(--display); font-weight:700; font-size:1.06rem; display:block}
-.home .w{font-size:.9rem; color:var(--mist)}
+.home{scroll-snap-align:start; background:#fff; padding:14px 14px 6px; border-radius:6px;
+  box-shadow:0 10px 30px rgba(12,31,48,.14); transform:rotate(-1.6deg);
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease)}
+.home:nth-child(2){transform:rotate(1.3deg)}
+.home:nth-child(3){transform:rotate(-0.8deg)}
+.home:nth-child(4){transform:rotate(1.8deg)}
+.home:hover{transform:rotate(0deg) translateY(-4px); box-shadow:0 18px 44px rgba(12,31,48,.2)}
+.home .frame{border-radius:4px; overflow:hidden; aspect-ratio:4/3}
+.home img{width:100%; height:100%; object-fit:cover}
+.home figcaption{padding:12px 4px 12px; text-align:center}
+.home .n{font-family:var(--hand); font-weight:700; font-size:1.7rem; line-height:1.1; display:block; color:var(--sky-950)}
+.home .w{font-size:.88rem; color:var(--mist)}
+@media (prefers-reduced-motion: reduce){ .home, .home:hover{transform:none} }
 
 /* ============ RAIL ============ */
 .rail{background:var(--paper); border-top:1px solid var(--line)}
@@ -183,12 +193,14 @@ img{max-width:100%; display:block}
 @media (max-width:860px){ .pricing__grid{grid-template-columns:1fr; gap:24px} }
 
 /* ============ FAMILY NOTE ============ */
-.family{background:var(--sky-100)}
+.family{background:var(--sky-100); position:relative; overflow:hidden}
+.family::after{content:""; position:absolute; right:-70px; bottom:-90px; width:380px; height:460px;
+  background:url('assets/heron-badge.png') no-repeat center/contain; opacity:.07; pointer-events:none}
 .family__card{max-width:760px; margin-inline:auto}
 .family__k{font-family:var(--body); font-size:.95rem; color:var(--sky-800); font-weight:500; margin-bottom:20px; letter-spacing:0; line-height:1.5}
 .family__note{font-family:var(--display); font-weight:500; font-size:clamp(1.35rem,2.5vw,1.9rem); line-height:1.34; letter-spacing:-.01em}
-.family__sig{display:flex; align-items:center; gap:16px; margin-top:30px}
-.family__sig img{width:44px; height:54px; object-fit:contain}
+.family__sig{display:flex; align-items:center; gap:18px; margin-top:30px}
+.family__hand{font-family:var(--hand); font-weight:700; font-size:3rem; line-height:1; color:var(--sky-800); transform:rotate(-4deg)}
 .family__sig .who b{display:block; font-family:var(--display); font-weight:700}
 .family__sig .who span{font-size:.92rem; color:var(--mist)}
 .family__sig .who a{color:var(--sky-800)}
@@ -199,6 +211,7 @@ img{max-width:100%; display:block}
 .band__img img{width:100%; height:100%; object-fit:cover; object-position:50% 55%}
 .band::before{content:""; position:absolute; inset:0; z-index:-1;
   background:linear-gradient(to top, rgba(12,31,48,.8), rgba(12,31,48,.3) 60%, rgba(12,31,48,.18))}
+.band .qmark{font-family:var(--hand); font-weight:700; font-size:5rem; line-height:.5; color:#7FB2E8; display:block; margin-bottom:18px}
 .band blockquote{margin:0; font-family:var(--display); font-weight:700; color:#fff;
   font-size:clamp(1.6rem,3.4vw,2.6rem); line-height:1.2; letter-spacing:-.015em; max-width:24ch;
   text-shadow:0 2px 18px rgba(12,31,48,.5)}
@@ -247,6 +260,10 @@ img{max-width:100%; display:block}
 .form__fb.err{color:var(--error)}
 @media (max-width:860px){ .closing__grid{grid-template-columns:1fr; gap:40px} }
 
+.wave{height:44px; line-height:0; margin-bottom:-1px}
+.wave svg{width:100%; height:44px; display:block}
+.wave--paper{color:var(--paper)}
+.wave--tint{color:var(--sky-100)}
 /* footer */
 .foot{background:#0A1A28; color:#7E97AB; padding:26px clamp(20px,5vw,48px); font-size:.92rem}
 .foot__row{max-width:var(--container); margin-inline:auto; display:flex; justify-content:space-between; gap:12px 24px; flex-wrap:wrap}
@@ -310,7 +327,8 @@ img{max-width:100%; display:block}
   </div>
 </section>
 
-<section class="section handle" id="handle" aria-labelledby="handle-h">
+<div class="wave wave--paper" aria-hidden="true"><svg viewBox="0 0 1440 44" preserveAspectRatio="none"><path d="M0,22 C240,44 480,0 720,22 C960,44 1200,0 1440,22 L1440,44 L0,44 Z" fill="currentColor"/></svg></div>
+<section class="section handle" id="handle" style="border-top:0" aria-labelledby="handle-h">
   <div class="wrap handle__grid">
     <div>
       <h2 id="handle-h" data-reveal>Everything a full house needs</h2>
@@ -398,12 +416,13 @@ img{max-width:100%; display:block}
   </div>
 </section>
 
+<div class="wave wave--tint" aria-hidden="true"><svg viewBox="0 0 1440 44" preserveAspectRatio="none"><path d="M0,22 C240,44 480,0 720,22 C960,44 1200,0 1440,22 L1440,44 L0,44 Z" fill="currentColor"/></svg></div>
 <section class="section family" aria-labelledby="family-h">
   <div class="wrap family__card">
     <h2 class="family__k" id="family-h" data-reveal>A note from our family</h2>
     <p class="family__note" data-reveal>We started with one lake house in 2013, and we still answer the phone ourselves. The standard is simple: if it isn't good enough for our own family, it isn't good enough for your guests. Call me and I'll tell you straight whether your home is a fit.</p>
     <div class="family__sig" data-reveal>
-      <img src="assets/heron-badge.png" width="44" height="54" alt="">
+      <span class="family__hand" aria-hidden="true">Ryan</span>
       <div class="who">
         <b>Ryan, founder</b>
         <span>The Blue Sky Portfolio Group · <a href="tel:+17049025644">704-902-5644</a></span>
@@ -416,7 +435,7 @@ img{max-width:100%; display:block}
   <!-- TODO(gen): swap band image for blue-ridge-wide (21:9) when Kie.ai credits are topped up -->
   <div class="band__img" aria-hidden="true"><img src="assets/photos/lakenorman-pool.jpg" width="1024" height="683" loading="lazy" alt=""></div>
   <div class="wrap">
-    <blockquote data-reveal>“We stopped checking our phone on weekends. The house is full, and it's never looked better.”</blockquote>
+    <blockquote data-reveal><span class="qmark" aria-hidden="true">“</span>We stopped checking our phone on weekends. The house is full, and it's never looked better.”</blockquote>
     <figcaption data-reveal>Karen R., homeowner in Mooresville, NC</figcaption>
   </div>
 </figure>
